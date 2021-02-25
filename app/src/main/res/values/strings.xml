@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Weather 5 days</string>
+    <string name="choose_location">Выберите локацию</string>
+    <string name="choose_current_location_icon">Иконка выбора текущей локации</string>
+
+    <string name="menu_item_about">О программе</string>
+    <string name="menu_item_options">Настройки</string>
+    <string name="menu_item_weather">Погода</string>
+</resources>
