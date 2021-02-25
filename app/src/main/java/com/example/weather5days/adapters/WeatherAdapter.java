@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,12 @@ import com.example.weather5days.R;
 import com.example.weather5days.pojo.Weather5days;
 import com.example.weather5days.pojo.WeatherList;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder> {
@@ -41,33 +48,42 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     @NonNull
     @Override
     public WeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.weather_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.weather_item_short, parent, false);
         return new WeatherViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
-//        WeatherList weatherList = weatherLists.get(position);
         WeatherList weatherList = weather5days.getWeatherList().get(position);
-        holder.textViewDateTime.setText(weatherList.getDtTxt());
+        String dateStr = weatherList.getDtTxt();
+        Calendar calendar = new GregorianCalendar();
+        DateFormat dfStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try{
+            Date date = dfStr.parse(dateStr);
+            DateFormat df = new SimpleDateFormat("E dd.MM HH:mm");
+            dateStr = df.format(date);
+            holder.textViewDateTime.setText(dateStr);
+        }catch (ParseException e){
+            holder.textViewDateTime.setText("error");
+        }
         holder.textViewTemperature.setText("" + Math.round(weatherList.getMain().getTemp()));
         holder.textViewDescription.setText(weatherList.getWeather().get(0).getDescription());
-        try {
-            holder.textViewPrecipitation.setText((int) (weatherList.getPop() *100) + "% ("
-                    + (Double) weatherList.getSnow().get3h() + "cm)");
-        }catch (NullPointerException eSnow){
-            try {
-                holder.textViewPrecipitation.setText((int) (weatherList.getPop() *100) + "% ("
-                        + (Double) weatherList.getRain().get3h() + "cm)");
-            }catch (NullPointerException eRain){
-                holder.textViewPrecipitation.setText((int)(weatherList.getPop() *100) + "% (0cm)");
-            }
-        }
-        holder.textViewHumidity.setText("" + weatherList.getMain().getHumidity() + "%");
-        holder.textViewPressure.setText("" + weatherList.getMain().getPressure());
-        holder.textViewPressureUnit.setText("mBar");
-        holder.textViewVisibility.setText("" + weatherList.getVisibility());
-        holder.textViewVisibilityUnit.setText("m");
+//        try {
+//            holder.textViewPrecipitation.setText((int) (weatherList.getPop() *100) + "% ("
+//                    + (Double) weatherList.getSnow().get3h() + "cm)");
+//        }catch (NullPointerException eSnow){
+//            try {
+//                holder.textViewPrecipitation.setText((int) (weatherList.getPop() *100) + "% ("
+//                        + (Double) weatherList.getRain().get3h() + "cm)");
+//            }catch (NullPointerException eRain){
+//                holder.textViewPrecipitation.setText((int)(weatherList.getPop() *100) + "% (0cm)");
+//            }
+//        }
+//        holder.textViewHumidity.setText("" + weatherList.getMain().getHumidity() + "%");
+//        holder.textViewPressure.setText("" + weatherList.getMain().getPressure());
+//        holder.textViewPressureUnit.setText("mBar");
+//        holder.textViewVisibility.setText("" + weatherList.getVisibility());
+//        holder.textViewVisibilityUnit.setText("m");
         if(weatherList.getWeather().get(0).getDescription().equals("небольшой снег")
                 || weatherList.getWeather().get(0).getDescription().equals("снег")){
             holder.imageViewWeatherIcon.setImageResource(R.drawable.snow);

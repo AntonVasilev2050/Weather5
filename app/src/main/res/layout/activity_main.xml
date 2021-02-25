@@ -16,7 +16,7 @@
         android:layout_marginTop="16dp"
         android:hint="@string/choose_location"
         android:textColor="@color/blue1"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,15 +33,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewWeater"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWeatherForcastLabel" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageViewLocation"
@@ -63,6 +62,7 @@
         android:layout_marginTop="8dp"
         android:text="LocalTimeDate"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
 
@@ -73,7 +73,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="-10"
-        android:textSize="52sp"
+        android:textColor="@color/black"
+        android:textSize="60sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocalTimeDate" />
 
@@ -83,6 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="o"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentTemperature"
         app:layout_constraintTop_toTopOf="@+id/textViewCurrentTemperature" />
 
@@ -92,6 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:text="C"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/textViewOLabel1"
         app:layout_constraintTop_toTopOf="@+id/textViewOLabel1" />
@@ -112,6 +115,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="CurrentWeatherDescription"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentTemperature" />
 
@@ -122,6 +127,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Ощущается как:"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription" />
 
@@ -132,6 +138,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="10"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textViewFeelsLikeLabel"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription" />
 
@@ -152,6 +159,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:text="C"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textViewOLabel2"
         app:layout_constraintTop_toTopOf="@+id/textViewOLabel2" />
 
@@ -162,6 +170,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Осадки:"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewFeelsLikeLabel" />
 
@@ -172,6 +181,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentPrecipitationLabel"
         app:layout_constraintTop_toBottomOf="@+id/textViewFeelsLikeLabel" />
 
@@ -182,6 +192,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Давление:"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitationLabel" />
 
@@ -192,6 +203,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentPressureLabel"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitation" />
 
@@ -202,6 +214,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Влажность:"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPressureLabel" />
 
@@ -212,6 +225,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentHumidityLabel"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPressure" />
 
@@ -223,18 +237,21 @@
         android:layout_marginTop="8dp"
         android:text="mBar"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentPressure"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitation" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitation"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/textViewWeatherForcastLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/blue1"
         android:gravity="center|center_horizontal|center_vertical"
+        android:padding="4dp"
         android:text="Прогноз погоды на 5 дней"
         android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewWeater"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentHumidity" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

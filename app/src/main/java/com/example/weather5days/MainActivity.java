@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewWeather = findViewById(R.id.recyclerViewWeater);
         weatherAdapter = new WeatherAdapter();
         weatherAdapter.setWeather5days(new Weather5days());
-        recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewWeather.setAdapter(weatherAdapter);
         getCurrentLocation();
         getWeather();
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showCurrentWeather(){
         Calendar calendar = new GregorianCalendar();
-        DateFormat df = new SimpleDateFormat("EEEE HH:mm dd-MM-yyyy");
+        DateFormat df = new SimpleDateFormat("EEEE dd-MM-yyyy HH:mm");
         textViewLocalTimeDate.setText(df.format(calendar.getTime()));
         textViewCurrentTemperature.setText("" + Math.round(weatherAdapter.getWeatherLists().get(0).getMain().getTemp()));
         textViewCurrentWeatherDescription.setText(weatherAdapter.getWeatherLists().get(0).getWeather().get(0).getDescription());
