@@ -14,6 +14,7 @@ import com.example.weather5days.MainActivity;
 import com.example.weather5days.R;
 import com.example.weather5days.pojo.Weather5days;
 import com.example.weather5days.pojo.WeatherList;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -84,26 +85,27 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 //        holder.textViewPressureUnit.setText("mBar");
 //        holder.textViewVisibility.setText("" + weatherList.getVisibility());
 //        holder.textViewVisibilityUnit.setText("m");
-        if(weatherList.getWeather().get(0).getDescription().equals("небольшой снег")
-                || weatherList.getWeather().get(0).getDescription().equals("снег")){
-            holder.imageViewWeatherIcon.setImageResource(R.drawable.snow);
-        }
-        if(weatherList.getWeather().get(0).getDescription().equals("небольшой дождь")
-                || weatherList.getWeather().get(0).getDescription().equals("дождь")){
-            holder.imageViewWeatherIcon.setImageResource(R.drawable.rain);
-        }
-        if(weatherList.getWeather().get(0).getDescription().equals("пасмурно")){
-            holder.imageViewWeatherIcon.setImageResource(R.drawable.overcast);
-        }
-        if(weatherList.getWeather().get(0).getDescription().equals("переменная облачность")
-                || weatherList.getWeather().get(0).getDescription().equals("небольшая облачность")
-                || weatherList.getWeather().get(0).getDescription().equals("облачно с прояснениями")){
-            holder.imageViewWeatherIcon.setImageResource(R.drawable.day_partial_cloud);
-        }
-        if(weatherList.getWeather().get(0).getDescription().equals("ясно")){
-            holder.imageViewWeatherIcon.setImageResource(R.drawable.day_clear);
-        }
-
+//        if(weatherList.getWeather().get(0).getDescription().equals("небольшой снег")
+//                || weatherList.getWeather().get(0).getDescription().equals("снег")){
+//            holder.imageViewWeatherIcon.setImageResource(R.drawable.snow);
+//        }
+//        if(weatherList.getWeather().get(0).getDescription().equals("небольшой дождь")
+//                || weatherList.getWeather().get(0).getDescription().equals("дождь")){
+//            holder.imageViewWeatherIcon.setImageResource(R.drawable.rain);
+//        }
+//        if(weatherList.getWeather().get(0).getDescription().equals("пасмурно")){
+//            holder.imageViewWeatherIcon.setImageResource(R.drawable.overcast);
+//        }
+//        if(weatherList.getWeather().get(0).getDescription().equals("переменная облачность")
+//                || weatherList.getWeather().get(0).getDescription().equals("небольшая облачность")
+//                || weatherList.getWeather().get(0).getDescription().equals("облачно с прояснениями")){
+//            holder.imageViewWeatherIcon.setImageResource(R.drawable.day_partial_cloud);
+//        }
+//        if(weatherList.getWeather().get(0).getDescription().equals("ясно")){
+//            holder.imageViewWeatherIcon.setImageResource(R.drawable.day_clear);
+//        }
+        Picasso.get().load(String.format(MainActivity.getBASE_WEATHER_ICON_URL(), weatherList.getWeather().get(0).getIcon(), 2))
+                .into(holder.imageViewWeatherIcon);
     }
 
     @Override
@@ -123,8 +125,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         private TextView textViewVisibility;
         private TextView textViewVisibilityUnit;
         private ImageView imageViewWeatherIcon;
-//        private TextView textViewCityName;
-        private TextView textViewLocalTimeDate;
+
 
         public WeatherViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -138,8 +139,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
             textViewVisibility = itemView.findViewById(R.id.textViewVisibility);
             textViewVisibilityUnit = itemView.findViewById(R.id.textViewVisibilityUnit);
             imageViewWeatherIcon = itemView.findViewById(R.id.imageViewWeatherIcon);
-//            textViewCityName = itemView.findViewById(R.id.textViewCityName);
-            textViewLocalTimeDate = itemView.findViewById(R.id.textViewLocalTimeDate);
+
         }
     }
 }

@@ -29,6 +29,7 @@ import com.example.weather5days.pojo.Weather5days;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private String units = "metric";
     private String lang = "ru";
     private String appid = "292fc3d250148f4c77a7a51ac68a6302";
+    private final static String BASE_WEATHER_ICON_URL = "http://openweathermap.org/img/wn/%s@%sx.png";
 
     private RecyclerView recyclerViewWeather;
     private WeatherAdapter weatherAdapter;
@@ -205,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
         }
         textViewCurrentPressure.setText("" + weatherAdapter.getWeatherLists().get(0).getMain().getPressure());
         textViewCurrentHumidity.setText(weatherAdapter.getWeatherLists().get(0).getMain().getHumidity() + "%");
+        Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(0).getWeather().get(0).getIcon(), 4))
+                .into(imageViewCurrentWeatherIcon);
     }
 
     @Override
@@ -213,5 +217,9 @@ public class MainActivity extends AppCompatActivity {
         if (compositeDisposable != null) {
             compositeDisposable.dispose();
         }
+    }
+
+    public static String getBASE_WEATHER_ICON_URL() {
+        return BASE_WEATHER_ICON_URL;
     }
 }
