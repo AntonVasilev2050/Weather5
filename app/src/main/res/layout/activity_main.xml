@@ -246,7 +246,7 @@
         android:layout_marginBottom="8dp"
         android:background="@color/blue1"
         android:gravity="center|center_horizontal|center_vertical"
-        android:padding="4dp"
+        android:padding="8dp"
         android:text="Прогноз погоды на 5 дней"
         android:textColor="@color/white"
         android:textSize="18sp"

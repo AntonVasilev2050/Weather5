@@ -144,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void accept(Weather5days weather5days) throws Exception {
                         weatherAdapter.setWeatherLists(weather5days.getWeatherList());
-
                         weatherAdapter.setWeather5days(weather5days);
                         textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
                         showCurrentWeather();

@@ -6,4 +6,12 @@
     <string name="menu_item_about">О программе</string>
     <string name="menu_item_options">Настройки</string>
     <string name="menu_item_weather">Погода</string>
+    <string name="precipitation_label">Осадки:</string>
+    <string name="humidity_label">Влажность:</string>
+    <string name="current_weater_icon">Иконка погоды</string>
+    <string name="pressure_label">Давление:</string>
+    <string name="visibility_label">Видимость:</string>
+    <string name="o">o</string>
+    <string name="pressure">давление</string>
+    <string name="_25">25</string>
 </resources>
