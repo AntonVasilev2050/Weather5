@@ -196,12 +196,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showCurrentWeather(int position){
-//        Calendar calendar = new GregorianCalendar();
-//        DateFormat df = new SimpleDateFormat("EEEE dd-MM-yyyy HH:mm");
         textViewLocalTimeDate.setText(Converters.dateTime(weatherAdapter.getWeatherLists().get(position).getDtTxt(), "EEEE dd.MM HH:mm"));
         textViewCurrentTemperature.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getTemp()));
         textViewCurrentWeatherDescription.setText(weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getDescription());
-        textViewFeelsLike.setText(weatherAdapter.getWeatherLists().get(0).getMain().getFeelsLike().toString());
+        textViewFeelsLike.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getFeelsLike()));
         try {
             textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% ("
                     + (Double) weatherAdapter.getWeatherLists().get(0).getSnow().get3h() + "cm)");
@@ -213,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 textViewCurrentPrecipitation.setText((int)(weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% (0cm)");
             }
         }
-        textViewCurrentPressure.setText("" + weatherAdapter.getWeatherLists().get(position).getMain().getPressure());
+        textViewCurrentPressure.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getPressure() * 0.750064));
         textViewCurrentHumidity.setText(weatherAdapter.getWeatherLists().get(position).getMain().getHumidity() + "%");
         Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getIcon(), 4))
                 .into(imageViewCurrentWeatherIcon);

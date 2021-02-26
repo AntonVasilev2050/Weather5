@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="230dp"
-    android:layout_margin="1dp"
-    android:background="@color/white"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="4dp">
+    android:layout_margin="4dp"
+    android:background="@color/blue2"
+    app:cardBackgroundColor="@color/blue2"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="DATETIME"
-            android:textColor="@color/green1"
+            android:textColor="@color/teal_200"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
             android:gravity="center"
             android:inputType="textMultiLine"
             android:text="Description"
-            android:textColor="@color/blue3"
+            android:textColor="@color/white"
             android:textSize="14sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="25"
-            android:textColor="@color/blue3"
+            android:textColor="@color/white"
             android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +74,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:text="o"
-            android:textColor="@color/blue3"
+            android:textColor="@color/white"
             app:layout_constraintStart_toEndOf="@+id/textViewTemperature"
             app:layout_constraintTop_toTopOf="@+id/textViewTemperature" />
 

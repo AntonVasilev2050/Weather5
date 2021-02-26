@@ -14,4 +14,13 @@
     <string name="o">o</string>
     <string name="pressure">давление</string>
     <string name="_25">25</string>
+    <string name="localtimedate">LocalTimeDate</string>
+    <string name="_10">-10</string>
+    <string name="celsius_fahrenheit_unit">C</string>
+    <string name="detailed_weather_icon">Иконка подробной погоды</string>
+    <string name="current_weather_description">CurrentWeatherDescription</string>
+    <string name="feels_like_label">Ощущается как:</string>
+    <string name="_10_velue">10</string>
+    <string name="mmhg">mmHg</string>
+    <string name="five_days_weather_forecast">Прогноз погоды на 5 дней</string>
 </resources>

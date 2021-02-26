@@ -60,10 +60,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="LocalTimeDate"
-        android:textColor="@color/black"
+        android:text="@string/localtimedate"
+        android:textColor="@color/teal_200"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
 
@@ -72,8 +71,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="-10"
-        android:textColor="@color/black"
+        android:text="@string/_10"
+        android:textColor="@color/white"
         android:textSize="60sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocalTimeDate" />
@@ -84,8 +83,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="o"
-        android:textColor="@color/black"
+        android:text="@string/o"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentTemperature"
         app:layout_constraintTop_toTopOf="@+id/textViewCurrentTemperature" />
 
@@ -94,8 +93,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:text="C"
-        android:textColor="@color/black"
+        android:text="@string/celsius_fahrenheit_unit"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/textViewOLabel1"
         app:layout_constraintTop_toTopOf="@+id/textViewOLabel1" />
@@ -106,15 +105,16 @@
         android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewLine1"
-        app:srcCompat="@drawable/day_clear" />
+        app:srcCompat="@drawable/day_clear"
+        android:contentDescription="@string/detailed_weather_icon" />
 
     <TextView
         android:id="@+id/textViewCurrentWeatherDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="CurrentWeatherDescription"
-        android:textColor="@color/black"
+        android:text="@string/current_weather_description"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentTemperature" />
@@ -125,8 +125,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="Ощущается как:"
-        android:textColor="@color/black"
+        android:text="@string/feels_like_label"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription" />
 
@@ -136,8 +136,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="10"
-        android:textColor="@color/black"
+        android:text="@string/_10_velue"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textViewFeelsLikeLabel"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription" />
 
@@ -147,18 +147,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="4dp"
-        android:text="o"
+        android:text="@string/o"
+        android:textColor="@color/white"
         android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/textViewFeelsLike"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription"
+        tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/textViewCorF2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
-        android:text="C"
-        android:textColor="@color/black"
+        android:text="@string/celsius_fahrenheit_unit"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textViewOLabel2"
         app:layout_constraintTop_toTopOf="@+id/textViewOLabel2" />
 
@@ -168,8 +170,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="Осадки:"
-        android:textColor="@color/black"
+        android:text="@string/precipitation_label"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewFeelsLikeLabel" />
 
@@ -180,7 +182,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:text="TextView"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentPrecipitationLabel"
         app:layout_constraintTop_toBottomOf="@+id/textViewFeelsLikeLabel" />
 
@@ -190,8 +192,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="Давление:"
-        android:textColor="@color/black"
+        android:text="@string/pressure_label"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitationLabel" />
 
@@ -202,7 +204,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:text="TextView"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentPressureLabel"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitation" />
 
@@ -212,8 +214,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="Влажность:"
-        android:textColor="@color/black"
+        android:text="@string/humidity_label"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPressureLabel" />
 
@@ -224,7 +226,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:text="TextView"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentHumidityLabel"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPressure" />
 
@@ -234,20 +236,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="4dp"
-        android:text="mBar"
-        android:textColor="@color/black"
+        android:text="@string/mmhg"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentPressure"
         app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitation" />
 
     <TextView
-        android:id="@+id/textViewWeatherForcastLabel"
+        android:id="@+id/textViewWeatherForecastLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="@color/blue1"
         android:gravity="center|center_horizontal|center_vertical"
         android:padding="8dp"
-        android:text="Прогноз погоды на 5 дней"
+        android:text="@string/five_days_weather_forecast"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewWeater"

@@ -69,16 +69,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     @Override
     public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
         WeatherList weatherList = weather5days.getWeatherList().get(position);
-//        String dateStr = weatherList.getDtTxt();
-//        DateFormat dfStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        try{
-//            Date date = dfStr.parse(dateStr);
-//            DateFormat df = new SimpleDateFormat("E dd.MM HH:mm");
-//            dateStr = df.format(date);
-//            holder.textViewDateTime.setText(dateStr);
-//        }catch (ParseException e){
-//            holder.textViewDateTime.setText("error");
-//        }
         holder.textViewDateTime.setText(Converters.dateTime(weatherList.getDtTxt(), "E dd.MM HH:mm"));
         holder.textViewTemperature.setText("" + Math.round(weatherList.getMain().getTemp()));
         holder.textViewDescription.setText(weatherList.getWeather().get(0).getDescription());
