@@ -1,16 +1,8 @@
 package com.example.weather5days;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +13,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weather5days.adapters.WeatherAdapter;
 import com.example.weather5days.api.ApiFactory;
@@ -35,7 +34,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -47,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static double lat = 0.0;
     private static double lon = 0.0;
+    private int position = 0;
     private String units = "metric";
     private String lang = "ru";
     private String appid = "292fc3d250148f4c77a7a51ac68a6302";
@@ -118,13 +117,23 @@ public class MainActivity extends AppCompatActivity {
         textViewCurrentPressure = findViewById(R.id.textViewCurrentPressure);
         textViewCurrentHumidity = findViewById(R.id.textViewCurrentHumidity);
         recyclerViewWeather = findViewById(R.id.recyclerViewWeater);
-        weatherAdapter = new WeatherAdapter();
-        weatherAdapter.setWeather5days(new Weather5days());
+        weatherAdapter = new WeatherAdapter(new Weather5days());
+//        weatherAdapter.setWeather5days(new Weather5days());
         recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewWeather.setAdapter(weatherAdapter);
         getCurrentLocation();
         getWeather();
+        weatherAdapter.setOnWeatherClickListener(new WeatherAdapter.OnWeatherClickListener() {
+            @Override
+            public void onWeatherClick(int position) {
 
+            }
+
+            @Override
+            public void onWeatherLongClick(int position) {
+                showCurrentWeather(position);
+            }
+        });
     }
 
     public void onClickImageViewLocation(View view) {
@@ -146,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                         weatherAdapter.setWeatherLists(weather5days.getWeatherList());
                         weatherAdapter.setWeather5days(weather5days);
                         textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
-                        showCurrentWeather();
+                        showCurrentWeather(position);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -177,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 if (location != null) {
                     lat = location.getLatitude();
                     lon = location.getLongitude();
-                    Toast.makeText(MainActivity.this, "координаты получены " + lat + " " + lon, Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "координаты: " + lat + " " + lon, Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Не могу получить текущие координаты", Toast.LENGTH_SHORT).show();
                 }
@@ -186,27 +195,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void showCurrentWeather(){
-        Calendar calendar = new GregorianCalendar();
-        DateFormat df = new SimpleDateFormat("EEEE dd-MM-yyyy HH:mm");
-        textViewLocalTimeDate.setText(df.format(calendar.getTime()));
-        textViewCurrentTemperature.setText("" + Math.round(weatherAdapter.getWeatherLists().get(0).getMain().getTemp()));
-        textViewCurrentWeatherDescription.setText(weatherAdapter.getWeatherLists().get(0).getWeather().get(0).getDescription());
+    public void showCurrentWeather(int position){
+//        Calendar calendar = new GregorianCalendar();
+//        DateFormat df = new SimpleDateFormat("EEEE dd-MM-yyyy HH:mm");
+        textViewLocalTimeDate.setText(Converters.dateTime(weatherAdapter.getWeatherLists().get(position).getDtTxt(), "EEEE dd.MM HH:mm"));
+        textViewCurrentTemperature.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getTemp()));
+        textViewCurrentWeatherDescription.setText(weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getDescription());
         textViewFeelsLike.setText(weatherAdapter.getWeatherLists().get(0).getMain().getFeelsLike().toString());
         try {
-            textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(0).getPop() *100) + "% ("
+            textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% ("
                     + (Double) weatherAdapter.getWeatherLists().get(0).getSnow().get3h() + "cm)");
         }catch (NullPointerException eSnow){
             try {
-                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(0).getPop() *100) + "% ("
+                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% ("
                         + (Double) weatherAdapter.getWeatherLists().get(0).getRain().get3h() + "cm)");
             }catch (NullPointerException eRain){
-                textViewCurrentPrecipitation.setText((int)(weatherAdapter.getWeatherLists().get(0).getPop() *100) + "% (0cm)");
+                textViewCurrentPrecipitation.setText((int)(weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% (0cm)");
             }
         }
-        textViewCurrentPressure.setText("" + weatherAdapter.getWeatherLists().get(0).getMain().getPressure());
-        textViewCurrentHumidity.setText(weatherAdapter.getWeatherLists().get(0).getMain().getHumidity() + "%");
-        Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(0).getWeather().get(0).getIcon(), 4))
+        textViewCurrentPressure.setText("" + weatherAdapter.getWeatherLists().get(position).getMain().getPressure());
+        textViewCurrentHumidity.setText(weatherAdapter.getWeatherLists().get(position).getMain().getHumidity() + "%");
+        Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getIcon(), 4))
                 .into(imageViewCurrentWeatherIcon);
     }
 
