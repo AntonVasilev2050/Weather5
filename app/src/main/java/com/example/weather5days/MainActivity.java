@@ -202,11 +202,11 @@ public class MainActivity extends AppCompatActivity {
         textViewFeelsLike.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getFeelsLike()));
         try {
             textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% ("
-                    + (Double) weatherAdapter.getWeatherLists().get(0).getSnow().get3h() + "cm)");
+                    + (Double) weatherAdapter.getWeatherLists().get(position).getSnow().get3h() + "cm)");
         }catch (NullPointerException eSnow){
             try {
                 textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% ("
-                        + (Double) weatherAdapter.getWeatherLists().get(0).getRain().get3h() + "cm)");
+                        + (Double) weatherAdapter.getWeatherLists().get(position).getRain().get3h() + "cm)");
             }catch (NullPointerException eRain){
                 textViewCurrentPrecipitation.setText((int)(weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% (0cm)");
             }
