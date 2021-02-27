@@ -8,9 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="orange1">#FF9400</color>
-    <color name="green1">#00AE68</color>
+
+    <color name="green1">#24913C</color>
+    <color name="green2">#38E05D</color>
+    <color name="green3">#65E080</color>
+    <color name="orange1">#BF7630</color>
+    <color name="orange2">#FF9D40</color>
+    <color name="orange3">#FFB773</color>
     <color name="blue1">#1D1AB2</color>
-    <color name="blue2">#0B5FA5</color>
-    <color name="blue3">#66A1D2</color>
+    <color name="blue2">#3D9AD1</color>
+    <color name="blue3">#64A8D1</color>
+    <color name="red1">#BF3D30</color>
+    <color name="red2">#FF5240</color>
+    <color name="red3">#FF8073</color>
 </resources>
