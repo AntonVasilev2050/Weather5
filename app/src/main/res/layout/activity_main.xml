@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue3"
+    android:background="@color/blue1"
     tools:context=".MainActivity">
 
 
@@ -103,10 +103,10 @@
         android:id="@+id/imageViewCurrentWeatherIcon"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:contentDescription="@string/detailed_weather_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewLine1"
-        app:srcCompat="@drawable/day_clear"
-        android:contentDescription="@string/detailed_weather_icon" />
+        app:srcCompat="@drawable/day_clear" />
 
     <TextView
         android:id="@+id/textViewCurrentWeatherDescription"
