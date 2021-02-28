@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,11 +31,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -46,11 +42,23 @@ public class MainActivity extends AppCompatActivity {
     private static double lat = 0.0;
     private static double lon = 0.0;
     private int position = 0;
+
     private String units = "metric";
     private String lang = "ru";
     private String appid = "292fc3d250148f4c77a7a51ac68a6302";
     private final static String BASE_WEATHER_ICON_URL = "http://openweathermap.org/img/wn/%s@%sx.png";
+    private int firstColor;
+    private int secondColor;
 
+    public void setFirstColor(int firstColor) {
+        this.firstColor = firstColor;
+    }
+
+    public void setSecondColor(int secondColor) {
+        this.secondColor = secondColor;
+    }
+
+    private ConstraintLayout constraintLayoutMain;
     private RecyclerView recyclerViewWeather;
     private WeatherAdapter weatherAdapter;
     private TextView textViewCityName;
@@ -64,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewCurrentPrecipitation;
     private TextView textViewCurrentPressure;
     private TextView textViewCurrentHumidity;
+    private TextView textViewWind;
+    private TextView textViewWeatherForecastLabel;
     private ImageView imageViewLocation;
     private ApiService apiService;
     private Disposable disposable;
@@ -101,9 +111,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
-//        if(actionBar != null){
+        //        if(actionBar != null){
 //            actionBar.hide();
 //        }
+
         textViewCityName = findViewById(R.id.textViewCityName);
         imageViewLocation = findViewById(R.id.imageViewLocation);
         textViewLocalTimeDate = findViewById(R.id.textViewLocalTimeDate);
@@ -116,8 +127,21 @@ public class MainActivity extends AppCompatActivity {
         textViewCurrentPrecipitation = findViewById(R.id.textViewCurrentPrecipitation);
         textViewCurrentPressure = findViewById(R.id.textViewCurrentPressure);
         textViewCurrentHumidity = findViewById(R.id.textViewCurrentHumidity);
-        recyclerViewWeather = findViewById(R.id.recyclerViewWeater);
-        weatherAdapter = new WeatherAdapter(new Weather5days());
+        textViewWind = findViewById(R.id.textViewWind);
+        recyclerViewWeather = findViewById(R.id.recyclerViewWeather);
+        if(ChooseBackgroundActivity.isBackgroundColorChanged()){
+            firstColor = ChooseBackgroundActivity.getFirstColor();
+            secondColor = ChooseBackgroundActivity.getSecondColor();
+        }else {
+            firstColor = getResources().getColor(R.color.blue4);
+            secondColor = getResources().getColor(R.color.blue5);
+        }
+        constraintLayoutMain = findViewById(R.id.constraintLayoutMain);
+        constraintLayoutMain.setBackgroundColor(firstColor);
+        textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
+        textViewWeatherForecastLabel.setBackgroundColor(secondColor);
+
+        weatherAdapter = new WeatherAdapter(new Weather5days(), secondColor);
 //        weatherAdapter.setWeather5days(new Weather5days());
         recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewWeather.setAdapter(weatherAdapter);
@@ -134,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 showCurrentWeather(position);
             }
         });
+
     }
 
     public void onClickImageViewLocation(View view) {
@@ -202,17 +227,18 @@ public class MainActivity extends AppCompatActivity {
         textViewFeelsLike.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getFeelsLike()));
         try {
             textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% ("
-                    + (Double) weatherAdapter.getWeatherLists().get(position).getSnow().get3h() + "cm)");
+                    + (Double) weatherAdapter.getWeatherLists().get(position).getSnow().get3h() + "mm)");
         }catch (NullPointerException eSnow){
             try {
                 textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% ("
-                        + (Double) weatherAdapter.getWeatherLists().get(position).getRain().get3h() + "cm)");
+                        + (Double) weatherAdapter.getWeatherLists().get(position).getRain().get3h() + "mm)");
             }catch (NullPointerException eRain){
-                textViewCurrentPrecipitation.setText((int)(weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% (0cm)");
+                textViewCurrentPrecipitation.setText((int)(weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% (0mm)");
             }
         }
-        textViewCurrentPressure.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getPressure() * 0.750064));
+        textViewCurrentPressure.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getPressure() * 0.750064) + "mmHg");
         textViewCurrentHumidity.setText(weatherAdapter.getWeatherLists().get(position).getMain().getHumidity() + "%");
+        textViewWind.setText(Math.round(weatherAdapter.getWeatherLists().get(position).getWind().getSpeed()) + " m/s");
         Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getIcon(), 4))
                 .into(imageViewCurrentWeatherIcon);
     }

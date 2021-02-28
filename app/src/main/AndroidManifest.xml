@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Weather5Days"
         android:usesCleartextTraffic="true">
-        <activity android:name=".OptionsActivity"></activity>
+        <activity android:name=".ChooseBackgroundActivity"></activity>
+        <activity android:name=".OptionsActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

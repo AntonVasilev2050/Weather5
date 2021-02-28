@@ -23,4 +23,6 @@
     <string name="_10_velue">10</string>
     <string name="mmhg">mmHg</string>
     <string name="five_days_weather_forecast">Прогноз погоды на 5 дней</string>
+    <string name="wind_label">Ветер:</string>
+    <string name="choose_background">Выберите цвет фона</string>
 </resources>

@@ -5,9 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weather5days.Converters;
@@ -17,21 +17,17 @@ import com.example.weather5days.pojo.Weather5days;
 import com.example.weather5days.pojo.WeatherList;
 import com.squareup.picasso.Picasso;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder> {
     private List<WeatherList> weatherLists;
     private Weather5days weather5days;
     private OnWeatherClickListener onWeatherClickListener;
+    private int secondColor;
 
-    public WeatherAdapter(Weather5days weather5days) {
+    public WeatherAdapter(Weather5days weather5days, int secondColor) {
         this.weather5days = weather5days;
+        this.secondColor = secondColor;
     }
 
     public List<WeatherList> getWeatherLists() {
@@ -72,6 +68,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         holder.textViewDateTime.setText(Converters.dateTime(weatherList.getDtTxt(), "E dd.MM HH:mm"));
         holder.textViewTemperature.setText("" + Math.round(weatherList.getMain().getTemp()));
         holder.textViewDescription.setText(weatherList.getWeather().get(0).getDescription());
+        holder.cardViewWeatherItemShort.setCardBackgroundColor(secondColor);
+        holder.cardViewWeatherItemShort.setBackgroundColor(secondColor);
         Picasso.get().load(String.format(MainActivity.getBASE_WEATHER_ICON_URL(), weatherList.getWeather().get(0).getIcon(), 2))
                 .into(holder.imageViewWeatherIcon);
     }
@@ -87,6 +85,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         private TextView textViewTemperature;
         private TextView textViewDescription;
         private ImageView imageViewWeatherIcon;
+        private CardView cardViewWeatherItemShort;
 
         public WeatherViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +93,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
             textViewTemperature = itemView.findViewById(R.id.textViewTemperature);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
             imageViewWeatherIcon = itemView.findViewById(R.id.imageViewWeatherIcon);
+            cardViewWeatherItemShort = itemView.findViewById(R.id.cardViewWeatherItemShort);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

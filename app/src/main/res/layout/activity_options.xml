@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ConstraintLayoutOptions"
+    android:id="@+id/constraintLayoutOptions"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue3"
+    android:background="@color/blue4"
     tools:context=".OptionsActivity">
 
     <TextView
@@ -15,13 +15,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/blue2"
+        android:background="@color/blue5"
         android:padding="16dp"
         android:text="Единицы измерения"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewOptionsLabel" />
 
     <TextView
         android:id="@+id/textViewLocation"
@@ -30,9 +32,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/blue2"
+        android:background="@color/blue5"
         android:padding="16dp"
         android:text="Выбор локации"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,11 +48,27 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/blue2"
+        android:background="@color/blue5"
+        android:onClick="onClickColors"
         android:padding="16dp"
         android:text="Цвета"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
+
+    <TextView
+        android:id="@+id/textViewOptionsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/blue5"
+        android:padding="8dp"
+        android:text="Настройки"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
