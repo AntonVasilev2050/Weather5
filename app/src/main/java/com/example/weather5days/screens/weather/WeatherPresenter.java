@@ -31,10 +31,10 @@ public class WeatherPresenter {
     private String appid = "292fc3d250148f4c77a7a51ac68a6302";
 
     private CompositeDisposable compositeDisposable;
-    private WeatherActivity weatherActivity;
+    private WeatherView weatherView;
 
-    public WeatherPresenter(WeatherActivity weatherActivity) {
-        this.weatherActivity = weatherActivity;
+    public WeatherPresenter(WeatherView weatherView) {
+        this.weatherView = weatherView;
     }
 
     public void getWeather() {
@@ -48,17 +48,12 @@ public class WeatherPresenter {
                 .subscribe(new Consumer<Weather5days>() {
                     @Override
                     public void accept(Weather5days weather5days) throws Exception {
-                        weatherActivity.showData(weather5days);
-//                        weatherAdapter.setWeatherLists(weather5days.getWeatherList());
-//                        weatherAdapter.setWeather5days(weather5days);
-//                        textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
-//                        showCurrentWeather(position);
+                        weatherView.showData(weather5days);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-//                        Toast.makeText(WeatherActivity.this, "" + throwable, Toast.LENGTH_SHORT).show();
-//                        Log.i("myStr", "exception== " + throwable);
+                        weatherView.showError();
                     }
                 });
         compositeDisposable.add(disposable);

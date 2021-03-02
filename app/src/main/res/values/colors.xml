@@ -16,13 +16,15 @@
     <color name="green5">#007536</color>
 
     <color name="orange1">#FFBF73</color>
+
     <color name="orange2">#FFA840</color>
     <color name="orange3">#FF8B00</color>
     <color name="orange4">#BF7E30</color>
     <color name="orange5">#A65A00</color>
 
     <color name="blue1">#64AAD0</color>
-    <color name="blue2">#3C9DD0</color>
+    <color name="blue2">#64AADA</color>
+    <color name="blue22">#3C9DD0</color>
     <color name="blue3">#086CA2</color>
     <color name="blue4">#235B79</color>
     <color name="blue5">#034569</color>

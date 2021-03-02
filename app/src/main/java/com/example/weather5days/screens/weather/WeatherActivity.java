@@ -44,7 +44,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class WeatherActivity extends AppCompatActivity {
+public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private static double lat = 0.0;
     private static double lon = 0.0;
     private int position = 0;
@@ -170,13 +170,6 @@ public class WeatherActivity extends AppCompatActivity {
 
     }
 
-    public void showData(Weather5days weather5days) {
-        weatherAdapter.setWeather5days(weather5days);
-        weatherAdapter.setWeatherLists(weather5days.getWeatherList());
-        textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
-        showCurrentWeather(position);
-    }
-
     public void onClickImageViewLocation(View view) {
         getCurrentLocation();
         presenter.getWeather();
@@ -242,5 +235,18 @@ public class WeatherActivity extends AppCompatActivity {
 
     public static String getBASE_WEATHER_ICON_URL() {
         return BASE_WEATHER_ICON_URL;
+    }
+
+    @Override
+    public void showData(Weather5days weather5days) {
+        weatherAdapter.setWeather5days(weather5days);
+        weatherAdapter.setWeatherLists(weather5days.getWeatherList());
+        textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
+        showCurrentWeather(position);
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(this, "Не могу отобразить данные", Toast.LENGTH_SHORT).show();
     }
 }
