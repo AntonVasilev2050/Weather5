@@ -1,6 +1,5 @@
 package com.example.weather5days.api;
 
-import com.example.weather5days.MainActivity;
 import com.example.weather5days.pojo.Weather5days;
 
 import io.reactivex.Observable;

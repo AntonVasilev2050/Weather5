@@ -1,4 +1,4 @@
-package com.example.weather5days;
+package com.example.weather5days.screens.weather;
 
 import android.Manifest;
 import android.content.Intent;
@@ -22,6 +22,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.weather5days.screens.about.AboutActivity;
+import com.example.weather5days.screens.options.ChooseBackgroundActivity;
+import com.example.weather5days.Converters;
+import com.example.weather5days.screens.options.OptionsActivity;
+import com.example.weather5days.R;
 import com.example.weather5days.adapters.WeatherAdapter;
 import com.example.weather5days.api.ApiFactory;
 import com.example.weather5days.api.ApiService;
@@ -31,21 +36,18 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.concurrent.Executor;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
-
+public class WeatherActivity extends AppCompatActivity {
     private static double lat = 0.0;
     private static double lon = 0.0;
     private int position = 0;
-
-    private String units = "metric";
-    private String lang = "ru";
-    private String appid = "292fc3d250148f4c77a7a51ac68a6302";
     private final static String BASE_WEATHER_ICON_URL = "http://openweathermap.org/img/wn/%s@%sx.png";
     private int firstColor;
     private int secondColor;
@@ -56,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void setSecondColor(int secondColor) {
         this.secondColor = secondColor;
+    }
+
+    public static double getLat() {
+        return lat;
+    }
+
+    public static double getLon() {
+        return lon;
     }
 
     private ConstraintLayout constraintLayoutMain;
@@ -75,9 +85,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewWind;
     private TextView textViewWeatherForecastLabel;
     private ImageView imageViewLocation;
-    private ApiService apiService;
-    private Disposable disposable;
-    private CompositeDisposable compositeDisposable;
+    private WeatherPresenter presenter;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.itemWeather:
-                Intent intentWeather = new Intent(this, MainActivity.class);
+                Intent intentWeather = new Intent(this, WeatherActivity.class);
                 startActivity(intentWeather);
                 break;
             case R.id.itemOptions:
@@ -128,11 +137,12 @@ public class MainActivity extends AppCompatActivity {
         textViewCurrentPressure = findViewById(R.id.textViewCurrentPressure);
         textViewCurrentHumidity = findViewById(R.id.textViewCurrentHumidity);
         textViewWind = findViewById(R.id.textViewWind);
+        presenter = new WeatherPresenter(this);
         recyclerViewWeather = findViewById(R.id.recyclerViewWeather);
-        if(ChooseBackgroundActivity.isBackgroundColorChanged()){
+        if (ChooseBackgroundActivity.isBackgroundColorChanged()) {
             firstColor = ChooseBackgroundActivity.getFirstColor();
             secondColor = ChooseBackgroundActivity.getSecondColor();
-        }else {
+        } else {
             firstColor = getResources().getColor(R.color.blue4);
             secondColor = getResources().getColor(R.color.blue5);
         }
@@ -142,11 +152,10 @@ public class MainActivity extends AppCompatActivity {
         textViewWeatherForecastLabel.setBackgroundColor(secondColor);
 
         weatherAdapter = new WeatherAdapter(new Weather5days(), secondColor);
-//        weatherAdapter.setWeather5days(new Weather5days());
         recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewWeather.setAdapter(weatherAdapter);
         getCurrentLocation();
-        getWeather();
+        presenter.getWeather();
         weatherAdapter.setOnWeatherClickListener(new WeatherAdapter.OnWeatherClickListener() {
             @Override
             public void onWeatherClick(int position) {
@@ -161,35 +170,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onClickImageViewLocation(View view) {
-        getCurrentLocation();
-        getWeather();
+    public void showData(Weather5days weather5days) {
+        weatherAdapter.setWeather5days(weather5days);
+        weatherAdapter.setWeatherLists(weather5days.getWeatherList());
+        textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
+        showCurrentWeather(position);
     }
 
-    public void getWeather() {
-        ApiFactory apiFactory = ApiFactory.getInstance();
-        apiService = apiFactory.getApiService();
-        compositeDisposable = new CompositeDisposable();
-
-        disposable = apiService.getWeather5days(lat, lon, units, lang, appid)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Weather5days>() {
-                    @Override
-                    public void accept(Weather5days weather5days) throws Exception {
-                        weatherAdapter.setWeatherLists(weather5days.getWeatherList());
-                        weatherAdapter.setWeather5days(weather5days);
-                        textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
-                        showCurrentWeather(position);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Toast.makeText(MainActivity.this, "" + throwable, Toast.LENGTH_SHORT).show();
-                        Log.i("myStr", "exception== " + throwable);
-                    }
-                });
-        compositeDisposable.add(disposable);
+    public void onClickImageViewLocation(View view) {
+        getCurrentLocation();
+        presenter.getWeather();
     }
 
     public void getCurrentLocation() {
@@ -205,35 +195,36 @@ public class MainActivity extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<android.location.Location>() {
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
                     lat = location.getLatitude();
                     lon = location.getLongitude();
-                    Toast.makeText(MainActivity.this, "координаты: " + lat + " " + lon, Toast.LENGTH_LONG).show();
+                    Toast.makeText(WeatherActivity.this, "координаты: " + lat + " " + lon, Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "Не могу получить текущие координаты", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WeatherActivity.this, "Не могу получить текущие координаты", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
     }
 
-    public void showCurrentWeather(int position){
+
+    public void showCurrentWeather(int position) {
         textViewLocalTimeDate.setText(Converters.dateTime(weatherAdapter.getWeatherLists().get(position).getDtTxt(), "EEEE dd.MM HH:mm"));
         textViewCurrentTemperature.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getTemp()));
         textViewCurrentWeatherDescription.setText(weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getDescription());
         textViewFeelsLike.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getFeelsLike()));
         try {
-            textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% ("
+            textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% ("
                     + (Double) weatherAdapter.getWeatherLists().get(position).getSnow().get3h() + "mm)");
-        }catch (NullPointerException eSnow){
+        } catch (NullPointerException eSnow) {
             try {
-                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% ("
+                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% ("
                         + (Double) weatherAdapter.getWeatherLists().get(position).getRain().get3h() + "mm)");
-            }catch (NullPointerException eRain){
-                textViewCurrentPrecipitation.setText((int)(weatherAdapter.getWeatherLists().get(position).getPop() *100) + "% (0mm)");
+            } catch (NullPointerException eRain) {
+                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% (0mm)");
             }
         }
         textViewCurrentPressure.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getPressure() * 0.750064) + "mmHg");
@@ -245,10 +236,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        presenter.disposeDisposable();
         super.onDestroy();
-        if (compositeDisposable != null) {
-            compositeDisposable.dispose();
-        }
     }
 
     public static String getBASE_WEATHER_ICON_URL() {

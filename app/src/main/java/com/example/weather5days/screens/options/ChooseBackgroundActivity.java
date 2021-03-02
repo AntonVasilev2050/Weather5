@@ -1,4 +1,4 @@
-package com.example.weather5days;
+package com.example.weather5days.screens.options;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +9,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.TextView;
+
+import com.example.weather5days.R;
+import com.example.weather5days.screens.about.AboutActivity;
+import com.example.weather5days.screens.options.OptionsActivity;
+import com.example.weather5days.screens.weather.WeatherActivity;
 
 public class ChooseBackgroundActivity extends AppCompatActivity {
     private static int firstColor;
@@ -50,7 +54,7 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.itemWeather:
-                Intent intentWeather = new Intent(this, MainActivity.class);
+                Intent intentWeather = new Intent(this, WeatherActivity.class);
                 startActivity(intentWeather);
                 break;
             case R.id.itemOptions:

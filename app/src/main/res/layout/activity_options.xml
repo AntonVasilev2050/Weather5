@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue4"
-    tools:context=".OptionsActivity">
+    tools:context=".screens.options.OptionsActivity">
 
     <TextView
         android:id="@+id/textViewUnitSettings"

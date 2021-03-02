@@ -11,7 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weather5days.Converters;
-import com.example.weather5days.MainActivity;
+import com.example.weather5days.screens.weather.WeatherActivity;
 import com.example.weather5days.R;
 import com.example.weather5days.pojo.Weather5days;
 import com.example.weather5days.pojo.WeatherList;
@@ -70,7 +70,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         holder.textViewDescription.setText(weatherList.getWeather().get(0).getDescription());
         holder.cardViewWeatherItemShort.setCardBackgroundColor(secondColor);
         holder.cardViewWeatherItemShort.setBackgroundColor(secondColor);
-        Picasso.get().load(String.format(MainActivity.getBASE_WEATHER_ICON_URL(), weatherList.getWeather().get(0).getIcon(), 2))
+        Picasso.get().load(String.format(WeatherActivity.getBASE_WEATHER_ICON_URL(), weatherList.getWeather().get(0).getIcon(), 2))
                 .into(holder.imageViewWeatherIcon);
     }
 

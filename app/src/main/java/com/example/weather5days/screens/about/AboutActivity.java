@@ -1,4 +1,4 @@
-package com.example.weather5days;
+package com.example.weather5days.screens.about;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.example.weather5days.screens.options.OptionsActivity;
+import com.example.weather5days.R;
+import com.example.weather5days.screens.weather.WeatherActivity;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -23,7 +27,7 @@ public class AboutActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.itemWeather:
-                Intent intentWeather = new Intent(this, MainActivity.class);
+                Intent intentWeather = new Intent(this, WeatherActivity.class);
                 startActivity(intentWeather);
                 break;
             case R.id.itemOptions:

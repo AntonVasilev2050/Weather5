@@ -1,6 +1,5 @@
 package com.example.weather5days.api;
 
-import com.example.weather5days.MainActivity;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import retrofit2.Retrofit;
