@@ -25,4 +25,8 @@
     <string name="five_days_weather_forecast">Прогноз погоды на 5 дней</string>
     <string name="wind_label">Ветер:</string>
     <string name="choose_background">Выберите цвет фона</string>
+    <string name="no_location_detected">Не могу получить координаты. Убедитесь, что геолокация разрешена в настройках.</string>
+    <string name="permission_rationale">Разрешение на геолокацию необходимо для базовой функциональности.</string>
+    <string name="permission_denied_explanation">Разрешения небыли предоставлены</string>
+    <string name="settings">Установки</string>
 </resources>

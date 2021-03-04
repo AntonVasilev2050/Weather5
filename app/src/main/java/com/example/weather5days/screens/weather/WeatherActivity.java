@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,27 +24,22 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.weather5days.screens.about.AboutActivity;
-import com.example.weather5days.screens.options.ChooseBackgroundActivity;
+import com.example.weather5days.BuildConfig;
 import com.example.weather5days.Converters;
-import com.example.weather5days.screens.options.OptionsActivity;
 import com.example.weather5days.R;
 import com.example.weather5days.adapters.WeatherAdapter;
-import com.example.weather5days.api.ApiFactory;
-import com.example.weather5days.api.ApiService;
 import com.example.weather5days.pojo.Weather5days;
+import com.example.weather5days.screens.about.AboutActivity;
+import com.example.weather5days.screens.options.ChooseBackgroundActivity;
+import com.example.weather5days.screens.options.OptionsActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
-import java.util.concurrent.Executor;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private static double lat = 0.0;
@@ -51,14 +48,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private final static String BASE_WEATHER_ICON_URL = "http://openweathermap.org/img/wn/%s@%sx.png";
     private int firstColor;
     private int secondColor;
-
-    public void setFirstColor(int firstColor) {
-        this.firstColor = firstColor;
-    }
-
-    public void setSecondColor(int secondColor) {
-        this.secondColor = secondColor;
-    }
 
     public static double getLat() {
         return lat;
@@ -87,6 +76,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private ImageView imageViewLocation;
     private WeatherPresenter presenter;
 
+    private static final String TAG = WeatherActivity.class.getSimpleName();
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    protected Location mLastLocation;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,11 +112,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActionBar actionBar = getSupportActionBar();
-        //        if(actionBar != null){
+//        ActionBar actionBar = getSupportActionBar();
+//                if(actionBar != null){
 //            actionBar.hide();
 //        }
-
         textViewCityName = findViewById(R.id.textViewCityName);
         imageViewLocation = findViewById(R.id.imageViewLocation);
         textViewLocalTimeDate = findViewById(R.id.textViewLocalTimeDate);
@@ -151,10 +143,12 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
         textViewWeatherForecastLabel.setBackgroundColor(secondColor);
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
         weatherAdapter = new WeatherAdapter(new Weather5days(), secondColor);
         recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewWeather.setAdapter(weatherAdapter);
-        getCurrentLocation();
+        getLastLocation();
         presenter.getWeather();
         weatherAdapter.setOnWeatherClickListener(new WeatherAdapter.OnWeatherClickListener() {
             @Override
@@ -171,38 +165,155 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     }
 
     public void onClickImageViewLocation(View view) {
-        getCurrentLocation();
+        getLastLocation();
         presenter.getWeather();
     }
 
-    public void getCurrentLocation() {
-        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-//                ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-//               public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                                                      int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        if (!checkPermissions()) {
+            requestPermissions();
+        } else {
+            getLastLocation();
         }
-        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<android.location.Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    lat = location.getLatitude();
-                    lon = location.getLongitude();
-                    Toast.makeText(WeatherActivity.this, "координаты: " + lat + " " + lon, Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(WeatherActivity.this, "Не могу получить текущие координаты", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
     }
 
+    @SuppressWarnings("MissingPermission")
+    private void getLastLocation() {
+        fusedLocationProviderClient.getLastLocation()
+                .addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            mLastLocation = task.getResult();
+
+                            lat = mLastLocation.getLatitude();
+                            lon = mLastLocation.getLongitude();
+                        } else {
+                            Log.w(TAG, "getLastLocation:exception", task.getException());
+                            showSnackbar(getString(R.string.no_location_detected));
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Shows a {@link Snackbar} using {@code text}.
+     *
+     * @param text The Snackbar text.
+     */
+    private void showSnackbar(final String text) {
+        View container = findViewById(R.id.itemWeather);
+        if (container != null) {
+            Snackbar.make(container, text, Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Shows a {@link Snackbar}.
+     *
+     * @param mainTextStringId The id for the string resource for the Snackbar text.
+     * @param actionStringId   The text of the action item.
+     * @param listener         The listener associated with the Snackbar action.
+     */
+    private void showSnackbar(final int mainTextStringId, final int actionStringId,
+                              View.OnClickListener listener) {
+        Snackbar.make(findViewById(android.R.id.content),
+                getString(mainTextStringId),
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(actionStringId), listener).show();
+    }
+
+    /**
+     * Return the current state of the permissions needed.
+     */
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void startLocationPermissionRequest() {
+        ActivityCompat.requestPermissions(WeatherActivity.this,
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                REQUEST_PERMISSIONS_REQUEST_CODE);
+    }
+
+    private void requestPermissions() {
+        boolean shouldProvideRationale =
+                ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        // Provide an additional rationale to the user. This would happen if the user denied the
+        // request previously, but didn't check the "Don't ask again" checkbox.
+        if (shouldProvideRationale) {
+            Log.i(TAG, "Displaying permission rationale to provide additional context.");
+
+            showSnackbar(R.string.permission_rationale, android.R.string.ok,
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Request permission
+                            startLocationPermissionRequest();
+                        }
+                    });
+
+        } else {
+            Log.i(TAG, "Requesting permission");
+            // Request permission. It's possible this can be auto answered if device policy
+            // sets the permission in a given state or the user denied the permission
+            // previously and checked "Never ask again".
+            startLocationPermissionRequest();
+        }
+    }
+
+    /**
+     * Callback received when a permissions request has been completed.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        Log.i(TAG, "onRequestPermissionResult");
+        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length <= 0) {
+                // If user interaction was interrupted, the permission request is cancelled and you
+                // receive empty arrays.
+                Log.i(TAG, "User interaction was cancelled.");
+            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted.
+                getLastLocation();
+            } else {
+                // Permission denied.
+
+                // Notify the user via a SnackBar that they have rejected a core permission for the
+                // app, which makes the Activity useless. In a real app, core permissions would
+                // typically be best requested during a welcome-screen flow.
+
+                // Additionally, it is important to remember that a permission might have been
+                // rejected without asking the user for permission (device policy or "Never ask
+                // again" prompts). Therefore, a user interface affordance is typically implemented
+                // when permissions are denied. Otherwise, your app could appear unresponsive to
+                // touches or interactions which have required permissions.
+                showSnackbar(R.string.permission_denied_explanation, R.string.settings,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Build intent that displays the App settings screen.
+                                Intent intent = new Intent();
+                                intent.setAction(
+                                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package",
+                                        BuildConfig.APPLICATION_ID, null);
+                                intent.setData(uri);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
+            }
+        }
+    }
 
     public void showCurrentWeather(int position) {
         textViewLocalTimeDate.setText(Converters.dateTime(weatherAdapter.getWeatherLists().get(position).getDtTxt(), "EEEE dd.MM HH:mm"));
