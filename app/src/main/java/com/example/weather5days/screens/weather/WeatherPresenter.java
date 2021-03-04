@@ -1,22 +1,8 @@
 package com.example.weather5days.screens.weather;
 
-import android.Manifest;
-import android.app.Application;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.util.Log;
-import android.widget.Toast;
-
-import androidx.core.app.ActivityCompat;
-
 import com.example.weather5days.api.ApiFactory;
 import com.example.weather5days.api.ApiService;
 import com.example.weather5days.pojo.Weather5days;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-
-import java.util.concurrent.Executor;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
