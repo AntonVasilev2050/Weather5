@@ -179,8 +179,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
             @Override
             public boolean onQueryTextSubmit(String query) {
                 cityOrIndex = query;
-//                textViewCityName.setText(cityOrIndex);
-                searchViewLocation.setQuery("",true);
+                searchViewLocation.clearFocus();
                 presenter.getWeatherCity();
                 textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
                 return true;
