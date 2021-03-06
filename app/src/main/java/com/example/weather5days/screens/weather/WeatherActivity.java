@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -13,10 +14,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -39,11 +42,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
+import static com.example.weather5days.R.string.location_error_notice;
 
 
 public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private static double lat = 0.0;
     private static double lon = 0.0;
+    private static String cityOrIndex;
     private int position = 0;
     private final static String BASE_WEATHER_ICON_URL = "http://openweathermap.org/img/wn/%s@%sx.png";
     private int firstColor;
@@ -57,10 +62,15 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         return lon;
     }
 
+    public static String getCityOrIndex() {
+        return cityOrIndex;
+    }
+
     private ConstraintLayout constraintLayoutMain;
     private RecyclerView recyclerViewWeather;
     private WeatherAdapter weatherAdapter;
     private TextView textViewCityName;
+    private View viewLine1;
     private TextView textViewLocalTimeDate;
     private TextView textViewCurrentTemperature;
     private TextView textViewCorF;
@@ -74,6 +84,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private TextView textViewWind;
     private TextView textViewWeatherForecastLabel;
     private ImageView imageViewLocation;
+    private SearchView searchViewLocation;
     private WeatherPresenter presenter;
 
     private static final String TAG = WeatherActivity.class.getSimpleName();
@@ -117,7 +128,9 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
 //            actionBar.hide();
 //        }
         textViewCityName = findViewById(R.id.textViewCityName);
+        searchViewLocation = findViewById(R.id.searchViewLocation);
         imageViewLocation = findViewById(R.id.imageViewLocation);
+        viewLine1 = findViewById(R.id.viewLine1);
         textViewLocalTimeDate = findViewById(R.id.textViewLocalTimeDate);
         textViewCurrentTemperature = findViewById(R.id.textViewCurrentTemperature);
         textViewCorF = findViewById(R.id.textViewCorF);
@@ -142,13 +155,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         constraintLayoutMain.setBackgroundColor(firstColor);
         textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
         textViewWeatherForecastLabel.setBackgroundColor(secondColor);
+        viewLine1.setBackgroundColor(secondColor);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         weatherAdapter = new WeatherAdapter(new Weather5days(), secondColor);
         recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewWeather.setAdapter(weatherAdapter);
-//        getLastLocation();
         presenter.getWeather();
         weatherAdapter.setOnWeatherClickListener(new WeatherAdapter.OnWeatherClickListener() {
             @Override
@@ -161,6 +174,24 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
                 showCurrentWeather(position);
             }
         });
+
+        searchViewLocation.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                cityOrIndex = query;
+//                textViewCityName.setText(cityOrIndex);
+                searchViewLocation.setQuery("",true);
+                presenter.getWeatherCity();
+                textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
 
     }
 
@@ -188,7 +219,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful() && task.getResult() != null) {
                             mLastLocation = task.getResult();
-
                             lat = mLastLocation.getLatitude();
                             lon = mLastLocation.getLongitude();
                         } else {
@@ -348,6 +378,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
 
     @Override
     public void showError() {
-        Toast.makeText(this, "Не могу отобразить данные", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, location_error_notice, Toast.LENGTH_LONG).show();
+    }
+
+    public void onClickWeatherLocation(View view) {
+
     }
 }

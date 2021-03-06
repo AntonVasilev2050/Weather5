@@ -17,7 +17,7 @@ public class WeatherPresenter {
     private String appid = "292fc3d250148f4c77a7a51ac68a6302";
 
     private CompositeDisposable compositeDisposable;
-    private WeatherView weatherView;
+    private final WeatherView weatherView;
 
     public WeatherPresenter(WeatherView weatherView) {
         this.weatherView = weatherView;
@@ -45,10 +45,31 @@ public class WeatherPresenter {
         compositeDisposable.add(disposable);
     }
 
+    public void getWeatherCity() {
+        ApiFactory apiFactory = ApiFactory.getInstance();
+        ApiService apiService = apiFactory.getApiService();
+        compositeDisposable = new CompositeDisposable();
+
+        Disposable disposable = apiService.getWeather5daysCity(WeatherActivity.getCityOrIndex(), units, lang, appid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Weather5days>() {
+                    @Override
+                    public void accept(Weather5days weather5days) throws Exception {
+                        weatherView.showData(weather5days);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        weatherView.showError();
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
 
 
-    public void disposeDisposable(){
-        if(compositeDisposable != null){
+    public void disposeDisposable() {
+        if (compositeDisposable != null) {
             compositeDisposable.dispose();
         }
     }

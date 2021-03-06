@@ -29,4 +29,6 @@
     <string name="permission_rationale">Разрешение на геолокацию необходимо для базовой функциональности.</string>
     <string name="permission_denied_explanation">Разрешения небыли предоставлены</string>
     <string name="settings">Установки</string>
+    <string name="enter_location">Введите локацию</string>
+    <string name="location_error_notice">Ошибка получения данных\nУточните локацию</string>
 </resources>

@@ -75,6 +75,8 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         secondColor = getResources().getColor(R.color.blue2);
         textViewChooseBackgroundLabel.setBackgroundColor(firstColor);
         backgroundColorChanged = true;
+        Intent intent = new Intent(this, WeatherActivity.class);
+        startActivity(intent);
     }
 
     public void onClickCardViewBlue4(View view) {
@@ -82,6 +84,8 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         secondColor = getResources().getColor(R.color.blue5);
         textViewChooseBackgroundLabel.setBackgroundColor(firstColor);
         backgroundColorChanged = true;
+        Intent intent = new Intent(this, WeatherActivity.class);
+        startActivity(intent);
     }
 
     public void onClickCardViewGreen1(View view) {
@@ -89,6 +93,8 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         secondColor = getResources().getColor(R.color.green2);
         textViewChooseBackgroundLabel.setBackgroundColor(firstColor);
         backgroundColorChanged = true;
+        Intent intent = new Intent(this, WeatherActivity.class);
+        startActivity(intent);
     }
 
     public void onClickCardViewGreen4(View view) {
@@ -96,6 +102,8 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         secondColor = getResources().getColor(R.color.green5);
         textViewChooseBackgroundLabel.setBackgroundColor(firstColor);
         backgroundColorChanged = true;
+        Intent intent = new Intent(this, WeatherActivity.class);
+        startActivity(intent);
     }
 
     public void onClickCardViewOrange1(View view) {
@@ -103,6 +111,8 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         secondColor = getResources().getColor(R.color.orange2);
         textViewChooseBackgroundLabel.setBackgroundColor(firstColor);
         backgroundColorChanged = true;
+        Intent intent = new Intent(this, WeatherActivity.class);
+        startActivity(intent);
     }
 
     public void onClickCardViewOrange4(View view) {
@@ -110,6 +120,8 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         secondColor = getResources().getColor(R.color.orange5);
         textViewChooseBackgroundLabel.setBackgroundColor(firstColor);
         backgroundColorChanged = true;
+        Intent intent = new Intent(this, WeatherActivity.class);
+        startActivity(intent);
     }
 
     public void onClickCardViewRed1(View view) {
@@ -117,6 +129,8 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         secondColor = getResources().getColor(R.color.red2);
         textViewChooseBackgroundLabel.setBackgroundColor(firstColor);
         backgroundColorChanged = true;
+        Intent intent = new Intent(this, WeatherActivity.class);
+        startActivity(intent);
     }
 
     public void onClickCardViewRed4(View view) {
@@ -124,5 +138,7 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         secondColor = getResources().getColor(R.color.red5);
         textViewChooseBackgroundLabel.setBackgroundColor(firstColor);
         backgroundColorChanged = true;
+        Intent intent = new Intent(this, WeatherActivity.class);
+        startActivity(intent);
     }
 }
