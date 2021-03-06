@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardViewWeatherItemShort"
     android:layout_width="wrap_content"
-    android:layout_height="230dp"
+    android:layout_height="match_parent"
     android:layout_margin="4dp"
     android:background="@color/blue2"
     app:cardBackgroundColor="@color/blue2"
@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="8dp">
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/textViewDateTime"
@@ -48,9 +48,10 @@
 
         <ImageView
             android:id="@+id/imageViewWeatherIcon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewDateTime"
             app:srcCompat="@android:drawable/gallery_thumb" />
@@ -59,14 +60,13 @@
             android:id="@+id/textViewTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:text="25"
             android:textColor="@color/white"
             android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherIcon" />
+            app:layout_constraintStart_toEndOf="@+id/imageViewWeatherIcon"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDateTime" />
 
         <TextView
             android:id="@+id/textViewTemperatureUnit"

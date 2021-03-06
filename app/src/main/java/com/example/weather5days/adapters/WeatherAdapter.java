@@ -65,7 +65,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     @Override
     public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
         WeatherList weatherList = weather5days.getWeatherList().get(position);
-        holder.textViewDateTime.setText(Converters.dateTime(weatherList.getDtTxt(), "E dd.MM HH:mm"));
+        holder.textViewDateTime.setText(Converters.dateTime(weatherList.getDtTxt(), "E  HH:mm"));
         holder.textViewTemperature.setText("" + Math.round(weatherList.getMain().getTemp()));
         holder.textViewDescription.setText(weatherList.getWeather().get(0).getDescription());
         holder.cardViewWeatherItemShort.setCardBackgroundColor(secondColor);
