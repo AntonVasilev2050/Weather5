@@ -178,7 +178,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         searchViewLocation.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                cityOrIndex = query;
+                cityOrIndex = query.trim();
                 searchViewLocation.clearFocus();
                 presenter.getWeatherCity();
                 textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
@@ -197,6 +197,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     public void onClickImageViewLocation(View view) {
         getLastLocation();
         presenter.getWeather();
+        searchViewLocation.clearFocus();
+        searchViewLocation.setQuery("", true);
     }
 
     @Override

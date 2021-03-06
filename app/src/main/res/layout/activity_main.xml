@@ -27,7 +27,7 @@
         <SearchView
             android:id="@+id/searchViewLocation"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:inputType="text"
             android:queryHint="@string/enter_location"
             app:layout_constraintBottom_toTopOf="@+id/viewLine1"
@@ -39,11 +39,11 @@
             android:id="@+id/viewLine1"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:background="@color/blue2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCityName" />
+            app:layout_constraintTop_toBottomOf="@+id/searchViewLocation" />
 
 
         <ImageView
@@ -51,6 +51,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/choose_current_location_icon"
             android:onClick="onClickImageViewLocation"
             app:layout_constraintBottom_toTopOf="@+id/viewLine1"
