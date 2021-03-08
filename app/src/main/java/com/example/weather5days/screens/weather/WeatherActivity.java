@@ -2,11 +2,12 @@ package com.example.weather5days.screens.weather;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
@@ -19,8 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -48,7 +47,8 @@ import static com.example.weather5days.R.string.location_error_notice;
 public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private static double lat = 0.0;
     private static double lon = 0.0;
-    private static String cityOrIndex;
+    private static String cityName;
+    private static String country;
     private int position = 0;
     private final static String BASE_WEATHER_ICON_URL = "http://openweathermap.org/img/wn/%s@%sx.png";
     private int firstColor;
@@ -62,8 +62,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         return lon;
     }
 
-    public static String getCityOrIndex() {
-        return cityOrIndex;
+    public static String getCityName() {
+        return cityName;
     }
 
     private ConstraintLayout constraintLayoutMain;
@@ -86,6 +86,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private ImageView imageViewLocation;
     private SearchView searchViewLocation;
     private WeatherPresenter presenter;
+    SharedPreferences preferences;
 
     private static final String TAG = WeatherActivity.class.getSimpleName();
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
@@ -142,18 +143,23 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         textViewCurrentPressure = findViewById(R.id.textViewCurrentPressure);
         textViewCurrentHumidity = findViewById(R.id.textViewCurrentHumidity);
         textViewWind = findViewById(R.id.textViewWind);
-        presenter = new WeatherPresenter(this);
         recyclerViewWeather = findViewById(R.id.recyclerViewWeather);
+        constraintLayoutMain = findViewById(R.id.constraintLayoutMain);
+        textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        cityName = preferences.getString("cityName", "Краснодар");
+
         if (ChooseBackgroundActivity.isBackgroundColorChanged()) {
             firstColor = ChooseBackgroundActivity.getFirstColor();
             secondColor = ChooseBackgroundActivity.getSecondColor();
+            preferences.edit().putInt("firstColor", firstColor).apply();
+            preferences.edit().putInt("secondColor", secondColor).apply();
         } else {
-            firstColor = getResources().getColor(R.color.blue4);
-            secondColor = getResources().getColor(R.color.blue5);
+            firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue4));
+            secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue5));
         }
-        constraintLayoutMain = findViewById(R.id.constraintLayoutMain);
+        presenter = new WeatherPresenter(this);
         constraintLayoutMain.setBackgroundColor(firstColor);
-        textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
         textViewWeatherForecastLabel.setBackgroundColor(secondColor);
         viewLine1.setBackgroundColor(secondColor);
 
@@ -162,7 +168,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         weatherAdapter = new WeatherAdapter(new Weather5days(), secondColor);
         recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewWeather.setAdapter(weatherAdapter);
-        presenter.getWeather();
+        presenter.getWeatherCity();
         weatherAdapter.setOnWeatherClickListener(new WeatherAdapter.OnWeatherClickListener() {
             @Override
             public void onWeatherClick(int position) {
@@ -178,11 +184,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         searchViewLocation.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                cityOrIndex = query.trim();
+                cityName = query.trim();
                 searchViewLocation.clearFocus();
                 presenter.getWeatherCity();
-                textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
-                return true;
+                return false;
             }
 
             @Override
@@ -198,7 +203,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         getLastLocation();
         presenter.getWeather();
         searchViewLocation.clearFocus();
-        searchViewLocation.setQuery("", true);
     }
 
     @Override
@@ -365,6 +369,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         super.onDestroy();
     }
 
+
+
     public static String getBASE_WEATHER_ICON_URL() {
         return BASE_WEATHER_ICON_URL;
     }
@@ -373,7 +379,12 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     public void showData(Weather5days weather5days) {
         weatherAdapter.setWeather5days(weather5days);
         weatherAdapter.setWeatherLists(weather5days.getWeatherList());
-        textViewCityName.setText(weatherAdapter.getWeather5days().getCity().getName());
+        cityName = weatherAdapter.getWeather5days().getCity().getName();
+        preferences.edit().putString("cityName", cityName).apply();
+        searchViewLocation.onActionViewExpanded();
+        searchViewLocation.setQuery(cityName + " "
+                + "(" + weatherAdapter.getWeather5days().getCity().getCountry() + ")", false);
+        searchViewLocation.clearFocus();
         showCurrentWeather(position);
     }
 

@@ -14,7 +14,7 @@ public class WeatherPresenter {
 
     private String units = "metric";
     private String lang = "ru";
-    private String appid = "292fc3d250148f4c77a7a51ac68a6302";
+    private String appid = "2ad882e3ba88a34eb4e1b8448c86aa9a";
 
     private CompositeDisposable compositeDisposable;
     private final WeatherView weatherView;
@@ -50,7 +50,7 @@ public class WeatherPresenter {
         ApiService apiService = apiFactory.getApiService();
         compositeDisposable = new CompositeDisposable();
 
-        Disposable disposable = apiService.getWeather5daysCity(WeatherActivity.getCityOrIndex(), units, lang, appid)
+        Disposable disposable = apiService.getWeather5daysCity(WeatherActivity.getCityName(), units, lang, appid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Weather5days>() {
