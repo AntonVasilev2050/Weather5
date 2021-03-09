@@ -18,4 +18,9 @@ public class Converters {
         }
         return dateStr;
     }
+
+    public static double celsiusToFahrenheit(double temperatureC){
+        double temperatureF = 1.8 * temperatureC + 32;
+        return temperatureF;
+    }
 }

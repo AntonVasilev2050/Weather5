@@ -11,5 +11,5 @@ public interface ApiService {
     Observable<Weather5days> getWeather5days(@Query("lat") double lat, @Query("lon") double lon, @Query("units") String units, @Query("lang") String lang, @Query("appid") String appid);
 
     @GET ("forecast?")
-    Observable<Weather5days> getWeather5daysCity(@Query("q") String cityOrIndex, @Query("units") String units, @Query("lang") String lang, @Query("appid") String appid);
+    Observable<Weather5days> getWeather5daysCity(@Query("q") String cityName, @Query("units") String units, @Query("lang") String lang, @Query("appid") String appid);
 }

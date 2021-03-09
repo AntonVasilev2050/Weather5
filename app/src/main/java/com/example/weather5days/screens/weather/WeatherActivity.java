@@ -53,6 +53,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private final static String BASE_WEATHER_ICON_URL = "http://openweathermap.org/img/wn/%s@%sx.png";
     private int firstColor;
     private int secondColor;
+    private static String celsiusOrFahrenheit;
+    private static String windSpeedUnit;
+    private static String pressureUnit;
+
+    public static String getCelsiusOrFahrenheit() {
+        return celsiusOrFahrenheit;
+    }
 
     public static double getLat() {
         return lat;
@@ -148,16 +155,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         cityName = preferences.getString("cityName", "Краснодар");
-
-        if (ChooseBackgroundActivity.isBackgroundColorChanged()) {
-            firstColor = ChooseBackgroundActivity.getFirstColor();
-            secondColor = ChooseBackgroundActivity.getSecondColor();
-            preferences.edit().putInt("firstColor", firstColor).apply();
-            preferences.edit().putInt("secondColor", secondColor).apply();
-        } else {
-            firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue4));
-            secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue5));
-        }
+        celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
+        windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
+        pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
+        textViewCorF.setText(celsiusOrFahrenheit);
+        textViewCorF2.setText(celsiusOrFahrenheit);
+        firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue4));
+        secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue5));
         presenter = new WeatherPresenter(this);
         constraintLayoutMain.setBackgroundColor(firstColor);
         textViewWeatherForecastLabel.setBackgroundColor(secondColor);
@@ -172,7 +176,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         weatherAdapter.setOnWeatherClickListener(new WeatherAdapter.OnWeatherClickListener() {
             @Override
             public void onWeatherClick(int position) {
-
             }
 
             @Override
@@ -195,8 +198,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
                 return false;
             }
         });
-
-
     }
 
     public void onClickImageViewLocation(View view) {
@@ -208,7 +209,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     @Override
     public void onStart() {
         super.onStart();
-
         if (!checkPermissions()) {
             requestPermissions();
         } else {
@@ -342,9 +342,18 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
 
     public void showCurrentWeather(int position) {
         textViewLocalTimeDate.setText(Converters.dateTime(weatherAdapter.getWeatherLists().get(position).getDtTxt(), "EEEE dd.MM HH:mm"));
-        textViewCurrentTemperature.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getTemp()));
+        double temperatureC = weatherAdapter.getWeatherLists().get(position).getMain().getTemp();
+        double temperatureF = Converters.celsiusToFahrenheit(temperatureC);
+        double temperatureFeelsLikeC = weatherAdapter.getWeatherLists().get(position).getMain().getFeelsLike();
+        double temperatureFeelsLikeF = Converters.celsiusToFahrenheit(temperatureFeelsLikeC);
+        if(celsiusOrFahrenheit.equals("C")){
+            textViewCurrentTemperature.setText("" + Math.round(temperatureC));
+            textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeC));
+        }else if(celsiusOrFahrenheit.equals("F")){
+            textViewCurrentTemperature.setText("" + Math.round(temperatureF));
+            textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeF));
+        }
         textViewCurrentWeatherDescription.setText(weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getDescription());
-        textViewFeelsLike.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getFeelsLike()));
         try {
             textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% ("
                     + (Double) weatherAdapter.getWeatherLists().get(position).getSnow().get3h() + "mm)");
@@ -356,9 +365,19 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
                 textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% (0mm)");
             }
         }
-        textViewCurrentPressure.setText("" + Math.round(weatherAdapter.getWeatherLists().get(position).getMain().getPressure() * 0.750064) + "mmHg");
+        int pressure = weatherAdapter.getWeatherLists().get(position).getMain().getPressure();
+        if(pressureUnit.equals("мм рт.ст.")){
+            textViewCurrentPressure.setText(Math.round(pressure * 0.750064) + " " + pressureUnit);
+        }else if(pressureUnit.equals("мБар")){
+            textViewCurrentPressure.setText(Math.round(pressure) + " " + pressureUnit);
+        }
         textViewCurrentHumidity.setText(weatherAdapter.getWeatherLists().get(position).getMain().getHumidity() + "%");
-        textViewWind.setText(Math.round(weatherAdapter.getWeatherLists().get(position).getWind().getSpeed()) + " m/s");
+        double windSpeed = (Math.round(weatherAdapter.getWeatherLists().get(position).getWind().getSpeed()) * 10.0) / 10.0;
+        if(windSpeedUnit.equals("м/с")){
+            textViewWind.setText(Math.round(windSpeed) + " " + windSpeedUnit);
+        }else if(windSpeedUnit.equals("миль/ч")){
+            textViewWind.setText((Math.round(windSpeed * 22.36936)) / 10.0 + " " + windSpeedUnit);
+        }
         Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getIcon(), 4))
                 .into(imageViewCurrentWeatherIcon);
     }
@@ -368,8 +387,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         presenter.disposeDisposable();
         super.onDestroy();
     }
-
-
 
     public static String getBASE_WEATHER_ICON_URL() {
         return BASE_WEATHER_ICON_URL;
@@ -382,18 +399,14 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         cityName = weatherAdapter.getWeather5days().getCity().getName();
         preferences.edit().putString("cityName", cityName).apply();
         searchViewLocation.onActionViewExpanded();
+        showCurrentWeather(position);
         searchViewLocation.setQuery(cityName + " "
                 + "(" + weatherAdapter.getWeather5days().getCity().getCountry() + ")", false);
         searchViewLocation.clearFocus();
-        showCurrentWeather(position);
     }
 
     @Override
     public void showError() {
         Toast.makeText(this, location_error_notice, Toast.LENGTH_LONG).show();
-    }
-
-    public void onClickWeatherLocation(View view) {
-
     }
 }

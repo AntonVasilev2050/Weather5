@@ -1,5 +1,9 @@
 package com.example.weather5days.adapters;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +70,13 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
         WeatherList weatherList = weather5days.getWeatherList().get(position);
         holder.textViewDateTime.setText(Converters.dateTime(weatherList.getDtTxt(), "E  HH:mm"));
-        holder.textViewTemperature.setText("" + Math.round(weatherList.getMain().getTemp()));
+        double temperatureC = weatherList.getMain().getTemp();
+        double temperatureF = Converters.celsiusToFahrenheit(temperatureC);
+        if(WeatherActivity.getCelsiusOrFahrenheit().equals("C")){
+            holder.textViewTemperature.setText("" + Math.round(temperatureC));
+        }else {
+            holder.textViewTemperature.setText("" + Math.round(temperatureF));
+        }
         holder.textViewDescription.setText(weatherList.getWeather().get(0).getDescription());
         holder.cardViewWeatherItemShort.setCardBackgroundColor(secondColor);
         holder.cardViewWeatherItemShort.setBackgroundColor(secondColor);
