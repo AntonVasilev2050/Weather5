@@ -376,7 +376,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         if(windSpeedUnit.equals("м/с")){
             textViewWind.setText(Math.round(windSpeed) + " " + windSpeedUnit);
         }else if(windSpeedUnit.equals("миль/ч")){
-            textViewWind.setText((Math.round(windSpeed * 22.36936)) / 10.0 + " " + windSpeedUnit);
+            textViewWind.setText((Math.round(windSpeed * 22.369362)) / 10.0 + " " + windSpeedUnit);
         }
         Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getIcon(), 4))
                 .into(imageViewCurrentWeatherIcon);
