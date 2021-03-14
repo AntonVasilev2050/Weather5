@@ -89,6 +89,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private TextView textViewCurrentPressure;
     private TextView textViewCurrentHumidity;
     private TextView textViewWind;
+    private TextView textViewVisibility;
     private TextView textViewWeatherForecastLabel;
     private ImageView imageViewLocation;
     private SearchView searchViewLocation;
@@ -150,6 +151,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         textViewCurrentPressure = findViewById(R.id.textViewCurrentPressure);
         textViewCurrentHumidity = findViewById(R.id.textViewCurrentHumidity);
         textViewWind = findViewById(R.id.textViewWind);
+        textViewVisibility = findViewById(R.id.textViewVisibility);
         recyclerViewWeather = findViewById(R.id.recyclerViewWeather);
         constraintLayoutMain = findViewById(R.id.constraintLayoutMain);
         textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
@@ -184,6 +186,22 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
             }
         });
 
+        searchViewLocation.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textViewCityName.setVisibility(View.GONE);
+            }
+        });
+
+        searchViewLocation.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                cityName = preferences.getString("cityName", "Краснодар");
+                textViewCityName.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+
         searchViewLocation.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -198,6 +216,81 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
                 return false;
             }
         });
+    }
+
+    public void showCurrentWeather(int position) {
+        textViewLocalTimeDate.setText(Converters.dateTime(weatherAdapter.getWeatherLists().get(position).getDtTxt(), "EEEE dd.MM HH:mm"));
+        double temperatureC = weatherAdapter.getWeatherLists().get(position).getMain().getTemp();
+        double temperatureF = Converters.celsiusToFahrenheit(temperatureC);
+        double temperatureFeelsLikeC = weatherAdapter.getWeatherLists().get(position).getMain().getFeelsLike();
+        double temperatureFeelsLikeF = Converters.celsiusToFahrenheit(temperatureFeelsLikeC);
+        if(celsiusOrFahrenheit.equals("C")){
+            textViewCurrentTemperature.setText("" + Math.round(temperatureC));
+            textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeC));
+        }else if(celsiusOrFahrenheit.equals("F")){
+            textViewCurrentTemperature.setText("" + Math.round(temperatureF));
+            textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeF));
+        }
+        textViewCurrentWeatherDescription.setText(weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getDescription());
+        try {
+            textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% ("
+                    + (Double) weatherAdapter.getWeatherLists().get(position).getSnow().get3h() + "mm)");
+        } catch (NullPointerException eSnow) {
+            try {
+                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% ("
+                        + (Double) weatherAdapter.getWeatherLists().get(position).getRain().get3h() + "mm)");
+            } catch (NullPointerException eRain) {
+                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% (0mm)");
+            }
+        }
+        int pressure = weatherAdapter.getWeatherLists().get(position).getMain().getPressure();
+        if(pressureUnit.equals("мм рт.ст.")){
+            textViewCurrentPressure.setText(Math.round(pressure * 0.750064) + " " + pressureUnit);
+        }else if(pressureUnit.equals("мБар")){
+            textViewCurrentPressure.setText(Math.round(pressure) + " " + pressureUnit);
+        }
+        textViewCurrentHumidity.setText(weatherAdapter.getWeatherLists().get(position).getMain().getHumidity() + "%");
+        double windSpeed = (Math.round(weatherAdapter.getWeatherLists().get(position).getWind().getSpeed()) * 10.0) / 10.0;
+        double visibility = weatherAdapter.getWeatherLists().get(position).getVisibility();
+        if(windSpeedUnit.equals("м/с")){
+            textViewWind.setText(Math.round(windSpeed) + " " + windSpeedUnit);
+            textViewVisibility.setText(Math.round(visibility) + " м/с");
+        }else if(windSpeedUnit.equals("миль/ч")){
+            textViewWind.setText((Math.round(windSpeed * 22.369362)) / 10.0 + " " + windSpeedUnit);
+            textViewVisibility.setText((visibility * 0.00062) + " миль");
+        }
+        Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getIcon(), 4))
+                .into(imageViewCurrentWeatherIcon);
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.disposeDisposable();
+        super.onDestroy();
+    }
+
+    public static String getBASE_WEATHER_ICON_URL() {
+        return BASE_WEATHER_ICON_URL;
+    }
+
+    @Override
+    public void showData(Weather5days weather5days) {
+        weatherAdapter.setWeather5days(weather5days);
+        weatherAdapter.setWeatherLists(weather5days.getWeatherList());
+        cityName = weatherAdapter.getWeather5days().getCity().getName();
+        preferences.edit().putString("cityName", cityName).apply();
+        showCurrentWeather(position);
+        searchViewLocation.setQuery("", false);
+        searchViewLocation.onActionViewCollapsed();
+        searchViewLocation.clearFocus();
+        textViewCityName.setText(cityName + " "
+                + "(" + weatherAdapter.getWeather5days().getCity().getCountry() + ")");
+        textViewCityName.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(this, location_error_notice, Toast.LENGTH_LONG).show();
     }
 
     public void onClickImageViewLocation(View view) {
@@ -338,75 +431,5 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
                         });
             }
         }
-    }
-
-    public void showCurrentWeather(int position) {
-        textViewLocalTimeDate.setText(Converters.dateTime(weatherAdapter.getWeatherLists().get(position).getDtTxt(), "EEEE dd.MM HH:mm"));
-        double temperatureC = weatherAdapter.getWeatherLists().get(position).getMain().getTemp();
-        double temperatureF = Converters.celsiusToFahrenheit(temperatureC);
-        double temperatureFeelsLikeC = weatherAdapter.getWeatherLists().get(position).getMain().getFeelsLike();
-        double temperatureFeelsLikeF = Converters.celsiusToFahrenheit(temperatureFeelsLikeC);
-        if(celsiusOrFahrenheit.equals("C")){
-            textViewCurrentTemperature.setText("" + Math.round(temperatureC));
-            textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeC));
-        }else if(celsiusOrFahrenheit.equals("F")){
-            textViewCurrentTemperature.setText("" + Math.round(temperatureF));
-            textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeF));
-        }
-        textViewCurrentWeatherDescription.setText(weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getDescription());
-        try {
-            textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% ("
-                    + (Double) weatherAdapter.getWeatherLists().get(position).getSnow().get3h() + "mm)");
-        } catch (NullPointerException eSnow) {
-            try {
-                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% ("
-                        + (Double) weatherAdapter.getWeatherLists().get(position).getRain().get3h() + "mm)");
-            } catch (NullPointerException eRain) {
-                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% (0mm)");
-            }
-        }
-        int pressure = weatherAdapter.getWeatherLists().get(position).getMain().getPressure();
-        if(pressureUnit.equals("мм рт.ст.")){
-            textViewCurrentPressure.setText(Math.round(pressure * 0.750064) + " " + pressureUnit);
-        }else if(pressureUnit.equals("мБар")){
-            textViewCurrentPressure.setText(Math.round(pressure) + " " + pressureUnit);
-        }
-        textViewCurrentHumidity.setText(weatherAdapter.getWeatherLists().get(position).getMain().getHumidity() + "%");
-        double windSpeed = (Math.round(weatherAdapter.getWeatherLists().get(position).getWind().getSpeed()) * 10.0) / 10.0;
-        if(windSpeedUnit.equals("м/с")){
-            textViewWind.setText(Math.round(windSpeed) + " " + windSpeedUnit);
-        }else if(windSpeedUnit.equals("миль/ч")){
-            textViewWind.setText((Math.round(windSpeed * 22.369362)) / 10.0 + " " + windSpeedUnit);
-        }
-        Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getIcon(), 4))
-                .into(imageViewCurrentWeatherIcon);
-    }
-
-    @Override
-    protected void onDestroy() {
-        presenter.disposeDisposable();
-        super.onDestroy();
-    }
-
-    public static String getBASE_WEATHER_ICON_URL() {
-        return BASE_WEATHER_ICON_URL;
-    }
-
-    @Override
-    public void showData(Weather5days weather5days) {
-        weatherAdapter.setWeather5days(weather5days);
-        weatherAdapter.setWeatherLists(weather5days.getWeatherList());
-        cityName = weatherAdapter.getWeather5days().getCity().getName();
-        preferences.edit().putString("cityName", cityName).apply();
-        searchViewLocation.onActionViewExpanded();
-        showCurrentWeather(position);
-        searchViewLocation.setQuery(cityName + " "
-                + "(" + weatherAdapter.getWeather5days().getCity().getCountry() + ")", false);
-        searchViewLocation.clearFocus();
-    }
-
-    @Override
-    public void showError() {
-        Toast.makeText(this, location_error_notice, Toast.LENGTH_LONG).show();
     }
 }

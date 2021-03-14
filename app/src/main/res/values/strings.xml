@@ -31,4 +31,6 @@
     <string name="settings">Установки</string>
     <string name="enter_location">Введите локацию</string>
     <string name="location_error_notice">Ошибка получения данных\nУточните локацию</string>
+    <string name="weather_icon_small_description">Маленькая иконка погоды</string>
+    <string name="visibilility_label">Видимость:</string>
 </resources>

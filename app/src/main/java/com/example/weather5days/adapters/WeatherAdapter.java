@@ -21,17 +21,19 @@ import com.example.weather5days.pojo.Weather5days;
 import com.example.weather5days.pojo.WeatherList;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder> {
     private List<WeatherList> weatherLists;
     private Weather5days weather5days;
     private OnWeatherClickListener onWeatherClickListener;
-    private int secondColor;
+    private final int secondColor;
 
     public WeatherAdapter(Weather5days weather5days, int secondColor) {
         this.weather5days = weather5days;
         this.secondColor = secondColor;
+        weatherLists = new ArrayList<WeatherList>();
     }
 
     public List<WeatherList> getWeatherLists() {
@@ -41,7 +43,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         this.weatherLists = weatherLists;
         notifyDataSetChanged();
     }
-
 
     public Weather5days getWeather5days() {
         return weather5days;
@@ -79,14 +80,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         }
         holder.textViewDescription.setText(weatherList.getWeather().get(0).getDescription());
         holder.cardViewWeatherItemShort.setCardBackgroundColor(secondColor);
-        holder.cardViewWeatherItemShort.setBackgroundColor(secondColor);
+//        holder.cardViewWeatherItemShort.setBackgroundColor(secondColor);
         Picasso.get().load(String.format(WeatherActivity.getBASE_WEATHER_ICON_URL(), weatherList.getWeather().get(0).getIcon(), 2))
                 .into(holder.imageViewWeatherIcon);
     }
 
     @Override
     public int getItemCount() {
-        return weather5days.getCnt();
+//        return weather5days.getCnt();
+        return weatherLists.size();
     }
 
     class WeatherViewHolder extends RecyclerView.ViewHolder {

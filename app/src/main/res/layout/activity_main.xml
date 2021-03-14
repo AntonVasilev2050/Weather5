@@ -13,18 +13,21 @@
         android:id="@+id/textViewCityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@android:string/unknownName" />
 
     <SearchView
         android:id="@+id/searchViewLocation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:animateLayoutChanges="true"
         android:inputType="text"
         android:queryHint="@string/enter_location"
         app:layout_constraintBottom_toTopOf="@+id/viewLine1"
@@ -92,16 +95,16 @@
             app:layout_constraintStart_toEndOf="@+id/textViewCurrentTemperature"
             app:layout_constraintTop_toTopOf="@+id/textViewCurrentTemperature" />
 
-        <TextView
-            android:id="@+id/textViewCorF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="@string/celsius_fahrenheit_unit"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textViewOLabel1"
-            app:layout_constraintTop_toTopOf="@+id/textViewOLabel1" />
+    <TextView
+        android:id="@+id/textViewCorF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="@string/celsius_fahrenheit_unit"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewOLabel1"
+        app:layout_constraintTop_toTopOf="@+id/textViewOLabel1" />
 
         <ImageView
             android:id="@+id/imageViewCurrentWeatherIcon"
@@ -112,16 +115,17 @@
             app:layout_constraintTop_toBottomOf="@+id/viewLine1"
             app:srcCompat="@drawable/day_clear" />
 
-        <TextView
-            android:id="@+id/textViewCurrentWeatherDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/current_weather_description"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCurrentTemperature" />
+    <TextView
+        android:id="@+id/textViewCurrentWeatherDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/current_weather_description"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentTemperature" />
 
         <TextView
             android:id="@+id/textViewFeelsLikeLabel"
@@ -168,92 +172,96 @@
             app:layout_constraintStart_toEndOf="@+id/textViewOLabel2"
             app:layout_constraintTop_toTopOf="@+id/textViewOLabel2" />
 
-        <TextView
-            android:id="@+id/textViewCurrentPrecipitationLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/precipitation_label"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFeelsLikeLabel" />
+    <TextView
+        android:id="@+id/textViewCurrentPrecipitationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/precipitation_label"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPrecipitation"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPrecipitation"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFeelsLikeLabel" />
 
-        <TextView
-            android:id="@+id/textViewCurrentPrecipitation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text="TextView"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/textViewCurrentPrecipitationLabel"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFeelsLikeLabel" />
+    <TextView
+        android:id="@+id/textViewCurrentPrecipitation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewCurrentPrecipitationLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewCurrentPrecipitationLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewCurrentPrecipitationLabel" />
 
-        <TextView
-            android:id="@+id/textViewCurrentPressureLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/pressure_label"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitationLabel" />
+    <TextView
+        android:id="@+id/textViewCurrentPressureLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/pressure_label"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPressure"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPressure"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPressure" />
 
-        <TextView
-            android:id="@+id/textViewCurrentPressure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text="TextView"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/textViewCurrentPressureLabel"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitation" />
+    <TextView
+        android:id="@+id/textViewCurrentPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewCurrentPressureLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewCurrentPressureLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewCurrentPressureLabel" />
 
-        <TextView
-            android:id="@+id/textViewCurrentHumidityLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/humidity_label"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPressureLabel" />
+    <TextView
+        android:id="@+id/textViewCurrentHumidityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/humidity_label"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewHumidity"
+        app:layout_constraintStart_toEndOf="@+id/imageViewHumidity"
+        app:layout_constraintTop_toTopOf="@+id/imageViewHumidity" />
 
-        <TextView
-            android:id="@+id/textViewCurrentHumidity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text="TextView"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/textViewCurrentHumidityLabel"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPressure" />
+    <TextView
+        android:id="@+id/textViewCurrentHumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewCurrentHumidityLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewCurrentHumidityLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewCurrentHumidityLabel" />
 
-        <TextView
-            android:id="@+id/textViewWindLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/wind_label"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCurrentHumidityLabel" />
+    <TextView
+        android:id="@+id/textViewWindLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/wind_label"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewWind"
+        app:layout_constraintStart_toEndOf="@+id/imageViewWind"
+        app:layout_constraintTop_toTopOf="@+id/imageViewWind" />
 
-        <TextView
-            android:id="@+id/textViewWind"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="TextView"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/textViewWindLabel"
-            app:layout_constraintTop_toTopOf="@+id/textViewWindLabel" />
+    <TextView
+        android:id="@+id/textViewWind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewWindLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewWindLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewWindLabel" />
 
     <TextView
         android:id="@+id/textViewWeatherForecastLabel"
@@ -278,10 +286,82 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewWind"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewHumidity"
+        app:srcCompat="@drawable/weather_wind_icon_161268" />
+
+    <ImageView
+        android:id="@+id/imageViewPrecipitation"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFeelsLikeLabel"
+        app:srcCompat="@drawable/keepdry_weather_rain_umbrella_4568" />
+
+    <ImageView
+        android:id="@+id/imageViewHumidity"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPressure"
+        app:srcCompat="@drawable/raindrops54656" />
+
+    <ImageView
+        android:id="@+id/imageViewPressure"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPrecipitation"
+        app:srcCompat="@drawable/pressure_meter_icon_177217" />
+
+    <ImageView
+        android:id="@+id/imageViewVisibility"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWind"
+        app:srcCompat="@drawable/visibility_118485" />
+
+    <TextView
+        android:id="@+id/textViewVisibilityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/visibility_label"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewVisibility"
+        app:layout_constraintStart_toEndOf="@+id/imageViewVisibility"
+        app:layout_constraintTop_toTopOf="@+id/imageViewVisibility" />
+
+    <TextView
+        android:id="@+id/textViewVisibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewVisibilityLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewVisibilityLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewVisibilityLabel"
+        tools:text="TextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
