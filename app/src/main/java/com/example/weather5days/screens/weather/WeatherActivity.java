@@ -51,7 +51,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private static String cityName;
     private static String country;
     private int position = 0;
-    private final static String BASE_WEATHER_ICON_URL = "http://openweathermap.org/img/wn/%s@%sx.png";
+    private final static String BASE_WEATHER_ICON_URL = "https://openweathermap.org/img/wn/%s@%sx.png";
     private int firstColor;
     private int secondColor;
     private static String celsiusOrFahrenheit;
