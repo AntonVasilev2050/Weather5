@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_weather"
+        android:icon="@drawable/weather_67739"
+        android:title="@string/weather" />
+    <item
+        android:id="@+id/action_options"
+        android:icon="@drawable/settings_122525"
+        android:title="@string/menu_item_options" />
+    <item
+        android:id="@+id/action_add_location"
+        android:icon="@drawable/location_59982"
+        android:title="@string/add_location" />
+    <item
+        android:id="@+id/action_info"
+        android:icon="@drawable/information_53973"
+        android:title="@string/information" />
+</menu>

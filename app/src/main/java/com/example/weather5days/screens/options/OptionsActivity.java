@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.weather5days.R;
 import com.example.weather5days.screens.about.AboutActivity;
 import com.example.weather5days.screens.weather.WeatherActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
@@ -62,6 +63,7 @@ public class OptionsActivity extends AppCompatActivity {
         radioButtonMilePerHour = findViewById(R.id.radioButtonMilePerHour);
         radioButtonMmHg = findViewById(R.id.radioButtonMmHg);
         radioButtonMBar = findViewById(R.id.radioButtonMBar);
+
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if(Objects.equals(preferences.getString("celsiusOrFahrenheit", "C"), "C")){
             radioButtonCelsius.setChecked(true);

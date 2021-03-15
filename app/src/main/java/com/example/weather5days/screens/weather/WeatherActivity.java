@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
@@ -32,12 +33,12 @@ import com.example.weather5days.R;
 import com.example.weather5days.adapters.WeatherAdapter;
 import com.example.weather5days.pojo.Weather5days;
 import com.example.weather5days.screens.about.AboutActivity;
-import com.example.weather5days.screens.options.ChooseBackgroundActivity;
 import com.example.weather5days.screens.options.OptionsActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
@@ -190,6 +191,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
             @Override
             public void onClick(View v) {
                 textViewCityName.setVisibility(View.GONE);
+                recyclerViewWeather.setVisibility(View.GONE);
             }
         });
 
@@ -198,6 +200,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
             public boolean onClose() {
                 cityName = preferences.getString("cityName", "Краснодар");
                 textViewCityName.setVisibility(View.VISIBLE);
+                recyclerViewWeather.setVisibility(View.VISIBLE);
                 return false;
             }
         });
@@ -254,10 +257,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         double visibility = weatherAdapter.getWeatherLists().get(position).getVisibility();
         if(windSpeedUnit.equals("м/с")){
             textViewWind.setText(Math.round(windSpeed) + " " + windSpeedUnit);
-            textViewVisibility.setText(Math.round(visibility) + " м/с");
+            textViewVisibility.setText(Math.round(visibility) + " м");
         }else if(windSpeedUnit.equals("миль/ч")){
             textViewWind.setText((Math.round(windSpeed * 22.369362)) / 10.0 + " " + windSpeedUnit);
-            textViewVisibility.setText((visibility * 0.00062) + " миль");
+            textViewVisibility.setText((Math.round(visibility * 0.00062)) + " миль");
         }
         Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getIcon(), 4))
                 .into(imageViewCurrentWeatherIcon);
@@ -286,6 +289,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         textViewCityName.setText(cityName + " "
                 + "(" + weatherAdapter.getWeather5days().getCity().getCountry() + ")");
         textViewCityName.setVisibility(View.VISIBLE);
+        recyclerViewWeather.setVisibility(View.VISIBLE);
     }
 
     @Override

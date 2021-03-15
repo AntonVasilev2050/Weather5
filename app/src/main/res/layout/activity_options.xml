@@ -214,5 +214,4 @@
         app:layout_constraintTop_toTopOf="@+id/textViewColors"
         app:srcCompat="@android:drawable/arrow_down_float" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

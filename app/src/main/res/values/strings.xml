@@ -2,15 +2,13 @@
     <string name="app_name">Weather 5 days</string>
     <string name="choose_location">Выберите локацию</string>
     <string name="choose_current_location_icon">Иконка выбора текущей локации</string>
-
     <string name="menu_item_about">О программе</string>
     <string name="menu_item_options">Настройки</string>
     <string name="menu_item_weather">Погода</string>
     <string name="precipitation_label">Осадки:</string>
     <string name="humidity_label">Влажность:</string>
-    <string name="current_weater_icon">Иконка погоды</string>
+    <string name="current_weather_icon">Иконка погоды</string>
     <string name="pressure_label">Давление:</string>
-    <string name="visibility_label">Видимость:</string>
     <string name="o">o</string>
     <string name="pressure">давление</string>
     <string name="_25">25</string>
@@ -28,9 +26,13 @@
     <string name="no_location_detected">Не могу получить координаты. Убедитесь, что геолокация разрешена в настройках.</string>
     <string name="permission_rationale">Разрешение на геолокацию необходимо для базовой функциональности.</string>
     <string name="permission_denied_explanation">Разрешения небыли предоставлены</string>
-    <string name="settings">Установки</string>
     <string name="enter_location">Введите локацию</string>
     <string name="location_error_notice">Ошибка получения данных\nУточните локацию</string>
     <string name="weather_icon_small_description">Маленькая иконка погоды</string>
-    <string name="visibilility_label">Видимость:</string>
+    <string name="visibility_label">Видимость:</string>
+    <string name="weather">Погода</string>
+    <string name="add_location">+ локация</string>
+    <string name="information">Информация</string>
+    <string name="copyright_avv_soft_2021">Copyright AVV-soft. 2021</string>
+    <string name="settings">Установки</string>
 </resources>

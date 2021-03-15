@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.weather5days.screens.options.OptionsActivity;
 import com.example.weather5days.R;
 import com.example.weather5days.screens.weather.WeatherActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AboutActivity extends AppCompatActivity {
 
