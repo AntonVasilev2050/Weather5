@@ -16,7 +16,6 @@
     <color name="green5">#007536</color>
 
     <color name="orange1">#FFBF73</color>
-
     <color name="orange2">#FFA840</color>
     <color name="orange3">#FF8B00</color>
     <color name="orange4">#BF7E30</color>
@@ -34,4 +33,10 @@
     <color name="red3">#FF3900</color>
     <color name="red4">#BF5030</color>
     <color name="red5">#A62500</color>
+
+    <color name="grey1">#ABABAB</color>
+    <color name="grey2">#9E9E9E</color>
+    <color name="grey3">#6B6B6B</color>
+    <color name="grey4">#595959</color>
+    <color name="grey5">#454545</color>
 </resources>

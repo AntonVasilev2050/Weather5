@@ -96,6 +96,14 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
                 firstColor = getResources().getColor(R.color.red4);
                 secondColor = getResources().getColor(R.color.red5);
                 break;
+            case R.id.cardView9:
+                firstColor = getResources().getColor(R.color.grey1);
+                secondColor = getResources().getColor(R.color.grey2);
+                break;
+            case R.id.cardView10:
+                firstColor = getResources().getColor(R.color.grey4);
+                secondColor = getResources().getColor(R.color.grey5);
+                break;
         }
         textViewChooseBackgroundLabel.setBackgroundColor(firstColor);
         preferences.edit().putInt("firstColor", firstColor).apply();

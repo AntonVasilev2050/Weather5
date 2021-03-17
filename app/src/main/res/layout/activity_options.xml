@@ -32,7 +32,7 @@
         android:background="@color/blue5"
         android:padding="16dp"
         android:paddingStart="8dp"
-        android:text="Единицы измерения"
+        android:text="@string/units"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:onClick="onClickImageViewExtendUnits"
@@ -51,7 +51,7 @@
         android:background="@color/blue5"
         android:paddingStart="8dp"
         android:paddingTop="4dp"
-        android:text="Температура"
+        android:text="@string/temperature"
         android:textColor="@color/white"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/textViewWindUnitLabel"
@@ -67,7 +67,7 @@
         android:background="@color/blue5"
         android:paddingStart="8dp"
         android:paddingTop="4dp"
-        android:text="Скорость ветра"
+        android:text="@string/wind_speed"
         android:textColor="@color/white"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/textViewPressureUnitLabel"
@@ -84,7 +84,7 @@
         android:background="@color/blue5"
         android:paddingStart="8dp"
         android:paddingTop="4dp"
-        android:text="Давление"
+        android:text="@string/pressure_label"
         android:textColor="@color/white"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickTempUnitChange"
-            android:text="Цельсий"
+            android:text="@string/celsius"
             android:textColor="@color/white" />
 
         <RadioButton
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickTempUnitChange"
-            android:text="Фаренгейт"
+            android:text="@string/fahrenheit"
             android:textColor="@color/white" />
     </RadioGroup>
 
@@ -131,7 +131,7 @@
             android:id="@+id/radioButtonMeterPerSec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="м/с"
+            android:text="@string/m_per_second"
             android:textColor="@color/white"
             android:onClick="onClickWindUnitChange" />
 
@@ -139,7 +139,7 @@
             android:id="@+id/radioButtonMilePerHour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="миль/ч"
+            android:text="@string/miles_per_hour"
             android:textColor="@color/white"
             android:onClick="onClickWindUnitChange" />
     </RadioGroup>
@@ -156,7 +156,7 @@
         android:onClick="onClickColors"
         android:padding="16dp"
         android:paddingStart="8dp"
-        android:text="Цвета"
+        android:text="@string/colors"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -180,7 +180,7 @@
             android:id="@+id/radioButtonMmHg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="мм рт.ст."
+            android:text="@string/mm_hg"
             android:textColor="@color/white"
             android:onClick="onClickPressureUnitChange" />
 
@@ -188,7 +188,7 @@
             android:id="@+id/radioButtonMBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="мБар"
+            android:text="@string/mBar"
             android:textColor="@color/white"
             android:onClick="onClickPressureUnitChange" />
     </RadioGroup>

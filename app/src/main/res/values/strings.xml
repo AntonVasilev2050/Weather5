@@ -35,4 +35,14 @@
     <string name="information">Информация</string>
     <string name="copyright_avv_soft_2021">Copyright AVV-soft. 2021</string>
     <string name="settings">Установки</string>
+    <string name="units">Единицы измерения</string>
+    <string name="temperature">Температура</string>
+    <string name="wind_speed">Скорость ветра</string>
+    <string name="celsius">Цельсий</string>
+    <string name="fahrenheit">Фаренгейт</string>
+    <string name="m_per_second">м/с</string>
+    <string name="miles_per_hour">миль/ч</string>
+    <string name="colors">Цвета</string>
+    <string name="mm_hg">мм рт.ст.</string>
+    <string name="mBar">мБар</string>
 </resources>
