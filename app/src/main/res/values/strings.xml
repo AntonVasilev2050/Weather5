@@ -45,4 +45,6 @@
     <string name="colors">Цвета</string>
     <string name="mm_hg">мм рт.ст.</string>
     <string name="mBar">мБар</string>
+    <string name="weather_now_icon">Иконка погоды сейчас</string>
+    <string name="weather_now">Погода сейчас</string>
 </resources>
