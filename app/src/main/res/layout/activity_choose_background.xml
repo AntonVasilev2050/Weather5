@@ -7,7 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/textViewChooseBackgroundLabel"
@@ -26,14 +26,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView1"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
+
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:onClick="onClickCardViewBlue1"
+            android:onClick="onClickCardView"
             app:cardBackgroundColor="@color/blue1"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
@@ -46,28 +48,29 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:onClick="onClickCardView"
             app:cardBackgroundColor="@color/blue4"
-            android:onClick="onClickCardViewBlue4"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toTopOf="@+id/cardView4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@id/cardView1"
-            app:layout_constraintTop_toTopOf="@+id/cardView1" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewChooseBackgroundLabel" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:onClick="onClickCardView"
             app:cardBackgroundColor="@color/green1"
-            android:onClick="onClickCardViewGreen1"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toTopOf="@+id/cardView5"
@@ -80,12 +83,12 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:onClick="onClickCardView"
             app:cardBackgroundColor="@color/green4"
-            android:onClick="onClickCardViewGreen4"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toTopOf="@+id/cardView6"
@@ -97,12 +100,12 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView5"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:onClick="onClickCardView"
             app:cardBackgroundColor="@color/orange1"
-            android:onClick="onClickCardViewOrange1"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toTopOf="@+id/cardView7"
@@ -114,12 +117,12 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView6"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:onClick="onClickCardView"
             app:cardBackgroundColor="@color/orange4"
-            android:onClick="onClickCardViewOrange4"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toTopOf="@+id/cardView8"
@@ -131,38 +134,71 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView7"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:onClick="onClickCardView"
             app:cardBackgroundColor="@color/red1"
-            android:onClick="onClickCardViewRed1"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/cardView8"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView5" />
 
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView8"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:onClick="onClickCardView"
             app:cardBackgroundColor="@color/red4"
-            android:onClick="onClickCardViewRed4"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cardView7"
+            app:layout_constraintTop_toBottomOf="@+id/cardView6" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView9"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="onClickCardView"
+            app:cardBackgroundColor="@color/grey1"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cardView10"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView7" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView10"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="onClickCardView"
+            app:cardBackgroundColor="@color/grey4"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/cardView7"
-            app:layout_constraintTop_toBottomOf="@+id/cardView6" />
+            app:layout_constraintStart_toEndOf="@id/cardView9"
+            app:layout_constraintTop_toBottomOf="@id/cardView8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

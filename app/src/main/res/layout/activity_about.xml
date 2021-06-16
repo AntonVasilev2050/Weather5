@@ -10,9 +10,10 @@
         android:id="@+id/textViewCopyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Copyright AVV-soft. 2021"
+        android:text="@string/copyright_avv_soft_2021"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

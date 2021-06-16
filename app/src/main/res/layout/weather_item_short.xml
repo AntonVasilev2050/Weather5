@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardViewWeatherItemShort"
     android:layout_width="wrap_content"
-    android:layout_height="230dp"
+    android:layout_height="140dp"
     android:layout_margin="4dp"
-    android:background="@color/blue2"
     app:cardBackgroundColor="@color/blue2"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="6dp">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,12 +24,12 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="DATETIME"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="DATETIME" />
 
         <TextView
             android:id="@+id/textViewDescription"
@@ -37,20 +38,21 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
-            android:inputType="textMultiLine"
-            android:text="Description"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTemperature" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewTemperature"
+            tools:text="Description" />
 
         <ImageView
             android:id="@+id/imageViewWeatherIcon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/weather_icon_small_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewDateTime"
             app:srcCompat="@android:drawable/gallery_thumb" />
@@ -59,14 +61,13 @@
             android:id="@+id/textViewTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="25"
+            android:layout_marginEnd="16dp"
             android:textColor="@color/white"
             android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherIcon" />
+            app:layout_constraintStart_toEndOf="@+id/imageViewWeatherIcon"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDateTime"
+            tools:text="25" />
 
         <TextView
             android:id="@+id/textViewTemperatureUnit"
@@ -74,10 +75,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:text="o"
             android:textColor="@color/white"
             app:layout_constraintStart_toEndOf="@+id/textViewTemperature"
-            app:layout_constraintTop_toTopOf="@+id/textViewTemperature" />
+            app:layout_constraintTop_toTopOf="@+id/textViewTemperature"
+            tools:text="o" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

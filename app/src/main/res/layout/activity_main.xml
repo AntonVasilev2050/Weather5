@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,80 +9,99 @@
     android:background="@color/blue1"
     tools:context=".screens.weather.WeatherActivity">
 
-
     <TextView
         android:id="@+id/textViewCityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/choose_location"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@android:string/unknownName" />
+
+    <SearchView
+        android:id="@+id/searchViewLocation"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:animateLayoutChanges="true"
+        android:inputType="text"
+        android:queryHint="@string/enter_location"
+        app:layout_constraintBottom_toTopOf="@+id/viewLine1"
+        app:layout_constraintEnd_toStartOf="@+id/textViewCityName"
+        app:layout_constraintStart_toEndOf="@+id/imageViewLocation"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/viewLine1"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@color/blue2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCityName" />
+        app:layout_constraintTop_toBottomOf="@+id/searchViewLocation" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewWeather"
+
+    <View
+        android:id="@+id/viewLine2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/blue2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherNow" />
 
     <ImageView
         android:id="@+id/imageViewLocation"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/choose_current_location_icon"
         android:onClick="onClickImageViewLocation"
         app:layout_constraintBottom_toTopOf="@+id/viewLine1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
     <TextView
         android:id="@+id/textViewLocalTimeDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/localtimedate"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewWeatherForecastLabel" />
 
     <TextView
         android:id="@+id/textViewCurrentTemperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="64dp"
         android:text="@string/_10"
         android:textColor="@color/white"
-        android:textSize="60sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLocalTimeDate" />
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="@+id/textViewFeelsLikeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCurrentWeatherIcon" />
 
     <TextView
         android:id="@+id/textViewOLabel1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/o"
         android:textColor="@color/white"
@@ -101,57 +121,57 @@
 
     <ImageView
         android:id="@+id/imageViewCurrentWeatherIcon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="64dp"
         android:contentDescription="@string/detailed_weather_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewLine1"
+        app:layout_constraintStart_toStartOf="@+id/textViewFeelsLikeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription"
         app:srcCompat="@drawable/day_clear" />
 
     <TextView
         android:id="@+id/textViewCurrentWeatherDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/current_weather_description"
         android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentTemperature" />
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWeatherForecastLabel" />
 
     <TextView
         android:id="@+id/textViewFeelsLikeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginEnd="64dp"
         android:text="@string/feels_like_label"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentTemperature" />
 
     <TextView
         android:id="@+id/textViewFeelsLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
         android:text="@string/_10_velue"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewFeelsLikeLabel"
         app:layout_constraintStart_toEndOf="@+id/textViewFeelsLikeLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription" />
+        app:layout_constraintTop_toTopOf="@+id/textViewFeelsLikeLabel" />
 
     <TextView
         android:id="@+id/textViewOLabel2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
         android:text="@string/o"
         android:textColor="@color/white"
         android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/textViewFeelsLike"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription"
+        app:layout_constraintTop_toTopOf="@+id/textViewFeelsLike"
         tools:ignore="SmallSp" />
 
     <TextView
@@ -161,110 +181,403 @@
         android:layout_marginStart="1dp"
         android:text="@string/celsius_fahrenheit_unit"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewFeelsLike"
         app:layout_constraintStart_toEndOf="@+id/textViewOLabel2"
-        app:layout_constraintTop_toTopOf="@+id/textViewOLabel2" />
+        app:layout_constraintTop_toTopOf="@+id/textViewFeelsLike" />
 
     <TextView
         android:id="@+id/textViewCurrentPrecipitationLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
         android:text="@string/precipitation_label"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFeelsLikeLabel" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPrecipitation"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPrecipitation" />
 
     <TextView
         android:id="@+id/textViewCurrentPrecipitation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="TextView"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewCurrentPrecipitationLabel"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentPrecipitationLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFeelsLikeLabel" />
+        app:layout_constraintTop_toTopOf="@+id/textViewCurrentPrecipitationLabel"
+        tools:text="TextView" />
 
     <TextView
         android:id="@+id/textViewCurrentPressureLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
         android:text="@string/pressure_label"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitationLabel" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPressure"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPressure"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPressure" />
 
     <TextView
         android:id="@+id/textViewCurrentPressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="TextView"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewCurrentPressureLabel"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentPressureLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPrecipitation" />
+        app:layout_constraintTop_toTopOf="@+id/textViewCurrentPressureLabel"
+        tools:text="TextView" />
 
     <TextView
         android:id="@+id/textViewCurrentHumidityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
         android:text="@string/humidity_label"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPressureLabel" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewHumidity"
+        app:layout_constraintStart_toEndOf="@+id/imageViewHumidity"
+        app:layout_constraintTop_toTopOf="@+id/imageViewHumidity" />
 
     <TextView
         android:id="@+id/textViewCurrentHumidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="TextView"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewCurrentHumidityLabel"
         app:layout_constraintStart_toEndOf="@+id/textViewCurrentHumidityLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentPressure" />
-
-    <TextView
-        android:id="@+id/textViewWeatherForecastLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/blue2"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:padding="8dp"
-        android:text="@string/five_days_weather_forecast"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewWeather"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textViewCurrentHumidityLabel"
+        tools:text="TextView" />
 
     <TextView
         android:id="@+id/textViewWindLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/wind_label"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentHumidityLabel" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewWind"
+        app:layout_constraintStart_toEndOf="@+id/imageViewWind"
+        app:layout_constraintTop_toTopOf="@+id/imageViewWind" />
 
     <TextView
         android:id="@+id/textViewWind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="TextView"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewWindLabel"
         app:layout_constraintStart_toEndOf="@+id/textViewWindLabel"
-        app:layout_constraintTop_toTopOf="@+id/textViewWindLabel" />
+        app:layout_constraintTop_toTopOf="@+id/textViewWindLabel"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/textViewWeatherForecastLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/blue2"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:padding="8dp"
+        android:text="@string/five_days_weather_forecast"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewWeather"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewWind"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewHumidity"
+        app:srcCompat="@drawable/weather_wind_icon_161268"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageViewPrecipitation"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLocalTimeDate"
+        app:srcCompat="@drawable/keepdry_weather_rain_umbrella_4568"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageViewHumidity"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPressure"
+        app:srcCompat="@drawable/raindrops54656"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageViewPressure"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPrecipitation"
+        app:srcCompat="@drawable/pressure_meter_icon_177217"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageViewVisibility"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWind"
+        app:srcCompat="@drawable/visibility_118485"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textViewVisibilityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/visibility_label"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewVisibility"
+        app:layout_constraintStart_toEndOf="@+id/imageViewVisibility"
+        app:layout_constraintTop_toTopOf="@+id/imageViewVisibility" />
+
+    <TextView
+        android:id="@+id/textViewVisibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewVisibilityLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewVisibilityLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewVisibilityLabel"
+        tools:text="TextView" />
+
+    <ImageView
+        android:id="@+id/imageViewWeatherNow"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNow"
+        app:srcCompat="@drawable/day_clear"
+        android:contentDescription="@string/weather_now_icon" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="-10"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewWeatherNow"
+        app:layout_constraintStart_toEndOf="@+id/imageViewWeatherNow"
+        app:layout_constraintTop_toTopOf="@+id/imageViewWeatherNow" />
+
+    <TextView
+        android:id="@+id/textViewNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/weather_now"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewNowPlus6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
+
+    <TextView
+        android:id="@+id/textViewNowPlus6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        tools:text="Счас+6"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewNowPlus12"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewNow"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
+
+    <TextView
+        android:id="@+id/textViewNowPlus12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        tools:text="Счас+12"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewNowPlus18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewNowPlus6"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
+
+    <TextView
+        android:id="@+id/textViewNowPlus18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        tools:text="Счас+18"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewNowPlus12"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
+
+    <TextView
+        android:id="@+id/textViewOLabel3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/o"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperatureNow"
+        app:layout_constraintTop_toTopOf="@+id/textViewTemperatureNow" />
+
+    <TextView
+        android:id="@+id/textViewCorF3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        tools:text="C"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewOLabel3"
+        app:layout_constraintTop_toTopOf="@+id/textViewOLabel3" />
+
+    <ImageView
+        android:id="@+id/imageViewWeatherPlus6"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewNowPlus6"
+        app:layout_constraintStart_toStartOf="@+id/textViewNowPlus6"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNowPlus6"
+        app:srcCompat="@drawable/day_clear"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageViewWeatherPlus12"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewNowPlus12"
+        app:layout_constraintStart_toStartOf="@+id/textViewNowPlus12"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNowPlus12"
+        app:srcCompat="@drawable/day_clear"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageViewWeatherPlus18"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewNowPlus18"
+        app:layout_constraintStart_toStartOf="@+id/textViewNowPlus18"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNowPlus18"
+        app:srcCompat="@drawable/day_clear"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textViewTemperature6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="+10"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewWeatherPlus6"
+        app:layout_constraintStart_toStartOf="@+id/imageViewWeatherPlus6"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherPlus6" />
+
+    <TextView
+        android:id="@+id/textViewTemperature12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="+10"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewWeatherPlus12"
+        app:layout_constraintStart_toStartOf="@+id/imageViewWeatherPlus12"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherPlus12" />
+
+    <TextView
+        android:id="@+id/textViewTemperature18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="+15"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewWeatherPlus18"
+        app:layout_constraintStart_toStartOf="@+id/imageViewWeatherPlus18"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherPlus18" />
+
+    <TextView
+        android:id="@+id/textViewOLabel4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="@string/o"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperature6"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherPlus6"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/textViewOLabel5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="@string/o"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperature12"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherPlus12"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/textViewOLabel6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="@string/o"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperature18"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWeatherPlus18"
+        tools:ignore="SmallSp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
