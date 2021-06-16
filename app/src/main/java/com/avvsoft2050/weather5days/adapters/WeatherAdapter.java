@@ -15,7 +15,6 @@ import com.avvsoft2050.weather5days.screens.weather.WeatherActivity;
 import com.avvsoft2050.weather5days.R;
 import com.avvsoft2050.weather5days.pojo.Weather5days;
 import com.avvsoft2050.weather5days.pojo.WeatherList;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +102,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
             textViewTemperature = itemView.findViewById(R.id.textViewTemperature);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
             imageViewWeatherIcon = itemView.findViewById(R.id.imageViewWeatherIcon);
-            cardViewWeatherItemShort = itemView.findViewById(R.id.cardViewWeatherItemShort);
+            cardViewWeatherItemShort = itemView.findViewById(R.id.cardViewWeatherItem);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
