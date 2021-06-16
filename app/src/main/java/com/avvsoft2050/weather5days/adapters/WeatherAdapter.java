@@ -34,6 +34,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     public List<WeatherList> getWeatherLists() {
         return weatherLists;
     }
+
     public void setWeatherLists(List<WeatherList> weatherLists) {
         this.weatherLists = weatherLists;
         notifyDataSetChanged();
@@ -42,12 +43,14 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     public Weather5days getWeather5days() {
         return weather5days;
     }
+
     public void setWeather5days(Weather5days weather5days) {
         this.weather5days = weather5days;
     }
 
-    public interface OnWeatherClickListener{
+    public interface OnWeatherClickListener {
         void onWeatherClick(int position);
+
         void onWeatherLongClick(int position);
     }
 
@@ -68,9 +71,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         holder.textViewDateTime.setText(Converters.dateTime(weatherList.getDtTxt(), "E  HH:mm"));
         double temperatureC = weatherList.getMain().getTemp();
         double temperatureF = Converters.celsiusToFahrenheit(temperatureC);
-        if(WeatherActivity.getCelsiusOrFahrenheit().equals("C")){
+        if (WeatherActivity.getCelsiusOrFahrenheit().equals("C")) {
             holder.textViewTemperature.setText("" + Math.round(temperatureC));
-        }else {
+        } else {
             holder.textViewTemperature.setText("" + Math.round(temperatureF));
         }
         holder.textViewDescription.setText(weatherList.getWeather().get(0).getDescription());
@@ -106,7 +109,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(onWeatherClickListener != null){
+                    if (onWeatherClickListener != null) {
                         onWeatherClickListener.onWeatherClick(getAdapterPosition());
                     }
                 }
@@ -114,7 +117,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    if(onWeatherClickListener != null){
+                    if (onWeatherClickListener != null) {
                         onWeatherClickListener.onWeatherLongClick(getAdapterPosition());
                     }
                     return true;
