@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avvsoft2050.weather5days.Converters;
@@ -23,11 +24,11 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     private WeatherAdapter.OnWeatherClickListener onWeatherClickListener;
     private int firstColor;
     private int secondColor;
-    private static String celsiusOrFahrenheit;
-    private static String windSpeedUnit;
-    private static String pressureUnit;
+    private static String celsiusOrFahrenheit = "C";
+    private static String windSpeedUnit = "м/с";
+    private static String pressureUnit = "мм рт.ст.";
 
-    public WeatherForecastAdapter(Weather5days weather5days, int secondColor) {
+    public WeatherForecastAdapter(Weather5days weather5days, int secondColor, String celsiusOrFahrenheit, String windSpeedUnit, String pressureUnit) {
         this.weather5days = weather5days;
         this.secondColor = secondColor;
         weatherLists = new ArrayList<WeatherList>();
@@ -111,12 +112,13 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
             holder.textViewWind.setText((Math.round(windSpeed * 22.369362)) / 10.0 + " " + windSpeedUnit);
             holder.textViewVisibility.setText((Math.round(visibility * 0.00062)) + " миль");
         }
+        holder.cardViewWeatherItem.setCardBackgroundColor(secondColor);
     }
 
     @Override
     public int getItemCount() {
-//        return weather5days.getCnt();
-        return weatherLists.size();
+        return weather5days.getCnt();
+//        return weatherLists.size();
     }
 
     class WeatherViewHolder extends RecyclerView.ViewHolder{
@@ -133,7 +135,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         private TextView textViewCurrentHumidity;
         private TextView textViewWind;
         private TextView textViewVisibility;
-        private TextView textViewWeatherForecastLabel;
+        private CardView cardViewWeatherItem;
 
         public WeatherViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -149,7 +151,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
             textViewCurrentHumidity = itemView.findViewById(R.id.textViewCurrentHumidity);
             textViewWind = itemView.findViewById(R.id.textViewWind);
             textViewVisibility = itemView.findViewById(R.id.textViewVisibility);
-            textViewWeatherForecastLabel = itemView.findViewById(R.id.textViewWeatherForecastLabel);
+            cardViewWeatherItem = itemView.findViewById(R.id.cardViewWeatherItem);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

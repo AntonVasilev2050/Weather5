@@ -5,9 +5,8 @@
     android:id="@+id/cardViewWeatherItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
     app:cardBackgroundColor="@color/blue2"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true">
 
@@ -21,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:text="@string/localtimedate"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -35,14 +35,14 @@
             android:text="@string/current_weather_description"
             android:textColor="@color/white"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/textViewLocalTimeDate"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/textViewCurrentTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="52dp"
             android:text="@string/_10"
             android:textColor="@color/white"
             android:textSize="48sp"
@@ -74,7 +74,7 @@
             android:id="@+id/imageViewCurrentWeatherIcon"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="52dp"
             android:contentDescription="@string/detailed_weather_icon"
             app:layout_constraintStart_toStartOf="@+id/textViewFeelsLikeLabel"
             app:layout_constraintTop_toBottomOf="@+id/textViewCurrentWeatherDescription"
@@ -87,8 +87,8 @@
             android:layout_marginEnd="64dp"
             android:text="@string/feels_like_label"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCurrentTemperature" />
+            app:layout_constraintBottom_toBottomOf="@+id/textViewVisibility"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/textViewFeelsLike"

@@ -12,9 +12,9 @@ public class WeatherList {
     @SerializedName("main")
     @Expose
     private Main main;
-    @SerializedName("weather")
-    @Expose
-    private List<Weather> weather = null;
+//    @SerializedName("weather")
+//    @Expose
+    private List<Weather> weather;
     @SerializedName("clouds")
     @Expose
     private Clouds clouds;
