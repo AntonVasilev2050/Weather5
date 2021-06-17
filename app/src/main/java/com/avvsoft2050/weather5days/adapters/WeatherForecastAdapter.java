@@ -20,6 +20,7 @@ import com.avvsoft2050.weather5days.pojo.WeatherList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecastAdapter.WeatherViewHolder> {
     private List<WeatherList> weatherLists;
@@ -91,13 +92,13 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         if(WeatherForecastAdapter.celsiusOrFahrenheit.equals("C")){
             holder.textViewCorF.setText("C");
             holder.textViewCorF2.setText("C");
-            holder.textViewCurrentTemperature.setText("" + Math.round(temperatureC));
-            holder.textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeC));
+            holder.textViewCurrentTemperature.setText(String.format(Locale.ROOT,"%d", Math.round(temperatureC)));
+            holder.textViewFeelsLike.setText(String.format(Locale.ROOT, "%d", Math.round(temperatureFeelsLikeC)));
         }else if(celsiusOrFahrenheit.equals("F")){
             holder.textViewCorF.setText("F");
             holder.textViewCorF2.setText("F");
-            holder.textViewCurrentTemperature.setText("" + Math.round(temperatureF));
-            holder.textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeF));
+            holder.textViewCurrentTemperature.setText(String.format(Locale.ROOT,"%d", Math.round(temperatureF)));
+            holder.textViewFeelsLike.setText(String.format(Locale.ROOT, "%d", Math.round(temperatureFeelsLikeC)));
         }
         try {
             holder.textViewCurrentPrecipitation.setText((int) (weatherList.getPop() * 100) + "% ("
