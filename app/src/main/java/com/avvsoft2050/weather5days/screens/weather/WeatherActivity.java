@@ -168,7 +168,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        weatherAdapter = new WeatherForecastAdapter(new Weather5days(), secondColor, celsiusOrFahrenheit, windSpeedUnit, pressureUnit);
+        weatherAdapter = new WeatherForecastAdapter(this, new Weather5days());
         recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewWeather.setAdapter(weatherAdapter);
         presenter.getWeatherCity();

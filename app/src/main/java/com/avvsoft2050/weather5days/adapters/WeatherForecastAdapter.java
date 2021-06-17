@@ -1,5 +1,8 @@
 package com.avvsoft2050.weather5days.adapters;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +25,25 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     private List<WeatherList> weatherLists;
     private Weather5days weather5days;
     private WeatherAdapter.OnWeatherClickListener onWeatherClickListener;
-    private int firstColor;
-    private int secondColor;
+    private static int firstColor;
+    private static int secondColor;
     private static String celsiusOrFahrenheit = "C";
     private static String windSpeedUnit = "м/с";
     private static String pressureUnit = "мм рт.ст.";
+    SharedPreferences preferences;
 
-    public WeatherForecastAdapter(Weather5days weather5days, int secondColor, String celsiusOrFahrenheit, String windSpeedUnit, String pressureUnit) {
+
+    public WeatherForecastAdapter(Context context, Weather5days weather5days) {
         this.weather5days = weather5days;
         this.secondColor = secondColor;
         weatherLists = new ArrayList<WeatherList>();
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        WeatherForecastAdapter.celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
+        WeatherForecastAdapter.windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
+        WeatherForecastAdapter.pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
+        WeatherForecastAdapter.firstColor = preferences.getInt("firstColor", context.getResources().getColor(R.color.blue4));
+        WeatherForecastAdapter.secondColor = preferences.getInt("secondColor", context.getResources().getColor(R.color.blue5));
     }
 
     public List<WeatherList> getWeatherLists() {
@@ -70,6 +82,8 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     @Override
     public void onBindViewHolder(@NonNull WeatherForecastAdapter.WeatherViewHolder holder, int position) {
         WeatherList weatherList = weather5days.getWeatherList().get(position);
+
+
         holder.textViewLocalTimeDate.setText(Converters.dateTime(weatherList.getDtTxt(), "dd.MM EE HH:mm"));
         holder.textViewCurrentWeatherDescription.setText(weatherList.getWeather().get(0).getDescription());
         int iconId = Converters.getIconId(weatherList.getWeather().get(0).getIcon());
@@ -78,10 +92,13 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         double temperatureF = Converters.celsiusToFahrenheit(temperatureC);
         double temperatureFeelsLikeC = weatherList.getMain().getFeelsLike();
         double temperatureFeelsLikeF = Converters.celsiusToFahrenheit(temperatureFeelsLikeC);
-        if(celsiusOrFahrenheit.equals("C")){
+
+        if(WeatherForecastAdapter.celsiusOrFahrenheit.equals("C")){
+            holder.textViewCorF.setText("C");
             holder.textViewCurrentTemperature.setText("" + Math.round(temperatureC));
             holder.textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeC));
         }else if(celsiusOrFahrenheit.equals("F")){
+            holder.textViewCorF.setText("F");
             holder.textViewCurrentTemperature.setText("" + Math.round(temperatureF));
             holder.textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeF));
         }
