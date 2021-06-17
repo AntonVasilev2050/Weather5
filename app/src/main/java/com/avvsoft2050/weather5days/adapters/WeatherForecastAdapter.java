@@ -90,10 +90,12 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         double temperatureFeelsLikeF = Converters.celsiusToFahrenheit(temperatureFeelsLikeC);
         if(WeatherForecastAdapter.celsiusOrFahrenheit.equals("C")){
             holder.textViewCorF.setText("C");
+            holder.textViewCorF2.setText("C");
             holder.textViewCurrentTemperature.setText("" + Math.round(temperatureC));
             holder.textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeC));
         }else if(celsiusOrFahrenheit.equals("F")){
             holder.textViewCorF.setText("F");
+            holder.textViewCorF2.setText("F");
             holder.textViewCurrentTemperature.setText("" + Math.round(temperatureF));
             holder.textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeF));
         }
