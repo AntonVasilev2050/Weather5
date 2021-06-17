@@ -92,40 +92,50 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         if(WeatherForecastAdapter.celsiusOrFahrenheit.equals("C")){
             holder.textViewCorF.setText("C");
             holder.textViewCorF2.setText("C");
-            holder.textViewCurrentTemperature.setText(String.format(Locale.ROOT,"%d", Math.round(temperatureC)));
-            holder.textViewFeelsLike.setText(String.format(Locale.ROOT, "%d", Math.round(temperatureFeelsLikeC)));
+            holder.textViewCurrentTemperature.setText(String.format(Locale.ROOT,"%3d", Math.round(temperatureC)));
+            holder.textViewFeelsLike.setText(String.format(Locale.ROOT, "%3d", Math.round(temperatureFeelsLikeC)));
         }else if(celsiusOrFahrenheit.equals("F")){
             holder.textViewCorF.setText("F");
             holder.textViewCorF2.setText("F");
-            holder.textViewCurrentTemperature.setText(String.format(Locale.ROOT,"%d", Math.round(temperatureF)));
-            holder.textViewFeelsLike.setText(String.format(Locale.ROOT, "%d", Math.round(temperatureFeelsLikeC)));
+            holder.textViewCurrentTemperature.setText(String.format(Locale.ROOT,"%3d", Math.round(temperatureF)));
+            holder.textViewFeelsLike.setText(String.format(Locale.ROOT, "%3d", Math.round(temperatureFeelsLikeF)));
         }
         try {
-            holder.textViewCurrentPrecipitation.setText((int) (weatherList.getPop() * 100) + "% ("
-                    + (Double) weatherList.getSnow().get3h() + "mm)");
+            String snow = String.format(Locale.ROOT, "%d%% (%s mm)", (int) (weatherList.getPop() * 100), ((Double) weatherList.getSnow().get3h()));
+            holder.textViewCurrentPrecipitation.setText(snow);
         } catch (NullPointerException eSnow) {
             try {
-                holder.textViewCurrentPrecipitation.setText((int) (weatherList.getPop() * 100) + "% ("
-                        + (Double) weatherList.getRain().get3h() + "mm)");
+                String rain = String.format(Locale.ROOT, "%d%% (%s mm)", (int) (weatherList.getPop() * 100), ((Double) weatherList.getRain().get3h()));
+//                holder.textViewCurrentPrecipitation.setText((int) (weatherList.getPop() * 100) + "% (" + (Double) weatherList.getRain().get3h() + "mm)");
+                holder.textViewCurrentPrecipitation.setText(rain);
             } catch (NullPointerException eRain) {
-                holder.textViewCurrentPrecipitation.setText((int) (weatherList.getPop() * 100) + "% (0mm)");
+                String noRainNoSnow = String.format(Locale.ROOT, "%d%% (0mm)", (int)(weatherList.getPop() * 100));
+//                holder.textViewCurrentPrecipitation.setText((int) (weatherList.getPop() * 100) + "% (0mm)");
+                holder.textViewCurrentPrecipitation.setText(noRainNoSnow);
             }
         }
         int pressure = weatherList.getMain().getPressure();
         if(pressureUnit.equals("мм рт.ст.")){
-            holder.textViewCurrentPressure.setText(Math.round(pressure * 0.750064) + " " + pressureUnit);
+            String pressureMM = String.format(Locale.ROOT, "%d мм рт.ст.", Math.round(pressure * 0.750064));
+            holder.textViewCurrentPressure.setText(pressureMM);
         }else if(pressureUnit.equals("мБар")){
-            holder.textViewCurrentPressure.setText(Math.round(pressure) + " " + pressureUnit);
+            String pressureBar = String.format(Locale.ROOT, "%d мБар", Math.round(pressure));
+            holder.textViewCurrentPressure.setText(pressureBar);
         }
-        holder.textViewCurrentHumidity.setText(weatherList.getMain().getHumidity() + "%");
+        String humidity = String.format(Locale.ROOT, "%d%%", weatherList.getMain().getHumidity());
+        holder.textViewCurrentHumidity.setText(humidity);
         double windSpeed = (Math.round(weatherList.getWind().getSpeed()) * 10.0) / 10.0;
         double visibility = weatherList.getVisibility();
         if(windSpeedUnit.equals("м/с")){
-            holder.textViewWind.setText(Math.round(windSpeed) + " " + windSpeedUnit);
-            holder.textViewVisibility.setText(Math.round(visibility) + " м");
+            String windSpeedMperSec = String.format(Locale.ROOT, "%d м/с", Math.round(windSpeed));
+            holder.textViewWind.setText(windSpeedMperSec);
+            String visibilityM = String.format(Locale.ROOT, "%d м", Math.round(visibility));
+            holder.textViewVisibility.setText(visibilityM);
         }else if(windSpeedUnit.equals("миль/ч")){
-            holder.textViewWind.setText((Math.round(windSpeed * 22.369362)) / 10.0 + " " + windSpeedUnit);
-            holder.textViewVisibility.setText((Math.round(visibility * 0.00062)) + " миль");
+            String windSpeedMPH = String.format(Locale.ROOT, "%s миль/ч", (Math.round(windSpeed * 22.369362) / 10.0));
+            holder.textViewWind.setText(windSpeedMPH);
+            String visibilityMiles = String.format(Locale.ROOT, "%s миль", Math.round(visibility * 0.00062));
+            holder.textViewVisibility.setText(visibilityMiles);
         }
         holder.cardViewWeatherItem.setCardBackgroundColor(secondColor);
     }
@@ -138,19 +148,19 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
 
     class WeatherViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView textViewLocalTimeDate;
-        private TextView textViewCurrentWeatherDescription;
-        private ImageView imageViewCurrentWeatherIcon;
-        private TextView textViewCurrentTemperature;
-        private TextView textViewCorF;
-        private TextView textViewFeelsLike;
-        private TextView textViewCorF2;
-        private TextView textViewCurrentPrecipitation;
-        private TextView textViewCurrentPressure;
-        private TextView textViewCurrentHumidity;
-        private TextView textViewWind;
-        private TextView textViewVisibility;
-        private CardView cardViewWeatherItem;
+        private final TextView textViewLocalTimeDate;
+        private final TextView textViewCurrentWeatherDescription;
+        private final ImageView imageViewCurrentWeatherIcon;
+        private final TextView textViewCurrentTemperature;
+        private final TextView textViewCorF;
+        private final TextView textViewFeelsLike;
+        private final TextView textViewCorF2;
+        private final TextView textViewCurrentPrecipitation;
+        private final TextView textViewCurrentPressure;
+        private final TextView textViewCurrentHumidity;
+        private final TextView textViewWind;
+        private final TextView textViewVisibility;
+        private final CardView cardViewWeatherItem;
 
         public WeatherViewHolder(@NonNull View itemView) {
             super(itemView);
