@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.avvsoft2050.weather5days.BuildConfig;
 import com.avvsoft2050.weather5days.Converters;
 import com.avvsoft2050.weather5days.R;
-import com.avvsoft2050.weather5days.adapters.WeatherAdapter;
 import com.avvsoft2050.weather5days.adapters.WeatherForecastAdapter;
 import com.avvsoft2050.weather5days.pojo.Weather5days;
 import com.avvsoft2050.weather5days.screens.about.AboutActivity;
@@ -45,7 +44,7 @@ import java.time.LocalDateTime;
 import static com.avvsoft2050.weather5days.R.string.location_error_notice;
 
 
-public class WeatherActivity extends AppCompatActivity implements WeatherView{
+public class WeatherActivity extends AppCompatActivity implements WeatherView {
     private static double lat = 0.0;
     private static double lon = 0.0;
     private static String cityName;
@@ -53,8 +52,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private int firstColor;
     private int secondColor;
     private static String celsiusOrFahrenheit;
-    private static String windSpeedUnit;
-    private static String pressureUnit;
+//    private static String windSpeedUnit;
+//    private static String pressureUnit;
 
     public static String getCelsiusOrFahrenheit() {
         return celsiusOrFahrenheit;
@@ -86,7 +85,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private TextView textViewTemperature6;
     private TextView textViewTemperature12;
     private TextView textViewTemperature18;
-    private TextView  textViewCorF3;
+    private TextView textViewCorF3;
 
     private SearchView searchViewLocation;
     private WeatherPresenter presenter;
@@ -156,8 +155,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         cityName = preferences.getString("cityName", "Краснодар");
         celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
-        windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
-        pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
+//        windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
+//        pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
         firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue4));
         secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue5));
         presenter = new WeatherPresenter(this);
@@ -172,7 +171,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewWeather.setAdapter(weatherAdapter);
         presenter.getWeatherCity();
-        weatherAdapter.setOnWeatherClickListener(new WeatherAdapter.OnWeatherClickListener() {
+        weatherAdapter.setOnWeatherClickListener(new WeatherForecastAdapter.OnWeatherClickListener() {
             @Override
             public void onWeatherClick(int position) {
             }
@@ -218,7 +217,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     }
 
 
-    public void showWeatherNow(){
+    public void showWeatherNow() {
         int iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(0).getWeather().get(0).getIcon());
         imageViewWeatherNow.setImageResource(iconId);
         double temperatureC = weatherAdapter.getWeatherLists().get(0).getMain().getTemp();
@@ -229,13 +228,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         double temperatureF6 = Converters.celsiusToFahrenheit(temperatureC6);
         double temperatureF12 = Converters.celsiusToFahrenheit(temperatureC12);
         double temperatureF18 = Converters.celsiusToFahrenheit(temperatureC18);
-        if(celsiusOrFahrenheit.equals("C")){
+        if (celsiusOrFahrenheit.equals("C")) {
             textViewCorF3.setText("C");
             textViewTemperatureNow.setText("" + Math.round(temperatureC));
             textViewTemperature6.setText("" + Math.round(temperatureC6));
             textViewTemperature12.setText("" + Math.round(temperatureC12));
             textViewTemperature18.setText("" + Math.round(temperatureC18));
-        }else if(celsiusOrFahrenheit.equals("F")){
+        } else if (celsiusOrFahrenheit.equals("F")) {
             textViewCorF3.setText("F");
             textViewTemperatureNow.setText("" + Math.round(temperatureF));
             textViewTemperature6.setText("" + Math.round(temperatureF6));
@@ -257,11 +256,11 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
             textViewNowPlus6.setText("День");
             textViewNowPlus12.setText("Вечер");
             textViewNowPlus18.setText("Ночь");
-        }else if (now >= 12 && now < 18) {
+        } else if (now >= 12 && now < 18) {
             textViewNowPlus6.setText("Вечер");
             textViewNowPlus12.setText("Ночь");
             textViewNowPlus18.setText("Утро");
-        }else if (now >= 18 && now < 24) {
+        } else if (now >= 18 && now < 24) {
             textViewNowPlus6.setText("Ночь");
             textViewNowPlus12.setText("Утро");
             textViewNowPlus18.setText("День");
@@ -275,9 +274,9 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         super.onDestroy();
     }
 
-    public static String getBASE_WEATHER_ICON_URL() {
-        return BASE_WEATHER_ICON_URL;
-    }
+//    public static String getBASE_WEATHER_ICON_URL() {
+//        return BASE_WEATHER_ICON_URL;
+//    }
 
     @Override
     public void showData(Weather5days weather5days) {
@@ -301,20 +300,15 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     }
 
     public void onClickImageViewLocation(View view) {
-        getLastLocation();
-        presenter.getWeather();
-        searchViewLocation.clearFocus();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         if (!checkPermissions()) {
             requestPermissions();
         } else {
             getLastLocation();
+            presenter.getWeather();
+            searchViewLocation.clearFocus();
         }
     }
+
 
     @SuppressWarnings("MissingPermission")
     private void getLastLocation() {

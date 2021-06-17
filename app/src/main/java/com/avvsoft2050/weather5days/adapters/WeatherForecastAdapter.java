@@ -24,7 +24,7 @@ import java.util.List;
 public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecastAdapter.WeatherViewHolder> {
     private List<WeatherList> weatherLists;
     private Weather5days weather5days;
-    private WeatherAdapter.OnWeatherClickListener onWeatherClickListener;
+    private WeatherForecastAdapter.OnWeatherClickListener onWeatherClickListener;
     private static int firstColor;
     private static int secondColor;
     private static String celsiusOrFahrenheit = "C";
@@ -35,9 +35,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
 
     public WeatherForecastAdapter(Context context, Weather5days weather5days) {
         this.weather5days = weather5days;
-        this.secondColor = secondColor;
         weatherLists = new ArrayList<WeatherList>();
-
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         WeatherForecastAdapter.celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
         WeatherForecastAdapter.windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
@@ -66,7 +64,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         void onWeatherLongClick(int position);
     }
 
-    public void setOnWeatherClickListener(WeatherAdapter.OnWeatherClickListener onWeatherClickListener) {
+    public void setOnWeatherClickListener(WeatherForecastAdapter.OnWeatherClickListener onWeatherClickListener) {
         this.onWeatherClickListener = onWeatherClickListener;
     }
 
@@ -82,8 +80,6 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     @Override
     public void onBindViewHolder(@NonNull WeatherForecastAdapter.WeatherViewHolder holder, int position) {
         WeatherList weatherList = weather5days.getWeatherList().get(position);
-
-
         holder.textViewLocalTimeDate.setText(Converters.dateTime(weatherList.getDtTxt(), "dd.MM EE HH:mm"));
         holder.textViewCurrentWeatherDescription.setText(weatherList.getWeather().get(0).getDescription());
         int iconId = Converters.getIconId(weatherList.getWeather().get(0).getIcon());
@@ -92,7 +88,6 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         double temperatureF = Converters.celsiusToFahrenheit(temperatureC);
         double temperatureFeelsLikeC = weatherList.getMain().getFeelsLike();
         double temperatureFeelsLikeF = Converters.celsiusToFahrenheit(temperatureFeelsLikeC);
-
         if(WeatherForecastAdapter.celsiusOrFahrenheit.equals("C")){
             holder.textViewCorF.setText("C");
             holder.textViewCurrentTemperature.setText("" + Math.round(temperatureC));
