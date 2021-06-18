@@ -127,8 +127,8 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         double windSpeed = (Math.round(weatherList.getWind().getSpeed()) * 10.0) / 10.0;
         double visibility = weatherList.getVisibility();
         if(windSpeedUnit.equals("м/с")){
-            String windSpeedMperSec = String.format(Locale.ROOT, "%d м/с", Math.round(windSpeed));
-            holder.textViewWind.setText(windSpeedMperSec);
+            String windSpeedMilePerSec = String.format(Locale.ROOT, "%d м/с", Math.round(windSpeed));
+            holder.textViewWind.setText(windSpeedMilePerSec);
             String visibilityM = String.format(Locale.ROOT, "%d м", Math.round(visibility));
             holder.textViewVisibility.setText(visibilityM);
         }else if(windSpeedUnit.equals("миль/ч")){

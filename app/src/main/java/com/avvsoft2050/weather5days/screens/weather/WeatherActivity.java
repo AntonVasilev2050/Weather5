@@ -109,6 +109,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         switch (id) {
             case R.id.itemWeather:
                 Intent intentWeather = new Intent(this, WeatherActivity.class);
+                finish();
                 startActivity(intentWeather);
                 break;
             case R.id.itemOptions:
@@ -265,7 +266,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
             textViewNowPlus12.setText("Утро");
             textViewNowPlus18.setText("День");
         }
-
     }
 
     @Override
@@ -274,9 +274,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         super.onDestroy();
     }
 
-//    public static String getBASE_WEATHER_ICON_URL() {
-//        return BASE_WEATHER_ICON_URL;
-//    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent intentWeather = new Intent(this, WeatherActivity.class);
+        finish();
+        startActivity(intentWeather);
+    }
 
     @Override
     public void showData(Weather5days weather5days) {

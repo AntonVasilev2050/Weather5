@@ -1,16 +1,16 @@
 package com.avvsoft2050.weather5days.screens.about;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.avvsoft2050.weather5days.screens.options.OptionsActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.avvsoft2050.weather5days.R;
+import com.avvsoft2050.weather5days.screens.options.OptionsActivity;
 import com.avvsoft2050.weather5days.screens.weather.WeatherActivity;
 
 public class AboutActivity extends AppCompatActivity {
@@ -28,14 +28,17 @@ public class AboutActivity extends AppCompatActivity {
         switch (id){
             case R.id.itemWeather:
                 Intent intentWeather = new Intent(this, WeatherActivity.class);
+                finish();
                 startActivity(intentWeather);
                 break;
             case R.id.itemOptions:
                 Intent intentOptions = new Intent(this, OptionsActivity.class);
+                finish();
                 startActivity(intentOptions);
                 break;
             case R.id.itemAbout:
                 Intent intentAbout = new Intent(this, AboutActivity.class);
+                finish();
                 startActivity(intentAbout);
                 break;
         }
