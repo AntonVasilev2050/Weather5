@@ -12,25 +12,21 @@ import io.reactivex.schedulers.Schedulers;
 
 public class WeatherPresenter {
 
-    private String units = "metric";
-    private String lang = "ru";
-    private String appid = "2ad882e3ba88a34eb4e1b8448c86aa9a";
+    private final String units = "metric";
+    private final String lang = "ru";
+    private final String appid = "2ad882e3ba88a34eb4e1b8448c86aa9a";
 
-    private CompositeDisposable compositeDisposable  = new CompositeDisposable();;
+    private final CompositeDisposable compositeDisposable  = new CompositeDisposable();
+    ApiFactory apiFactory = ApiFactory.getInstance();
+    ApiService apiService = apiFactory.getApiService();
+
     private final WeatherView weatherView;
 
     public WeatherPresenter(WeatherView weatherView) {
         this.weatherView = weatherView;
     }
 
-    ApiFactory apiFactory = ApiFactory.getInstance();
-    ApiService apiService = apiFactory.getApiService();
-
     public void getWeather() {
-//        ApiFactory apiFactory = ApiFactory.getInstance();
-//        ApiService apiService = apiFactory.getApiService();
-//        compositeDisposable = new CompositeDisposable();
-
         Disposable disposable = apiService.getWeather5days(WeatherActivity.getLat(), WeatherActivity.getLon(), units, lang, appid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -49,10 +45,6 @@ public class WeatherPresenter {
     }
 
     public void getWeatherCity() {
-//        ApiFactory apiFactory = ApiFactory.getInstance();
-//        ApiService apiService = apiFactory.getApiService();
-//        compositeDisposable = new CompositeDisposable();
-
         Disposable disposable = apiService.getWeather5daysCity(WeatherActivity.getCityName(), units, lang, appid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -72,8 +64,6 @@ public class WeatherPresenter {
 
 
     public void disposeDisposable() {
-        if (compositeDisposable != null) {
-            compositeDisposable.dispose();
-        }
+        compositeDisposable.dispose();
     }
 }
