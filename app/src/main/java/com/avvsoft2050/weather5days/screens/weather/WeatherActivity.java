@@ -40,6 +40,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import static com.avvsoft2050.weather5days.R.string.location_error_notice;
 
@@ -219,7 +220,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         });
     }
 
-
     public void showWeatherNow() {
         celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
         firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue4));
@@ -240,16 +240,16 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         double temperatureF18 = Converters.celsiusToFahrenheit(temperatureC18);
         if (celsiusOrFahrenheit.equals("C")) {
             textViewCorF3.setText("C");
-            textViewTemperatureNow.setText("" + Math.round(temperatureC));
-            textViewTemperature6.setText("" + Math.round(temperatureC6));
-            textViewTemperature12.setText("" + Math.round(temperatureC12));
-            textViewTemperature18.setText("" + Math.round(temperatureC18));
+            textViewTemperatureNow.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureC)));
+            textViewTemperature6.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureC6)));
+            textViewTemperature12.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureC12)));
+            textViewTemperature18.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureC18)));
         } else if (celsiusOrFahrenheit.equals("F")) {
             textViewCorF3.setText("F");
-            textViewTemperatureNow.setText("" + Math.round(temperatureF));
-            textViewTemperature6.setText("" + Math.round(temperatureF6));
-            textViewTemperature12.setText("" + Math.round(temperatureF12));
-            textViewTemperature18.setText("" + Math.round(temperatureF18));
+            textViewTemperatureNow.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureF)));
+            textViewTemperature6.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureF6)));
+            textViewTemperature12.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureF12)));
+            textViewTemperature18.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureF18)));
         }
         iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(2).getWeather().get(0).getIcon());
         imageViewWeatherPlus6.setImageResource(iconId);
