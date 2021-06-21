@@ -80,6 +80,9 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
 
     @Override
     public void onBindViewHolder(@NonNull WeatherForecastAdapter.WeatherViewHolder holder, int position) {
+        WeatherForecastAdapter.celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
+        WeatherForecastAdapter.windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
+        WeatherForecastAdapter.pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
         WeatherList weatherList = weather5days.getWeatherList().get(position);
         holder.textViewLocalTimeDate.setText(Converters.dateTime(weatherList.getDtTxt(), "dd.MM EE HH:mm"));
         holder.textViewCurrentWeatherDescription.setText(weatherList.getWeather().get(0).getDescription());

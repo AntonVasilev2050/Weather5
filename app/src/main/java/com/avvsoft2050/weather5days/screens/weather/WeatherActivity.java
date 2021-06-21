@@ -86,7 +86,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
     private TextView textViewTemperature12;
     private TextView textViewTemperature18;
     private TextView textViewCorF3;
-
     private SearchView searchViewLocation;
     private WeatherPresenter presenter;
     SharedPreferences preferences;
@@ -135,6 +134,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         textViewCityName = findViewById(R.id.textViewCityName);
         searchViewLocation = findViewById(R.id.searchViewLocation);
         View viewLine1 = findViewById(R.id.viewLine1);
+        View viewLine2 = findViewById(R.id.viewLine2);
+        ConstraintLayout constraintLayoutMain = findViewById(R.id.constraintLayoutMain);
         imageViewWeatherNow = findViewById(R.id.imageViewWeatherNow);
         textViewTemperatureNow = findViewById(R.id.textViewTemperatureNow);
         textViewCorF3 = findViewById(R.id.textViewCorF3);
@@ -147,10 +148,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         textViewTemperature6 = findViewById(R.id.textViewTemperature6);
         textViewTemperature12 = findViewById(R.id.textViewTemperature12);
         textViewTemperature18 = findViewById(R.id.textViewTemperature18);
-        View viewLine2 = findViewById(R.id.viewLine2);
-
         recyclerViewWeather = findViewById(R.id.recyclerViewWeather);
-        ConstraintLayout constraintLayoutMain = findViewById(R.id.constraintLayoutMain);
 
         TextView textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -219,6 +217,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
 
 
     public void showWeatherNow() {
+        celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
         int iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(0).getWeather().get(0).getIcon());
         imageViewWeatherNow.setImageResource(iconId);
         double temperatureC = weatherAdapter.getWeatherLists().get(0).getMain().getTemp();
@@ -277,9 +276,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
     @Override
     protected void onRestart() {
         super.onRestart();
-        Intent intentWeather = new Intent(this, WeatherActivity.class);
-        finish();
-        startActivity(intentWeather);
+        presenter.getWeatherCity();
     }
 
     @Override
