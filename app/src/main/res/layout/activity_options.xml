@@ -15,7 +15,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/blue5"
         android:padding="8dp"
-        android:text="Настройки"
+        android:text="@string/options_label"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewOptionsLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewOptionsLabel"
+        tools:ignore="RtlSymmetry" />
 
 
     <TextView
@@ -57,7 +58,8 @@
         app:layout_constraintEnd_toStartOf="@+id/textViewWindUnitLabel"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUnitSettings" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewUnitSettings"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/textViewWindUnitLabel"
@@ -73,7 +75,8 @@
         app:layout_constraintEnd_toStartOf="@+id/textViewPressureUnitLabel"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewTemperatureUnitLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUnitSettings" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewUnitSettings"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/textViewPressureUnitLabel"
@@ -90,7 +93,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewWindUnitLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUnitSettings" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewUnitSettings"
+        tools:ignore="RtlSymmetry" />
 
     <RadioGroup
         android:id="@+id/radioGroupTempUnit"
@@ -162,7 +166,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroupTempUnit" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupTempUnit"
+        tools:ignore="RtlSymmetry" />
 
     <RadioGroup
         android:id="@+id/radioGroupPressureUnit"
@@ -170,7 +175,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="@color/blue5"
-        android:onClick="onClickPressureUnitChange"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textViewPressureUnitLabel"
@@ -195,9 +199,10 @@
 
     <ImageView
         android:id="@+id/imageViewExtendUnits"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/show_units_options"
         android:onClick="onClickImageViewExtendUnits"
         app:layout_constraintBottom_toBottomOf="@+id/textViewUnitSettings"
         app:layout_constraintEnd_toEndOf="@+id/textViewUnitSettings"
@@ -206,12 +211,66 @@
 
     <ImageView
         android:id="@+id/imageViewExtendColors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/show_colors"
         app:layout_constraintBottom_toBottomOf="@+id/textViewColors"
         app:layout_constraintEnd_toEndOf="@+id/textViewColors"
         app:layout_constraintTop_toTopOf="@+id/textViewColors"
         app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupIconSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/blue5"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconSet01"
+        app:layout_constraintTop_toBottomOf="@+id/textViewColors">
+
+        <RadioButton
+            android:id="@+id/radioButtonIconSet01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="@string/weather_icon_1_set"
+            android:onClick="onClickIconSetChange"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/radioButtonIconSet02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="@string/weather_icon_2_set"
+            android:onClick="onClickIconSetChange"
+            android:textColor="@color/white" />
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/imageViewIconSet01"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/icon_set_1_example"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/radioGroupIconSet"
+        app:srcCompat="@drawable/f01d" />
+
+    <ImageView
+        android:id="@+id/imageViewIconSet02"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/icon_set_2_example"
+        app:layout_constraintBottom_toBottomOf="@+id/radioGroupIconSet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIconSet01"
+        app:srcCompat="@drawable/s01d" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

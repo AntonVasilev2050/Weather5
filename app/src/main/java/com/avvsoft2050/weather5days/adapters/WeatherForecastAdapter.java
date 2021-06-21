@@ -31,6 +31,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     private static String celsiusOrFahrenheit = "C";
     private static String windSpeedUnit = "м/с";
     private static String pressureUnit = "мм рт.ст.";
+    private static int iconSet = 1;
     SharedPreferences preferences;
 
 
@@ -43,6 +44,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         WeatherForecastAdapter.pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
         WeatherForecastAdapter.firstColor = preferences.getInt("firstColor", context.getResources().getColor(R.color.blue4));
         WeatherForecastAdapter.secondColor = preferences.getInt("secondColor", context.getResources().getColor(R.color.blue5));
+        iconSet = preferences.getInt("iconSet", 1);
     }
 
     public List<WeatherList> getWeatherLists() {
@@ -83,10 +85,11 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         WeatherForecastAdapter.celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
         WeatherForecastAdapter.windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
         WeatherForecastAdapter.pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
+        iconSet = preferences.getInt("iconSet", 1);
         WeatherList weatherList = weather5days.getWeatherList().get(position);
         holder.textViewLocalTimeDate.setText(Converters.dateTime(weatherList.getDtTxt(), "dd.MM EE HH:mm"));
         holder.textViewCurrentWeatherDescription.setText(weatherList.getWeather().get(0).getDescription());
-        int iconId = Converters.getIconId(weatherList.getWeather().get(0).getIcon());
+        int iconId = Converters.getIconId(weatherList.getWeather().get(0).getIcon(), iconSet);
         holder.imageViewCurrentWeatherIcon.setImageResource(iconId);
         double temperatureC = weatherList.getMain().getTemp();
         double temperatureF = Converters.celsiusToFahrenheit(temperatureC);

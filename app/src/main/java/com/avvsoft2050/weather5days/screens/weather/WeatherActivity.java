@@ -53,8 +53,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
     private int firstColor;
     private int secondColor;
     private static String celsiusOrFahrenheit;
-//    private static String windSpeedUnit;
-//    private static String pressureUnit;
+    int iconSet;
 
     public static String getCelsiusOrFahrenheit() {
         return celsiusOrFahrenheit;
@@ -158,6 +157,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         cityName = preferences.getString("cityName", "Краснодар");
+        iconSet = preferences.getInt("iconSet", 1);
         celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
 //        windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
 //        pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
@@ -224,11 +224,12 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
         firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue4));
         secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue5));
+        iconSet = preferences.getInt("iconSet", 1);
         constraintLayoutMain.setBackgroundColor(firstColor);
         textViewWeatherForecastLabel.setBackgroundColor(secondColor);
         viewLine1.setBackgroundColor(secondColor);
         viewLine2.setBackgroundColor(secondColor);
-        int iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(0).getWeather().get(0).getIcon());
+        int iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(0).getWeather().get(0).getIcon(), iconSet);
         imageViewWeatherNow.setImageResource(iconId);
         double temperatureC = weatherAdapter.getWeatherLists().get(0).getMain().getTemp();
         double temperatureC6 = weatherAdapter.getWeatherLists().get(2).getMain().getTemp();
@@ -251,11 +252,11 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
             textViewTemperature12.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureF12)));
             textViewTemperature18.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureF18)));
         }
-        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(2).getWeather().get(0).getIcon());
+        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(2).getWeather().get(0).getIcon(), iconSet);
         imageViewWeatherPlus6.setImageResource(iconId);
-        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(4).getWeather().get(0).getIcon());
+        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(4).getWeather().get(0).getIcon(), iconSet);
         imageViewWeatherPlus12.setImageResource(iconId);
-        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(6).getWeather().get(0).getIcon());
+        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(6).getWeather().get(0).getIcon(), iconSet);
         imageViewWeatherPlus18.setImageResource(iconId);
         int now = LocalDateTime.now().getHour();
         if (now >= 0 && now < 6) {

@@ -23,22 +23,25 @@ import com.avvsoft2050.weather5days.screens.weather.WeatherActivity;
 import java.util.Objects;
 
 public class OptionsActivity extends AppCompatActivity {
-        private ConstraintLayout constraintLayoutOptions;
-        private TextView textViewOptionsLabel;
-        private TextView textViewUnitSettings;
-        private TextView textViewColors;
-        private ImageView imageViewExtendUnits;
-        private ImageView imageViewExtendColors;
-        private TextView textViewTemperatureUnitLabel;
-        private TextView textViewWindUnitLabel;
-        private TextView textViewPressureUnitLabel;
-        private RadioButton radioButtonCelsius;
-        private RadioButton radioButtonFahrenheit;
-        private RadioButton radioButtonMeterPerSec;
-        private RadioButton radioButtonMilePerHour;
-        private RadioButton radioButtonMmHg;
-        private RadioButton radioButtonMBar;
-        SharedPreferences preferences;
+
+    private ConstraintLayout constraintLayoutOptions;
+    private TextView textViewOptionsLabel;
+    private TextView textViewUnitSettings;
+    private TextView textViewColors;
+    private ImageView imageViewExtendUnits;
+    private ImageView imageViewExtendColors;
+    private TextView textViewTemperatureUnitLabel;
+    private TextView textViewWindUnitLabel;
+    private TextView textViewPressureUnitLabel;
+    private RadioButton radioButtonCelsius;
+    private RadioButton radioButtonFahrenheit;
+    private RadioButton radioButtonMeterPerSec;
+    private RadioButton radioButtonMilePerHour;
+    private RadioButton radioButtonMmHg;
+    private RadioButton radioButtonMBar;
+    private RadioButton radioButtonIconSet01;
+    private RadioButton radioButtonIconSet02;
+    SharedPreferences preferences;
 
 
     @Override
@@ -60,28 +63,38 @@ public class OptionsActivity extends AppCompatActivity {
         radioButtonMilePerHour = findViewById(R.id.radioButtonMilePerHour);
         radioButtonMmHg = findViewById(R.id.radioButtonMmHg);
         radioButtonMBar = findViewById(R.id.radioButtonMBar);
+        radioButtonIconSet01 = findViewById(R.id.radioButtonIconSet01);
+        radioButtonIconSet02 = findViewById(R.id.radioButtonIconSet02);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if(Objects.equals(preferences.getString("celsiusOrFahrenheit", "C"), "C")){
+        if (Objects.equals(preferences.getString("celsiusOrFahrenheit", "C"), "C")) {
             radioButtonCelsius.setChecked(true);
             radioButtonFahrenheit.setChecked(false);
-        }else {
+        } else {
             radioButtonCelsius.setChecked(false);
             radioButtonFahrenheit.setChecked(true);
         }
-        if(Objects.equals(preferences.getString("windSpeedUnit", "м/с"), "м/с")){
+        if (Objects.equals(preferences.getString("windSpeedUnit", "м/с"), "м/с")) {
             radioButtonMeterPerSec.setChecked(true);
             radioButtonMilePerHour.setChecked(false);
-        }else {
+        } else {
             radioButtonMeterPerSec.setChecked(false);
             radioButtonMilePerHour.setChecked(true);
         }
-        if(Objects.equals(preferences.getString("pressureUnit", "мм рт.ст."), "мм рт.ст.")){
+        if (Objects.equals(preferences.getString("pressureUnit", "мм рт.ст."), "мм рт.ст.")) {
             radioButtonMmHg.setChecked(true);
             radioButtonMBar.setChecked(false);
-        }else {
+        } else {
             radioButtonMmHg.setChecked(false);
             radioButtonMBar.setChecked(true);
+        }
+        if(Objects.equals(preferences.getInt("iconSet", 1), 1)){
+            radioButtonIconSet01.setChecked(true);
+            radioButtonIconSet02.setChecked(false);
+        }
+        else {
+            radioButtonIconSet01.setChecked(false);
+            radioButtonIconSet02.setChecked(true);
         }
         constraintLayoutOptions.setBackgroundColor(getResources().getColor(R.color.blue4));
         textViewOptionsLabel.setBackgroundColor(getResources().getColor(R.color.blue5));
@@ -99,7 +112,7 @@ public class OptionsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.itemWeather:
                 Intent intentWeather = new Intent(this, WeatherActivity.class);
                 finish();
@@ -125,13 +138,13 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     public void onClickTempUnitChange(View view) {
-        RadioButton button = (RadioButton)view;
+        RadioButton button = (RadioButton) view;
         int id = button.getId();
-        if(id == R.id.radioButtonCelsius){
+        if (id == R.id.radioButtonCelsius) {
             preferences.edit().putString("celsiusOrFahrenheit", "C").apply();
             radioButtonCelsius.setChecked(true);
             radioButtonFahrenheit.setChecked(false);
-        }else if(id == R.id.radioButtonFahrenheit){
+        } else if (id == R.id.radioButtonFahrenheit) {
             preferences.edit().putString("celsiusOrFahrenheit", "F").apply();
             radioButtonCelsius.setChecked(false);
             radioButtonFahrenheit.setChecked(true);
@@ -139,13 +152,13 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     public void onClickWindUnitChange(View view) {
-        RadioButton button = (RadioButton)view;
+        RadioButton button = (RadioButton) view;
         int id = button.getId();
-        if(id == R.id.radioButtonMeterPerSec){
+        if (id == R.id.radioButtonMeterPerSec) {
             preferences.edit().putString("windSpeedUnit", "м/с").apply();
             radioButtonMeterPerSec.setChecked(true);
             radioButtonMilePerHour.setChecked(false);
-        }else if(id == R.id.radioButtonMilePerHour){
+        } else if (id == R.id.radioButtonMilePerHour) {
             preferences.edit().putString("windSpeedUnit", "миль/ч").apply();
             radioButtonMeterPerSec.setChecked(false);
             radioButtonMilePerHour.setChecked(true);
@@ -153,21 +166,35 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     public void onClickPressureUnitChange(View view) {
-        RadioButton button = (RadioButton)view;
+        RadioButton button = (RadioButton) view;
         int id = button.getId();
-        if(id == R.id.radioButtonMmHg){
+        if (id == R.id.radioButtonMmHg) {
             preferences.edit().putString("pressureUnit", "мм рт.ст.").apply();
             radioButtonMmHg.setChecked(true);
             radioButtonMBar.setChecked(false);
-        }else if(id == R.id.radioButtonMBar){
+        } else if (id == R.id.radioButtonMBar) {
             preferences.edit().putString("pressureUnit", "мБар").apply();
             radioButtonMmHg.setChecked(false);
             radioButtonMBar.setChecked(true);
         }
     }
 
+    public void onClickIconSetChange(View view) {
+        RadioButton button = (RadioButton) view;
+        int id = button.getId();
+        if(id == R.id.radioButtonIconSet01){
+            preferences.edit().putInt("iconSet", 1).apply();
+            radioButtonIconSet01.setChecked(true);
+            radioButtonIconSet02.setChecked(false);
+        }else if(id == R.id.radioButtonIconSet02){
+            preferences.edit().putInt("iconSet", 2).apply();
+            radioButtonIconSet01.setChecked(false);
+            radioButtonIconSet02.setChecked(true);
+        }
+    }
+
     public void onClickImageViewExtendUnits(View view) {
-        if(textViewTemperatureUnitLabel.getVisibility() == View.VISIBLE){
+        if (textViewTemperatureUnitLabel.getVisibility() == View.VISIBLE) {
             textViewTemperatureUnitLabel.setVisibility(View.GONE);
             textViewWindUnitLabel.setVisibility(View.GONE);
             textViewPressureUnitLabel.setVisibility(View.GONE);
@@ -178,7 +205,7 @@ public class OptionsActivity extends AppCompatActivity {
             radioButtonMmHg.setVisibility(View.GONE);
             radioButtonMBar.setVisibility(View.GONE);
             imageViewExtendUnits.setImageResource(android.R.drawable.arrow_down_float);
-        }else if(textViewTemperatureUnitLabel.getVisibility() == View.GONE){
+        } else if (textViewTemperatureUnitLabel.getVisibility() == View.GONE) {
             textViewTemperatureUnitLabel.setVisibility(View.VISIBLE);
             textViewWindUnitLabel.setVisibility(View.VISIBLE);
             textViewPressureUnitLabel.setVisibility(View.VISIBLE);
@@ -191,4 +218,5 @@ public class OptionsActivity extends AppCompatActivity {
             imageViewExtendUnits.setImageResource(android.R.drawable.arrow_up_float);
         }
     }
+
 }
