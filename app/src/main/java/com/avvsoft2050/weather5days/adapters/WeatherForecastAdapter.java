@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.avvsoft2050.weather5days.Converters;
+import com.avvsoft2050.weather5days.utils.Converters;
 import com.avvsoft2050.weather5days.R;
 import com.avvsoft2050.weather5days.pojo.Weather5days;
 import com.avvsoft2050.weather5days.pojo.WeatherList;

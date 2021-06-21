@@ -27,7 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avvsoft2050.weather5days.BuildConfig;
-import com.avvsoft2050.weather5days.Converters;
+import com.avvsoft2050.weather5days.utils.Converters;
 import com.avvsoft2050.weather5days.R;
 import com.avvsoft2050.weather5days.adapters.WeatherForecastAdapter;
 import com.avvsoft2050.weather5days.pojo.Weather5days;
@@ -299,8 +299,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         searchViewLocation.setQuery("", false);
         searchViewLocation.onActionViewCollapsed();
         searchViewLocation.clearFocus();
-        textViewCityName.setText(cityName + " "
-                + "(" + weatherAdapter.getWeather5days().getCity().getCountry() + ")");
+        textViewCityName.setText(String.format(Locale.ROOT, "%s (%s)", cityName, weatherAdapter.getWeather5days().getCity().getCountry()));
         textViewCityName.setVisibility(View.VISIBLE);
         recyclerViewWeather.setVisibility(View.VISIBLE);
     }
@@ -319,7 +318,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
             searchViewLocation.clearFocus();
         }
     }
-
 
     @SuppressWarnings("MissingPermission")
     private void getLastLocation() {

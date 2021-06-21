@@ -1,17 +1,21 @@
-package com.avvsoft2050.weather5days;
+package com.avvsoft2050.weather5days.utils;
+
+import com.avvsoft2050.weather5days.R;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Converters {
     public static String dateTime(String dateTxt, String format){
         String dateStr;
-        DateFormat dfStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat dfStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("RU"));
         try{
             Date date = dfStr.parse(dateTxt);
-            DateFormat df = new SimpleDateFormat(format);
+            DateFormat df = new SimpleDateFormat(format, Locale.forLanguageTag("RU"));
+            assert date != null;
             dateStr = df.format(date);
         }catch (ParseException e){
             dateStr = "error";
@@ -20,8 +24,7 @@ public class Converters {
     }
 
     public static double celsiusToFahrenheit(double temperatureC){
-        double temperatureF = 1.8 * temperatureC + 32;
-        return temperatureF;
+        return 1.8 * temperatureC + 32;
     }
 
     public static int getIconId(String icon){
