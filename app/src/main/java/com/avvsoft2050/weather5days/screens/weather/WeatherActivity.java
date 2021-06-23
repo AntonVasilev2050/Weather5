@@ -4,10 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -22,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -30,9 +27,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avvsoft2050.weather5days.BuildConfig;
-import com.avvsoft2050.weather5days.Converters;
+import com.avvsoft2050.weather5days.utils.Converters;
 import com.avvsoft2050.weather5days.R;
-import com.avvsoft2050.weather5days.adapters.WeatherAdapter;
+import com.avvsoft2050.weather5days.adapters.WeatherForecastAdapter;
 import com.avvsoft2050.weather5days.pojo.Weather5days;
 import com.avvsoft2050.weather5days.screens.about.AboutActivity;
 import com.avvsoft2050.weather5days.screens.options.OptionsActivity;
@@ -41,28 +38,22 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.squareup.picasso.Picasso;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Calendar;
+import java.util.Locale;
 
-import static com.avvsoft2050.weather5days.R.string.information;
 import static com.avvsoft2050.weather5days.R.string.location_error_notice;
 
 
-public class WeatherActivity extends AppCompatActivity implements WeatherView{
+public class WeatherActivity extends AppCompatActivity implements WeatherView {
     private static double lat = 0.0;
     private static double lon = 0.0;
     private static String cityName;
-
-    private final int position = 0;
     private final static String BASE_WEATHER_ICON_URL = "https://openweathermap.org/img/wn/%s@%sx.png";
     private int firstColor;
     private int secondColor;
     private static String celsiusOrFahrenheit;
-    private static String windSpeedUnit;
-    private static String pressureUnit;
+    int iconSet;
 
     public static String getCelsiusOrFahrenheit() {
         return celsiusOrFahrenheit;
@@ -80,14 +71,11 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         return cityName;
     }
 
-    private ConstraintLayout constraintLayoutMain;
     private RecyclerView recyclerViewWeather;
-    private WeatherAdapter weatherAdapter;
+    private WeatherForecastAdapter weatherAdapter;
     private TextView textViewCityName;
-    private View viewLine1;
     private ImageView imageViewWeatherNow;
     private TextView textViewTemperatureNow;
-    private TextView textViewCorF3;
     private TextView textViewNowPlus6;
     private TextView textViewNowPlus12;
     private TextView textViewNowPlus18;
@@ -97,24 +85,15 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     private TextView textViewTemperature6;
     private TextView textViewTemperature12;
     private TextView textViewTemperature18;
-    private View viewLine2;
-    private TextView textViewLocalTimeDate;
-    private TextView textViewCurrentTemperature;
-    private TextView textViewCorF;
-    private ImageView imageViewCurrentWeatherIcon;
-    private TextView textViewCurrentWeatherDescription;
-    private TextView textViewFeelsLike;
-    private TextView textViewCorF2;
-    private TextView textViewCurrentPrecipitation;
-    private TextView textViewCurrentPressure;
-    private TextView textViewCurrentHumidity;
-    private TextView textViewWind;
-    private TextView textViewVisibility;
-    private TextView textViewWeatherForecastLabel;
-
+    private TextView textViewCorF3;
     private SearchView searchViewLocation;
     private WeatherPresenter presenter;
     SharedPreferences preferences;
+
+    private View viewLine1;
+    private View viewLine2;
+    private ConstraintLayout constraintLayoutMain;
+    private TextView textViewWeatherForecastLabel;
 
     private static final String TAG = WeatherActivity.class.getSimpleName();
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
@@ -134,6 +113,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         switch (id) {
             case R.id.itemWeather:
                 Intent intentWeather = new Intent(this, WeatherActivity.class);
+                finish();
                 startActivity(intentWeather);
                 break;
             case R.id.itemOptions:
@@ -159,6 +139,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         textViewCityName = findViewById(R.id.textViewCityName);
         searchViewLocation = findViewById(R.id.searchViewLocation);
         viewLine1 = findViewById(R.id.viewLine1);
+        viewLine2 = findViewById(R.id.viewLine2);
+        constraintLayoutMain = findViewById(R.id.constraintLayoutMain);
         imageViewWeatherNow = findViewById(R.id.imageViewWeatherNow);
         textViewTemperatureNow = findViewById(R.id.textViewTemperatureNow);
         textViewCorF3 = findViewById(R.id.textViewCorF3);
@@ -171,30 +153,14 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         textViewTemperature6 = findViewById(R.id.textViewTemperature6);
         textViewTemperature12 = findViewById(R.id.textViewTemperature12);
         textViewTemperature18 = findViewById(R.id.textViewTemperature18);
-        viewLine2 = findViewById(R.id.viewLine2);
-        textViewLocalTimeDate = findViewById(R.id.textViewLocalTimeDate);
-        textViewCurrentTemperature = findViewById(R.id.textViewCurrentTemperature);
-        textViewCorF = findViewById(R.id.textViewCorF);
-        imageViewCurrentWeatherIcon = findViewById(R.id.imageViewCurrentWeatherIcon);
-        textViewCurrentWeatherDescription = findViewById(R.id.textViewCurrentWeatherDescription);
-        textViewFeelsLike = findViewById(R.id.textViewFeelsLike);
-        textViewCorF2 = findViewById(R.id.textViewCorF2);
-        textViewCurrentPrecipitation = findViewById(R.id.textViewCurrentPrecipitation);
-        textViewCurrentPressure = findViewById(R.id.textViewCurrentPressure);
-        textViewCurrentHumidity = findViewById(R.id.textViewCurrentHumidity);
-        textViewWind = findViewById(R.id.textViewWind);
-        textViewVisibility = findViewById(R.id.textViewVisibility);
         recyclerViewWeather = findViewById(R.id.recyclerViewWeather);
-        constraintLayoutMain = findViewById(R.id.constraintLayoutMain);
         textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         cityName = preferences.getString("cityName", "Краснодар");
+        iconSet = preferences.getInt("iconSet", 1);
         celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
-        windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
-        pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
-        textViewCorF.setText(celsiusOrFahrenheit);
-        textViewCorF2.setText(celsiusOrFahrenheit);
-        textViewCorF3.setText(celsiusOrFahrenheit);
+//        windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
+//        pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
         firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue4));
         secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue5));
         presenter = new WeatherPresenter(this);
@@ -205,18 +171,18 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        weatherAdapter = new WeatherAdapter(new Weather5days(), secondColor);
-        recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        weatherAdapter = new WeatherForecastAdapter(this, new Weather5days());
+        recyclerViewWeather.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewWeather.setAdapter(weatherAdapter);
         presenter.getWeatherCity();
-        weatherAdapter.setOnWeatherClickListener(new WeatherAdapter.OnWeatherClickListener() {
+        weatherAdapter.setOnWeatherClickListener(new WeatherForecastAdapter.OnWeatherClickListener() {
             @Override
             public void onWeatherClick(int position) {
             }
 
             @Override
             public void onWeatherLongClick(int position) {
-                showCurrentWeather(position);
+//                showCurrentWeather(position);
             }
         });
 
@@ -254,55 +220,16 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         });
     }
 
-    public void showCurrentWeather(int position) {
-        textViewLocalTimeDate.setText(Converters.dateTime(weatherAdapter.getWeatherLists().get(position).getDtTxt(), "dd.MM EE HH:mm"));
-        double temperatureC = weatherAdapter.getWeatherLists().get(position).getMain().getTemp();
-        double temperatureF = Converters.celsiusToFahrenheit(temperatureC);
-        double temperatureFeelsLikeC = weatherAdapter.getWeatherLists().get(position).getMain().getFeelsLike();
-        double temperatureFeelsLikeF = Converters.celsiusToFahrenheit(temperatureFeelsLikeC);
-        if(celsiusOrFahrenheit.equals("C")){
-            textViewCurrentTemperature.setText("" + Math.round(temperatureC));
-            textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeC));
-        }else if(celsiusOrFahrenheit.equals("F")){
-            textViewCurrentTemperature.setText("" + Math.round(temperatureF));
-            textViewFeelsLike.setText("" + Math.round(temperatureFeelsLikeF));
-        }
-        textViewCurrentWeatherDescription.setText(weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getDescription());
-        try {
-            textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% ("
-                    + (Double) weatherAdapter.getWeatherLists().get(position).getSnow().get3h() + "mm)");
-        } catch (NullPointerException eSnow) {
-            try {
-                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% ("
-                        + (Double) weatherAdapter.getWeatherLists().get(position).getRain().get3h() + "mm)");
-            } catch (NullPointerException eRain) {
-                textViewCurrentPrecipitation.setText((int) (weatherAdapter.getWeatherLists().get(position).getPop() * 100) + "% (0mm)");
-            }
-        }
-        int pressure = weatherAdapter.getWeatherLists().get(position).getMain().getPressure();
-        if(pressureUnit.equals("мм рт.ст.")){
-            textViewCurrentPressure.setText(Math.round(pressure * 0.750064) + " " + pressureUnit);
-        }else if(pressureUnit.equals("мБар")){
-            textViewCurrentPressure.setText(Math.round(pressure) + " " + pressureUnit);
-        }
-        textViewCurrentHumidity.setText(weatherAdapter.getWeatherLists().get(position).getMain().getHumidity() + "%");
-        double windSpeed = (Math.round(weatherAdapter.getWeatherLists().get(position).getWind().getSpeed()) * 10.0) / 10.0;
-        double visibility = weatherAdapter.getWeatherLists().get(position).getVisibility();
-        if(windSpeedUnit.equals("м/с")){
-            textViewWind.setText(Math.round(windSpeed) + " " + windSpeedUnit);
-            textViewVisibility.setText(Math.round(visibility) + " м");
-        }else if(windSpeedUnit.equals("миль/ч")){
-            textViewWind.setText((Math.round(windSpeed * 22.369362)) / 10.0 + " " + windSpeedUnit);
-            textViewVisibility.setText((Math.round(visibility * 0.00062)) + " миль");
-        }
-//        Picasso.get().load(String.format(BASE_WEATHER_ICON_URL, weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getIcon(), 4))
-//                .into(imageViewCurrentWeatherIcon);
-        int iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(position).getWeather().get(0).getIcon());
-        imageViewCurrentWeatherIcon.setImageResource(iconId);
-    }
-
-    public void showWeatherNow(){
-        int iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(0).getWeather().get(0).getIcon());
+    public void showWeatherNow() {
+        celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
+        firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue4));
+        secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue5));
+        iconSet = preferences.getInt("iconSet", 1);
+        constraintLayoutMain.setBackgroundColor(firstColor);
+        textViewWeatherForecastLabel.setBackgroundColor(secondColor);
+        viewLine1.setBackgroundColor(secondColor);
+        viewLine2.setBackgroundColor(secondColor);
+        int iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(0).getWeather().get(0).getIcon(), iconSet);
         imageViewWeatherNow.setImageResource(iconId);
         double temperatureC = weatherAdapter.getWeatherLists().get(0).getMain().getTemp();
         double temperatureC6 = weatherAdapter.getWeatherLists().get(2).getMain().getTemp();
@@ -312,22 +239,24 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         double temperatureF6 = Converters.celsiusToFahrenheit(temperatureC6);
         double temperatureF12 = Converters.celsiusToFahrenheit(temperatureC12);
         double temperatureF18 = Converters.celsiusToFahrenheit(temperatureC18);
-        if(celsiusOrFahrenheit.equals("C")){
-            textViewTemperatureNow.setText("" + Math.round(temperatureC));
-            textViewTemperature6.setText("" + Math.round(temperatureC6));
-            textViewTemperature12.setText("" + Math.round(temperatureC12));
-            textViewTemperature18.setText("" + Math.round(temperatureC18));
-        }else if(celsiusOrFahrenheit.equals("F")){
-            textViewTemperatureNow.setText("" + Math.round(temperatureF));
-            textViewTemperature6.setText("" + Math.round(temperatureF6));
-            textViewTemperature12.setText("" + Math.round(temperatureF12));
-            textViewTemperature18.setText("" + Math.round(temperatureF18));
+        if (celsiusOrFahrenheit.equals("C")) {
+            textViewCorF3.setText("C");
+            textViewTemperatureNow.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureC)));
+            textViewTemperature6.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureC6)));
+            textViewTemperature12.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureC12)));
+            textViewTemperature18.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureC18)));
+        } else if (celsiusOrFahrenheit.equals("F")) {
+            textViewCorF3.setText("F");
+            textViewTemperatureNow.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureF)));
+            textViewTemperature6.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureF6)));
+            textViewTemperature12.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureF12)));
+            textViewTemperature18.setText(String.format(Locale.ROOT, "%s", Math.round(temperatureF18)));
         }
-        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(2).getWeather().get(0).getIcon());
+        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(2).getWeather().get(0).getIcon(), iconSet);
         imageViewWeatherPlus6.setImageResource(iconId);
-        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(4).getWeather().get(0).getIcon());
+        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(4).getWeather().get(0).getIcon(), iconSet);
         imageViewWeatherPlus12.setImageResource(iconId);
-        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(6).getWeather().get(0).getIcon());
+        iconId = Converters.getIconId(weatherAdapter.getWeatherLists().get(6).getWeather().get(0).getIcon(), iconSet);
         imageViewWeatherPlus18.setImageResource(iconId);
         int now = LocalDateTime.now().getHour();
         if (now >= 0 && now < 6) {
@@ -338,16 +267,15 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
             textViewNowPlus6.setText("День");
             textViewNowPlus12.setText("Вечер");
             textViewNowPlus18.setText("Ночь");
-        }else if (now >= 12 && now < 18) {
+        } else if (now >= 12 && now < 18) {
             textViewNowPlus6.setText("Вечер");
             textViewNowPlus12.setText("Ночь");
             textViewNowPlus18.setText("Утро");
-        }else if (now >= 18 && now < 24) {
+        } else if (now >= 18 && now < 24) {
             textViewNowPlus6.setText("Ночь");
             textViewNowPlus12.setText("Утро");
             textViewNowPlus18.setText("День");
         }
-
     }
 
     @Override
@@ -356,8 +284,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         super.onDestroy();
     }
 
-    public static String getBASE_WEATHER_ICON_URL() {
-        return BASE_WEATHER_ICON_URL;
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getWeatherCity();
     }
 
     @Override
@@ -366,13 +296,11 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
         weatherAdapter.setWeatherLists(weather5days.getWeatherList());
         cityName = weatherAdapter.getWeather5days().getCity().getName();
         preferences.edit().putString("cityName", cityName).apply();
-        showCurrentWeather(position);
         showWeatherNow();
         searchViewLocation.setQuery("", false);
         searchViewLocation.onActionViewCollapsed();
         searchViewLocation.clearFocus();
-        textViewCityName.setText(cityName + " "
-                + "(" + weatherAdapter.getWeather5days().getCity().getCountry() + ")");
+        textViewCityName.setText(String.format(Locale.ROOT, "%s (%s)", cityName, weatherAdapter.getWeather5days().getCity().getCountry()));
         textViewCityName.setVisibility(View.VISIBLE);
         recyclerViewWeather.setVisibility(View.VISIBLE);
     }
@@ -383,18 +311,12 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     }
 
     public void onClickImageViewLocation(View view) {
-        getLastLocation();
-        presenter.getWeather();
-        searchViewLocation.clearFocus();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         if (!checkPermissions()) {
             requestPermissions();
         } else {
             getLastLocation();
+            presenter.getWeather();
+            searchViewLocation.clearFocus();
         }
     }
 
@@ -492,6 +414,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView{
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.i(TAG, "onRequestPermissionResult");
         if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.length <= 0) {

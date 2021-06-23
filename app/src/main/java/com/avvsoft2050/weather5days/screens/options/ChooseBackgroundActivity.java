@@ -1,9 +1,5 @@
 package com.avvsoft2050.weather5days.screens.options;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +9,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.avvsoft2050.weather5days.R;
 import com.avvsoft2050.weather5days.screens.about.AboutActivity;
@@ -45,10 +45,12 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         switch (id){
             case R.id.itemWeather:
                 Intent intentWeather = new Intent(this, WeatherActivity.class);
+                finish();
                 startActivity(intentWeather);
                 break;
             case R.id.itemOptions:
                 Intent intentOptions = new Intent(this, OptionsActivity.class);
+                finish();
                 startActivity(intentOptions);
                 break;
             case R.id.itemAbout:

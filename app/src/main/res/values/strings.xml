@@ -17,7 +17,7 @@
     <string name="celsius_fahrenheit_unit">C</string>
     <string name="detailed_weather_icon">Иконка подробной погоды</string>
     <string name="current_weather_description">CurrentWeatherDescription</string>
-    <string name="feels_like_label">Ощущается как:</string>
+    <string name="feels_like_label">Ощущается:</string>
     <string name="_10_velue">10</string>
     <string name="mmhg">mmHg</string>
     <string name="five_days_weather_forecast">Прогноз погоды на 5 дней</string>
@@ -47,4 +47,11 @@
     <string name="mBar">мБар</string>
     <string name="weather_now_icon">Иконка погоды сейчас</string>
     <string name="weather_now">Погода сейчас</string>
+    <string name="options_label">Настройки</string>
+    <string name="show_units_options">Показать настройки</string>
+    <string name="show_colors">Показать цвета</string>
+    <string name="weather_icon_1_set">Набор значков погоды 1</string>
+    <string name="weather_icon_2_set">Набор значков погоды 2</string>
+    <string name="icon_set_1_example">Пример иконки набора 1</string>
+    <string name="icon_set_2_example">Пример иконки набора 2</string>
 </resources>

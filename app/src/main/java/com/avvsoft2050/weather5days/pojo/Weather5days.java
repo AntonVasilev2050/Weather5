@@ -17,7 +17,7 @@ public class Weather5days {
     private int cnt;
     @SerializedName("list")
     @Expose
-    private List<WeatherList> weatherList = null;
+    private List<WeatherList> weatherList;
     @SerializedName("city")
     @Expose
     private City city;
