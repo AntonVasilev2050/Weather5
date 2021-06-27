@@ -157,12 +157,12 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         textViewWeatherForecastLabel = findViewById(R.id.textViewWeatherForecastLabel);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         cityName = preferences.getString("cityName", "Краснодар");
-        iconSet = preferences.getInt("iconSet", 1);
+        iconSet = preferences.getInt("iconSet", 2);
         celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
 //        windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
 //        pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
-        firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue4));
-        secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue5));
+        firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue1));
+        secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue2));
         presenter = new WeatherPresenter(this);
         constraintLayoutMain.setBackgroundColor(firstColor);
         textViewWeatherForecastLabel.setBackgroundColor(secondColor);
@@ -222,9 +222,9 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
 
     public void showWeatherNow() {
         celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
-        firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue4));
-        secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue5));
-        iconSet = preferences.getInt("iconSet", 1);
+        firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue1));
+        secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue2));
+        iconSet = preferences.getInt("iconSet", 2);
         constraintLayoutMain.setBackgroundColor(firstColor);
         textViewWeatherForecastLabel.setBackgroundColor(secondColor);
         viewLine1.setBackgroundColor(secondColor);

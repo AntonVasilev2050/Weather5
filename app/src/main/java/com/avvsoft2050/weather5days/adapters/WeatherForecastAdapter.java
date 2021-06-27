@@ -42,8 +42,8 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         WeatherForecastAdapter.celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
         WeatherForecastAdapter.windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
         WeatherForecastAdapter.pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
-        WeatherForecastAdapter.firstColor = preferences.getInt("firstColor", context.getResources().getColor(R.color.blue4));
-        WeatherForecastAdapter.secondColor = preferences.getInt("secondColor", context.getResources().getColor(R.color.blue5));
+        WeatherForecastAdapter.firstColor = preferences.getInt("firstColor", context.getResources().getColor(R.color.blue1));
+        WeatherForecastAdapter.secondColor = preferences.getInt("secondColor", context.getResources().getColor(R.color.blue2));
         iconSet = preferences.getInt("iconSet", 1);
     }
 

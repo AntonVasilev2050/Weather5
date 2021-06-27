@@ -224,35 +224,49 @@
         android:id="@+id/radioGroupIconSet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@color/blue5"
-        app:layout_constraintStart_toEndOf="@+id/imageViewIconSet01"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toBottomOf="@+id/textViewColors">
 
         <RadioButton
             android:id="@+id/radioButtonIconSet01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:text="@string/weather_icon_1_set"
             android:onClick="onClickIconSetChange"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/weather_icon_1_set"
             android:textColor="@color/white" />
 
         <RadioButton
             android:id="@+id/radioButtonIconSet02"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:text="@string/weather_icon_2_set"
             android:onClick="onClickIconSetChange"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/weather_icon_2_set"
             android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="Набор значков погоды 3" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="Набор значков погоды 4" />
     </RadioGroup>
 
     <ImageView
-        android:id="@+id/imageViewIconSet01"
+        android:id="@+id/imageViewIconSet01Sun"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
@@ -262,15 +276,78 @@
         app:srcCompat="@drawable/f01d" />
 
     <ImageView
-        android:id="@+id/imageViewIconSet02"
+        android:id="@+id/imageViewIconSet02Sun"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:contentDescription="@string/icon_set_2_example"
-        app:layout_constraintBottom_toBottomOf="@+id/radioGroupIconSet"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewIconSet01"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIconSet01Sun"
         app:srcCompat="@drawable/s01d" />
+
+    <ImageView
+        android:id="@+id/imageViewIconSet03Sun"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIconSet02Sun"
+        app:srcCompat="@drawable/r01dv" />
+
+    <ImageView
+        android:id="@+id/imageViewIconSet03Clouds"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconSet03Sun"
+        app:layout_constraintTop_toTopOf="@+id/imageViewIconSet03Sun"
+        app:srcCompat="@drawable/r03dv" />
+
+    <ImageView
+        android:id="@+id/imageViewIconSet03Rain"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconSet03Clouds"
+        app:layout_constraintTop_toTopOf="@+id/imageViewIconSet03Clouds"
+        app:srcCompat="@drawable/r10dv" />
+
+    <ImageView
+        android:id="@+id/imageViewIconSet01Clouds"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconSet01Sun"
+        app:layout_constraintTop_toTopOf="@+id/imageViewIconSet01Sun"
+        app:srcCompat="@drawable/f03d" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconSet01Clouds"
+        app:layout_constraintTop_toTopOf="@+id/imageViewIconSet01Clouds"
+        app:srcCompat="@drawable/f10d" />
+
+    <ImageView
+        android:id="@+id/imageViewIconSet02Clouds"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconSet02Sun"
+        app:layout_constraintTop_toTopOf="@+id/imageViewIconSet02Sun"
+        app:srcCompat="@drawable/s03d" />
+
+    <ImageView
+        android:id="@+id/imageViewIconSet02Rain"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconSet02Clouds"
+        app:layout_constraintTop_toTopOf="@+id/imageViewIconSet02Clouds"
+        app:srcCompat="@drawable/s10d" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

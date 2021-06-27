@@ -43,7 +43,6 @@ public class OptionsActivity extends AppCompatActivity {
     private RadioButton radioButtonIconSet02;
     SharedPreferences preferences;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +87,7 @@ public class OptionsActivity extends AppCompatActivity {
             radioButtonMmHg.setChecked(false);
             radioButtonMBar.setChecked(true);
         }
-        if(Objects.equals(preferences.getInt("iconSet", 1), 1)){
+        if(Objects.equals(preferences.getInt("iconSet", 2), 1)){
             radioButtonIconSet01.setChecked(true);
             radioButtonIconSet02.setChecked(false);
         }
