@@ -113,10 +113,10 @@ public class OptionsActivity extends AppCompatActivity {
             radioButtonIconSet04.setChecked(true);
         }
 
-        constraintLayoutOptions.setBackgroundColor(getResources().getColor(R.color.grey4));
-        textViewOptionsLabel.setBackgroundColor(getResources().getColor(R.color.grey5));
-        textViewUnitSettings.setBackgroundColor(getResources().getColor(R.color.grey5));
-        textViewColors.setBackgroundColor(getResources().getColor(R.color.grey5));
+        constraintLayoutOptions.setBackgroundColor(getResources().getColor(R.color.blue1));
+        textViewOptionsLabel.setBackgroundColor(getResources().getColor(R.color.blue2));
+        textViewUnitSettings.setBackgroundColor(getResources().getColor(R.color.blue2));
+        textViewColors.setBackgroundColor(getResources().getColor(R.color.blue2));
     }
 
     @Override
