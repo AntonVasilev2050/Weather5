@@ -224,7 +224,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
         firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue1));
         secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue2));
-        iconSet = preferences.getInt("iconSet", 2);
+        iconSet = preferences.getInt("iconSet", 4);
         constraintLayoutMain.setBackgroundColor(firstColor);
         textViewWeatherForecastLabel.setBackgroundColor(secondColor);
         viewLine1.setBackgroundColor(secondColor);
