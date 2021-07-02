@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.avvsoft2050.weather5days.R;
 import com.avvsoft2050.weather5days.screens.about.AboutActivity;
@@ -29,7 +30,6 @@ public class OptionsActivity extends AppCompatActivity {
     private TextView textViewUnitSettings;
     private TextView textViewColors;
     private ImageView imageViewExtendUnits;
-    private ImageView imageViewExtendColors;
     private TextView textViewTemperatureUnitLabel;
     private TextView textViewWindUnitLabel;
     private TextView textViewPressureUnitLabel;
@@ -43,6 +43,8 @@ public class OptionsActivity extends AppCompatActivity {
     private RadioButton radioButtonIconSet02;
     private RadioButton radioButtonIconSet03;
     private RadioButton radioButtonIconSet04;
+    private TextView textViewIconSetLabel;
+    private ConstraintLayout constraintLayoutIconSets;
     SharedPreferences preferences;
 
     @Override
@@ -54,7 +56,6 @@ public class OptionsActivity extends AppCompatActivity {
         textViewUnitSettings = findViewById(R.id.textViewUnitSettings);
         textViewColors = findViewById(R.id.textViewColors);
         imageViewExtendUnits = findViewById(R.id.imageViewExtendUnits);
-        imageViewExtendColors = findViewById(R.id.imageViewExtendColors);
         textViewTemperatureUnitLabel = findViewById(R.id.textViewTemperatureUnitLabel);
         textViewWindUnitLabel = findViewById(R.id.textViewWindUnitLabel);
         textViewPressureUnitLabel = findViewById(R.id.textViewPressureUnitLabel);
@@ -68,8 +69,11 @@ public class OptionsActivity extends AppCompatActivity {
         radioButtonIconSet02 = findViewById(R.id.radioButtonIconSet02);
         radioButtonIconSet03 = findViewById(R.id.radioButtonIconSet03);
         radioButtonIconSet04 = findViewById(R.id.radioButtonIconSet04);
-
+        textViewIconSetLabel = findViewById(R.id.textViewIconSetLabel);
+        constraintLayoutIconSets = findViewById(R.id.constraintLayoutIconSets);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int firstColor = preferences.getInt("firstColor", ContextCompat.getColor(getApplicationContext(), R.color.blue1));
+        int secondColor = preferences.getInt("secondColor", ContextCompat.getColor(getApplicationContext(), R.color.blue2));
         if (Objects.equals(preferences.getString("celsiusOrFahrenheit", "C"), "C")) {
             radioButtonCelsius.setChecked(true);
             radioButtonFahrenheit.setChecked(false);
@@ -113,10 +117,25 @@ public class OptionsActivity extends AppCompatActivity {
             radioButtonIconSet04.setChecked(true);
         }
 
-        constraintLayoutOptions.setBackgroundColor(getResources().getColor(R.color.blue1));
-        textViewOptionsLabel.setBackgroundColor(getResources().getColor(R.color.blue2));
-        textViewUnitSettings.setBackgroundColor(getResources().getColor(R.color.blue2));
-        textViewColors.setBackgroundColor(getResources().getColor(R.color.blue2));
+        constraintLayoutOptions.setBackgroundColor(firstColor);
+        textViewOptionsLabel.setBackgroundColor(secondColor);
+        textViewUnitSettings.setBackgroundColor(secondColor);
+        textViewColors.setBackgroundColor(secondColor);
+        textViewTemperatureUnitLabel.setBackgroundColor(secondColor);
+        textViewWindUnitLabel.setBackgroundColor(secondColor);
+        textViewPressureUnitLabel.setBackgroundColor(secondColor);
+        radioButtonCelsius.setBackgroundColor(secondColor);
+        radioButtonFahrenheit.setBackgroundColor(secondColor);
+        radioButtonMeterPerSec.setBackgroundColor(secondColor);
+        radioButtonMilePerHour.setBackgroundColor(secondColor);
+        radioButtonMBar.setBackgroundColor(secondColor);
+        radioButtonMmHg.setBackgroundColor(secondColor);
+        textViewIconSetLabel.setBackgroundColor(secondColor);
+        constraintLayoutIconSets.setBackgroundColor(secondColor);
+        radioButtonIconSet01.setBackgroundColor(secondColor);
+        radioButtonIconSet02.setBackgroundColor(secondColor);
+        radioButtonIconSet03.setBackgroundColor(secondColor);
+        radioButtonIconSet04.setBackgroundColor(secondColor);
     }
 
     @Override

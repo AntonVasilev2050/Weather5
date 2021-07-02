@@ -31,6 +31,7 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_background);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         textViewChooseBackgroundLabel = findViewById(R.id.textViewChooseBackgroundLabel);
+        textViewChooseBackgroundLabel.setBackgroundColor(secondColor);
     }
 
     @Override
@@ -109,7 +110,7 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
                 secondColor = getResources().getColor(R.color.grey5);
                 break;
         }
-        textViewChooseBackgroundLabel.setBackgroundColor(firstColor);
+        textViewChooseBackgroundLabel.setBackgroundColor(secondColor);
         preferences.edit().putInt("firstColor", firstColor).apply();
         preferences.edit().putInt("secondColor", secondColor).apply();
         Intent intent = new Intent(this, WeatherActivity.class);
