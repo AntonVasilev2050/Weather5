@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/itemWeather"
         android:title="@string/menu_item_weather" />
     <item
         android:id="@+id/itemOptions"
-        android:title="@string/menu_item_options" />
+        android:title="@string/menu_item_options"
+        app:showAsAction="always" />
     <item
         android:id="@+id/itemAbout"
         android:title="@string/menu_item_about" />
