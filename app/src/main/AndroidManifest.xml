@@ -17,7 +17,13 @@
         android:theme="@style/Theme.Weather5Days"
         android:usesCleartextTraffic="true">
         <activity android:name="com.avvsoft2050.weather5days.screens.options.ChooseBackgroundActivity" />
-        <activity android:name="com.avvsoft2050.weather5days.screens.about.AboutActivity" />
+        <activity android:name="com.avvsoft2050.weather5days.screens.about.AboutActivity"
+            android:parentActivityName=".screens.weather.WeatherActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".screens.weather.WeatherActivity" />
+
+        </activity>
         <activity
             android:name="com.avvsoft2050.weather5days.screens.weather.WeatherActivity"
             android:launchMode="singleTop"
