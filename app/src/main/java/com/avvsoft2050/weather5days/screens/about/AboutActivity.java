@@ -25,7 +25,7 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.itemWeather:
                 Intent intentWeather = new Intent(this, WeatherActivity.class);
                 finish();

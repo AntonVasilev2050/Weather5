@@ -36,7 +36,8 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/textViewLocalTimeDate"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewLocalTimeDate" />
 
         <TextView
             android:id="@+id/textViewCurrentTemperature"

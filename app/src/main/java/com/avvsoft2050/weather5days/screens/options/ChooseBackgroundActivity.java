@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.avvsoft2050.weather5days.R;
 import com.avvsoft2050.weather5days.screens.about.AboutActivity;
@@ -70,44 +71,44 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         int id = cardView.getId();
         switch (id){
             case R.id.cardView1:
-                firstColor = getResources().getColor(R.color.blue1);
-                secondColor = getResources().getColor(R.color.blue2);
+                firstColor = ContextCompat.getColor(getApplicationContext(), R.color.blue1);
+                secondColor = ContextCompat.getColor(getApplicationContext(), R.color.blue2);
                 break;
             case R.id.cardView2:
-                firstColor = getResources().getColor(R.color.blue4);
-                secondColor = getResources().getColor(R.color.blue5);
+                firstColor = ContextCompat.getColor(getApplicationContext(), R.color.blue4);
+                secondColor = ContextCompat.getColor(getApplicationContext(), R.color.blue5);
                 break;
             case R.id.cardView3:
-                firstColor = getResources().getColor(R.color.green1);
-                secondColor = getResources().getColor(R.color.green2);
+                firstColor = ContextCompat.getColor(getApplicationContext(), R.color.green1);
+                secondColor = ContextCompat.getColor(getApplicationContext(), R.color.green2);
                 break;
             case R.id.cardView4:
-                firstColor = getResources().getColor(R.color.green4);
-                secondColor = getResources().getColor(R.color.green5);
+                firstColor = ContextCompat.getColor(getApplicationContext(), R.color.green4);
+                secondColor = ContextCompat.getColor(getApplicationContext(), R.color.green5);
                 break;
             case R.id.cardView5:
-                firstColor = getResources().getColor(R.color.orange1);
-                secondColor = getResources().getColor(R.color.orange2);
+                firstColor = ContextCompat.getColor(getApplicationContext(), R.color.orange1);
+                secondColor = ContextCompat.getColor(getApplicationContext(), R.color.orange2);
                 break;
             case R.id.cardView6:
-                firstColor = getResources().getColor(R.color.orange4);
-                secondColor = getResources().getColor(R.color.orange5);
+                firstColor = ContextCompat.getColor(getApplicationContext(), R.color.orange4);
+                secondColor = ContextCompat.getColor(getApplicationContext(), R.color.orange5);
                 break;
             case R.id.cardView7:
-                firstColor = getResources().getColor(R.color.red1);
-                secondColor = getResources().getColor(R.color.red2);
+                firstColor = ContextCompat.getColor(getApplicationContext(), R.color.red1);
+                secondColor = ContextCompat.getColor(getApplicationContext(), R.color.red2);
                 break;
             case R.id.cardView8:
-                firstColor = getResources().getColor(R.color.red4);
-                secondColor = getResources().getColor(R.color.red5);
+                firstColor = ContextCompat.getColor(getApplicationContext(), R.color.red4);
+                secondColor = ContextCompat.getColor(getApplicationContext(), R.color.red5);
                 break;
             case R.id.cardView9:
-                firstColor = getResources().getColor(R.color.grey1);
-                secondColor = getResources().getColor(R.color.grey2);
+                firstColor = ContextCompat.getColor(getApplicationContext(), R.color.grey1);
+                secondColor = ContextCompat.getColor(getApplicationContext(), R.color.grey2);
                 break;
             case R.id.cardView10:
-                firstColor = getResources().getColor(R.color.grey4);
-                secondColor = getResources().getColor(R.color.grey5);
+                firstColor = ContextCompat.getColor(getApplicationContext(), R.color.grey4);
+                secondColor = ContextCompat.getColor(getApplicationContext(), R.color.grey5);
                 break;
         }
         textViewChooseBackgroundLabel.setBackgroundColor(secondColor);

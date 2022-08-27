@@ -270,5 +270,4 @@ public class OptionsActivity extends AppCompatActivity {
             imageViewExtendUnits.setImageResource(android.R.drawable.arrow_up_float);
         }
     }
-
 }

@@ -112,11 +112,9 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         } catch (NullPointerException eSnow) {
             try {
                 String rain = String.format(Locale.ROOT, "%d%% (%s mm)", (int) (weatherList.getPop() * 100), ((Double) weatherList.getRain().get3h()));
-//                holder.textViewCurrentPrecipitation.setText((int) (weatherList.getPop() * 100) + "% (" + (Double) weatherList.getRain().get3h() + "mm)");
                 holder.textViewCurrentPrecipitation.setText(rain);
             } catch (NullPointerException eRain) {
                 String noRainNoSnow = String.format(Locale.ROOT, "%d%% (0mm)", (int)(weatherList.getPop() * 100));
-//                holder.textViewCurrentPrecipitation.setText((int) (weatherList.getPop() * 100) + "% (0mm)");
                 holder.textViewCurrentPrecipitation.setText(noRainNoSnow);
             }
         }
@@ -149,7 +147,6 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     @Override
     public int getItemCount() {
         return weather5days.getCnt();
-//        return weatherLists.size();
     }
 
     class WeatherViewHolder extends RecyclerView.ViewHolder{

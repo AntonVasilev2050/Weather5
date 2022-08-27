@@ -1,5 +1,7 @@
 package com.avvsoft2050.weather5days.screens.weather;
 
+import static com.avvsoft2050.weather5days.R.string.location_error_notice;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,12 +29,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avvsoft2050.weather5days.BuildConfig;
-import com.avvsoft2050.weather5days.utils.Converters;
 import com.avvsoft2050.weather5days.R;
 import com.avvsoft2050.weather5days.adapters.WeatherForecastAdapter;
 import com.avvsoft2050.weather5days.pojo.Weather5days;
 import com.avvsoft2050.weather5days.screens.about.AboutActivity;
 import com.avvsoft2050.weather5days.screens.options.OptionsActivity;
+import com.avvsoft2050.weather5days.utils.Converters;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,8 +43,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
-
-import static com.avvsoft2050.weather5days.R.string.location_error_notice;
 
 
 public class WeatherActivity extends AppCompatActivity implements WeatherView {
@@ -159,8 +159,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         cityName = preferences.getString("cityName", "Краснодар");
         iconSet = preferences.getInt("iconSet", 2);
         celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
-//        windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
-//        pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
         firstColor = preferences.getInt("firstColor", getResources().getColor(R.color.blue1));
         secondColor = preferences.getInt("secondColor", getResources().getColor(R.color.blue2));
         presenter = new WeatherPresenter(this);
