@@ -108,7 +108,89 @@ public class Converters {
                 case "50n":
                     return R.drawable.s50d;
             }
+            return R.drawable.s01d;
         }
-        return R.drawable.s01d;
+        if (iconSet == 3) {
+            switch (icon) {
+                case "01d":
+                    return R.drawable.r01d;
+                case "01n":
+                    return R.drawable.r01d;
+                case "02d":
+                    return R.drawable.r02d;
+                case "02n":
+                    return R.drawable.r02d;
+                case "03d":
+                    return R.drawable.r03d;
+                case "03n":
+                    return R.drawable.r03d;
+                case "04d":
+                    return R.drawable.r04d;
+                case "04n":
+                    return R.drawable.r04d;
+                case "09d":
+                    return R.drawable.r09d;
+                case "09n":
+                    return R.drawable.r09d;
+                case "10d":
+                    return R.drawable.r10d;
+                case "10n":
+                    return R.drawable.r10d;
+                case "11d":
+                    return R.drawable.r11d;
+                case "11n":
+                    return R.drawable.r11d;
+                case "13d":
+                    return R.drawable.r13d;
+                case "13n":
+                    return R.drawable.r13d;
+                case "50d":
+                    return R.drawable.r50d;
+                case "50n":
+                    return R.drawable.r50d;
+            }
+        return R.drawable.r01d;
+        }
+        if (iconSet == 4) {
+            switch (icon) {
+                case "01d":
+                    return R.drawable.g01d;
+                case "01n":
+                    return R.drawable.g01d;
+                case "02d":
+                    return R.drawable.g02d;
+                case "02n":
+                    return R.drawable.g02d;
+                case "03d":
+                    return R.drawable.g03d;
+                case "03n":
+                    return R.drawable.g03d;
+                case "04d":
+                    return R.drawable.g04d;
+                case "04n":
+                    return R.drawable.g04d;
+                case "09d":
+                    return R.drawable.g09d;
+                case "09n":
+                    return R.drawable.g09d;
+                case "10d":
+                    return R.drawable.g10d;
+                case "10n":
+                    return R.drawable.g10d;
+                case "11d":
+                    return R.drawable.g11d;
+                case "11n":
+                    return R.drawable.g11d;
+                case "13d":
+                    return R.drawable.g13d;
+                case "13n":
+                    return R.drawable.g13d;
+                case "50d":
+                    return R.drawable.g50d;
+                case "50n":
+                    return R.drawable.g50d;
+            }
+        }
+        return R.drawable.g01d;
     }
 }

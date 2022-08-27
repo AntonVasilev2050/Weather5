@@ -41,8 +41,9 @@ public class OptionsActivity extends AppCompatActivity {
     private RadioButton radioButtonMBar;
     private RadioButton radioButtonIconSet01;
     private RadioButton radioButtonIconSet02;
+    private RadioButton radioButtonIconSet03;
+    private RadioButton radioButtonIconSet04;
     SharedPreferences preferences;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,8 @@ public class OptionsActivity extends AppCompatActivity {
         radioButtonMBar = findViewById(R.id.radioButtonMBar);
         radioButtonIconSet01 = findViewById(R.id.radioButtonIconSet01);
         radioButtonIconSet02 = findViewById(R.id.radioButtonIconSet02);
+        radioButtonIconSet03 = findViewById(R.id.radioButtonIconSet03);
+        radioButtonIconSet04 = findViewById(R.id.radioButtonIconSet04);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (Objects.equals(preferences.getString("celsiusOrFahrenheit", "C"), "C")) {
@@ -88,18 +91,32 @@ public class OptionsActivity extends AppCompatActivity {
             radioButtonMmHg.setChecked(false);
             radioButtonMBar.setChecked(true);
         }
-        if(Objects.equals(preferences.getInt("iconSet", 1), 1)){
+        if (Objects.equals(preferences.getInt("iconSet", 4), 1)) {
             radioButtonIconSet01.setChecked(true);
             radioButtonIconSet02.setChecked(false);
-        }
-        else {
+            radioButtonIconSet03.setChecked(false);
+            radioButtonIconSet04.setChecked(false);
+        } else if (Objects.equals(preferences.getInt("iconSet", 4), 2)) {
             radioButtonIconSet01.setChecked(false);
             radioButtonIconSet02.setChecked(true);
+            radioButtonIconSet03.setChecked(false);
+            radioButtonIconSet04.setChecked(false);
+        } else if (Objects.equals(preferences.getInt("iconSet", 4), 3)) {
+            radioButtonIconSet01.setChecked(false);
+            radioButtonIconSet02.setChecked(false);
+            radioButtonIconSet03.setChecked(true);
+            radioButtonIconSet04.setChecked(false);
+        } else if (Objects.equals(preferences.getInt("iconSet", 4), 4)) {
+            radioButtonIconSet01.setChecked(false);
+            radioButtonIconSet02.setChecked(false);
+            radioButtonIconSet03.setChecked(false);
+            radioButtonIconSet04.setChecked(true);
         }
-        constraintLayoutOptions.setBackgroundColor(getResources().getColor(R.color.blue4));
-        textViewOptionsLabel.setBackgroundColor(getResources().getColor(R.color.blue5));
-        textViewUnitSettings.setBackgroundColor(getResources().getColor(R.color.blue5));
-        textViewColors.setBackgroundColor(getResources().getColor(R.color.blue5));
+
+        constraintLayoutOptions.setBackgroundColor(getResources().getColor(R.color.blue1));
+        textViewOptionsLabel.setBackgroundColor(getResources().getColor(R.color.blue2));
+        textViewUnitSettings.setBackgroundColor(getResources().getColor(R.color.blue2));
+        textViewColors.setBackgroundColor(getResources().getColor(R.color.blue2));
     }
 
     @Override
@@ -182,14 +199,30 @@ public class OptionsActivity extends AppCompatActivity {
     public void onClickIconSetChange(View view) {
         RadioButton button = (RadioButton) view;
         int id = button.getId();
-        if(id == R.id.radioButtonIconSet01){
+        if (id == R.id.radioButtonIconSet01) {
             preferences.edit().putInt("iconSet", 1).apply();
             radioButtonIconSet01.setChecked(true);
             radioButtonIconSet02.setChecked(false);
-        }else if(id == R.id.radioButtonIconSet02){
+            radioButtonIconSet03.setChecked(false);
+            radioButtonIconSet04.setChecked(false);
+        } else if (id == R.id.radioButtonIconSet02) {
             preferences.edit().putInt("iconSet", 2).apply();
             radioButtonIconSet01.setChecked(false);
             radioButtonIconSet02.setChecked(true);
+            radioButtonIconSet03.setChecked(false);
+            radioButtonIconSet04.setChecked(false);
+        } else if (id == R.id.radioButtonIconSet03) {
+            preferences.edit().putInt("iconSet", 3).apply();
+            radioButtonIconSet01.setChecked(false);
+            radioButtonIconSet02.setChecked(false);
+            radioButtonIconSet03.setChecked(true);
+            radioButtonIconSet04.setChecked(false);
+        } else if (id == R.id.radioButtonIconSet04) {
+            preferences.edit().putInt("iconSet", 4).apply();
+            radioButtonIconSet01.setChecked(false);
+            radioButtonIconSet02.setChecked(false);
+            radioButtonIconSet03.setChecked(false);
+            radioButtonIconSet04.setChecked(true);
         }
     }
 

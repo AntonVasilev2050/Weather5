@@ -1,5 +1,6 @@
 package com.avvsoft2050.weather5days.screens.options;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -61,6 +63,7 @@ public class ChooseBackgroundActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void onClickCardView(View view) {
         CardView cardView = (CardView)view;
         int id = cardView.getId();

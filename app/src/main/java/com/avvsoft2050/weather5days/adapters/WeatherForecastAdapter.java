@@ -31,7 +31,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     private static String celsiusOrFahrenheit = "C";
     private static String windSpeedUnit = "м/с";
     private static String pressureUnit = "мм рт.ст.";
-    private static int iconSet = 1;
+    private static int iconSet = 4;
     SharedPreferences preferences;
 
 
@@ -42,9 +42,9 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         WeatherForecastAdapter.celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
         WeatherForecastAdapter.windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
         WeatherForecastAdapter.pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
-        WeatherForecastAdapter.firstColor = preferences.getInt("firstColor", context.getResources().getColor(R.color.blue4));
-        WeatherForecastAdapter.secondColor = preferences.getInt("secondColor", context.getResources().getColor(R.color.blue5));
-        iconSet = preferences.getInt("iconSet", 1);
+        WeatherForecastAdapter.firstColor = preferences.getInt("firstColor", context.getResources().getColor(R.color.blue1));
+        WeatherForecastAdapter.secondColor = preferences.getInt("secondColor", context.getResources().getColor(R.color.blue2));
+        iconSet = preferences.getInt("iconSet", 4);
     }
 
     public List<WeatherList> getWeatherLists() {
@@ -85,7 +85,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         WeatherForecastAdapter.celsiusOrFahrenheit = preferences.getString("celsiusOrFahrenheit", "C");
         WeatherForecastAdapter.windSpeedUnit = preferences.getString("windSpeedUnit", "м/с");
         WeatherForecastAdapter.pressureUnit = preferences.getString("pressureUnit", "мм рт.ст.");
-        iconSet = preferences.getInt("iconSet", 1);
+        iconSet = preferences.getInt("iconSet", 4);
         WeatherList weatherList = weather5days.getWeatherList().get(position);
         holder.textViewLocalTimeDate.setText(Converters.dateTime(weatherList.getDtTxt(), "dd.MM EE HH:mm"));
         holder.textViewCurrentWeatherDescription.setText(weatherList.getWeather().get(0).getDescription());
