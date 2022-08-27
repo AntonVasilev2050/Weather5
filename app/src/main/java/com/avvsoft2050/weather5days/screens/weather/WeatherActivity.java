@@ -132,10 +132,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ActionBar actionBar = getSupportActionBar();
-//                if(actionBar != null){
-//            actionBar.hide();
-//        }
         textViewCityName = findViewById(R.id.textViewCityName);
         searchViewLocation = findViewById(R.id.searchViewLocation);
         viewLine1 = findViewById(R.id.viewLine1);
