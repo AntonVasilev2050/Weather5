@@ -55,10 +55,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
     private static String celsiusOrFahrenheit;
     int iconSet;
 
-    public static String getCelsiusOrFahrenheit() {
-        return celsiusOrFahrenheit;
-    }
-
     public static double getLat() {
         return lat;
     }
