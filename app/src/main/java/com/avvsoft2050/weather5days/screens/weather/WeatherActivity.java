@@ -44,12 +44,10 @@ import com.google.android.material.snackbar.Snackbar;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
-
 public class WeatherActivity extends AppCompatActivity implements WeatherView {
     private static double lat = 0.0;
     private static double lon = 0.0;
     private static String cityName;
-    private final static String BASE_WEATHER_ICON_URL = "https://openweathermap.org/img/wn/%s@%sx.png";
     private int firstColor;
     private int secondColor;
     private static String celsiusOrFahrenheit;
@@ -85,12 +83,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
     private SearchView searchViewLocation;
     private WeatherPresenter presenter;
     SharedPreferences preferences;
-
     private View viewLine1;
     private View viewLine2;
     private ConstraintLayout constraintLayoutMain;
     private TextView textViewWeatherForecastLabel;
-
     private static final String TAG = WeatherActivity.class.getSimpleName();
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -172,7 +168,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
 
             @Override
             public void onWeatherLongClick(int position) {
-//                showCurrentWeather(position);
             }
         });
 
@@ -328,11 +323,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
                 });
     }
 
-    /**
-     * Shows a {@link Snackbar} using {@code text}.
-     *
-     * @param text The Snackbar text.
-     */
     private void showSnackbar(final String text) {
         View container = findViewById(R.id.itemWeather);
         if (container != null) {
@@ -340,24 +330,14 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         }
     }
 
-    /**
-     * Shows a {@link Snackbar}.
-     *
-     * @param mainTextStringId The id for the string resource for the Snackbar text.
-     * @param actionStringId   The text of the action item.
-     * @param listener         The listener associated with the Snackbar action.
-     */
     private void showSnackbar(final int mainTextStringId, final int actionStringId,
                               View.OnClickListener listener) {
         Snackbar.make(findViewById(android.R.id.content),
-                getString(mainTextStringId),
-                Snackbar.LENGTH_INDEFINITE)
+                        getString(mainTextStringId),
+                        Snackbar.LENGTH_INDEFINITE)
                 .setAction(getString(actionStringId), listener).show();
     }
 
-    /**
-     * Return the current state of the permissions needed.
-     */
     private boolean checkPermissions() {
         int permissionState = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -374,33 +354,20 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         boolean shouldProvideRationale =
                 ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.ACCESS_COARSE_LOCATION);
-
-        // Provide an additional rationale to the user. This would happen if the user denied the
-        // request previously, but didn't check the "Don't ask again" checkbox.
         if (shouldProvideRationale) {
             Log.i(TAG, "Displaying permission rationale to provide additional context.");
 
             showSnackbar(R.string.permission_rationale, android.R.string.ok,
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // Request permission
-                            startLocationPermissionRequest();
-                        }
+                    view -> {
+                        startLocationPermissionRequest();
                     });
 
         } else {
             Log.i(TAG, "Requesting permission");
-            // Request permission. It's possible this can be auto answered if device policy
-            // sets the permission in a given state or the user denied the permission
-            // previously and checked "Never ask again".
             startLocationPermissionRequest();
         }
     }
 
-    /**
-     * Callback received when a permissions request has been completed.
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -408,28 +375,20 @@ public class WeatherActivity extends AppCompatActivity implements WeatherView {
         Log.i(TAG, "onRequestPermissionResult");
         if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.length <= 0) {
-                // If user interaction was interrupted, the permission request is cancelled and you
-                // receive empty arrays.
                 Log.i(TAG, "User interaction was cancelled.");
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted.
                 getLastLocation();
             } else {
-                // Permission denied.
                 showSnackbar(R.string.permission_denied_explanation, R.string.settings,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                // Build intent that displays the App settings screen.
-                                Intent intent = new Intent();
-                                intent.setAction(
-                                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                Uri uri = Uri.fromParts("package",
-                                        BuildConfig.APPLICATION_ID, null);
-                                intent.setData(uri);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                            }
+                        view -> {
+                            Intent intent = new Intent();
+                            intent.setAction(
+                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package",
+                                    BuildConfig.APPLICATION_ID, null);
+                            intent.setData(uri);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                         });
             }
         }
