@@ -3,7 +3,7 @@
     package="com.avvsoft2050.weather5days">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
@@ -17,7 +17,8 @@
         android:theme="@style/Theme.Weather5Days"
         android:usesCleartextTraffic="true">
         <activity android:name="com.avvsoft2050.weather5days.screens.options.ChooseBackgroundActivity" />
-        <activity android:name="com.avvsoft2050.weather5days.screens.about.AboutActivity"
+        <activity
+            android:name="com.avvsoft2050.weather5days.screens.about.AboutActivity"
             android:parentActivityName=".screens.weather.WeatherActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -26,8 +27,8 @@
         </activity>
         <activity
             android:name="com.avvsoft2050.weather5days.screens.weather.WeatherActivity"
-            android:launchMode="singleTop"
             android:exported="true"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
